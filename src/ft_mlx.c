@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:51:13 by mdavid            #+#    #+#             */
-/*   Updated: 2020/02/18 14:13:27 by mdavid           ###   ########.fr       */
+/*   Updated: 2020/02/19 17:25:00 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 		&(gdad->bpp), &(gdad->s_l), &(gdad->edian));
 	mlx->img->nb_c = IMG_LX;
 	mlx->img->nb_l = IMG_LY;
-	mlx->img->center.x = IMG_LX / 2;
-	mlx->img->center.y = IMG_LY / 2;
-	mlx->img->center.z = 0;
+	mlx->img->move.x = 0;
+	mlx->img->move.y = 0;
+	mlx->img->move.z = 1;
+	//mlx->img->z_julia.x = 0;
+	//mlx->img->z_julia.y = 0;
 }
 
 /*
@@ -53,6 +55,7 @@ void	ft_mlx_hook_loop(t_mlx *mlx)
 {
 	mlx_hook(mlx->w_ptr, 2, (1L << 0), ft_key_press, mlx);
 	mlx_hook(mlx->w_ptr, 3, (1L << 1), ft_key_release, mlx);
+	mlx_hook(mlx->w_ptr, 6, (1L << 6), ft_mouse_move, mlx);
 	//mlx_mouse_hook(mlx.w_ptr, ft_mouse_event, mlx);
 	mlx_hook(mlx->w_ptr, 17, (1L << 17), ft_close, mlx);
 	mlx_loop(mlx->init);

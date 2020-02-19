@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 16:21:38 by mdavid            #+#    #+#             */
-/*   Updated: 2020/02/18 17:07:30 by mdavid           ###   ########.fr       */
+/*   Updated: 2020/02/19 15:27:26 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,76 @@
 #include "libft.h"
 
 /*
-**
+** FONCTION: ft_hsv_to_rgb
+** PARAMETRES:	t_hsv hsv: triplet de float representant H-S-V
+** DESCRIPTION:
+** 	Convertit le triplet HSV en triplet RGB.
+** RETOUR:
+** 	t_rgb rgb: couleur en rgb.
 */
-/*t_hsv	ft_rbg_to_hsv(t_rgb rgb)
+
+t_rgb	ft_hsv_to_rgb(t_hsv hsv)
 {
-	float	delta;
-	float	min;
-	t_hsv	hsv;
+	float	c;
+	float	x;
+	float	m;
+	t_rgb	rgb;
 
-	hsv.h = 0;
-	hsv.v = fmax(fmax(rgb.r, rgb.g), rgb.b);
-	min = fmin(fmin(rgb.r, rgb.g), rgb.b);
-	delta = hsv.v - min;
-	hsv.s = (hsv.v == 0) ? 0 : delta / hsv.v;
-
-	if (hsv.s == 0)
-		hsv.h = 0.0;
+	c = hsv.v * hsv.s;
+	x = c * (1 - fabs(fmod(hsv.h/60, 2.0) - 1));
+	m = hsv.v - c;
+	if (hsv.h < 60)
+	{
+		rgb.r = (c + m) * 255;
+		rgb.g = (x + m) * 255;
+		rgb.b = (0 + m) * 255;
+	}
+	else if (hsv.h < 120)
+	{
+		rgb.r = (x + m) * 255;
+		rgb.g = (c + m) * 255;
+		rgb.b = (0 + m) * 255;
+	}
+	else if (hsv.h < 180)
+	{
+		rgb.r = (0 + m) * 255;
+		rgb.g = (c + m) * 255;
+		rgb.b = (x + m) * 255;
+	}
+	else if (hsv.h < 240)
+	{
+		rgb.r = (0 + m) * 255;
+		rgb.g = (x + m) * 255;
+		rgb.b = (c + m) * 255;
+	}
+	else if (hsv.h < 300)
+	{
+		rgb.r = (x + m) * 255;
+		rgb.g = (0 + m) * 255;
+		rgb.b = (c + m) * 255;
+	}
 	else
 	{
-		if (rgb.r == hsv.v)
-			hsv.h = (rgb.g - rgb.b) / delta;
-		else if (rgb.g == hsv.v)
-			hsv.h = 2 + (rgb.b - rgb.r) / delta;
-		else
-			hsv.h = 4 + (rgb.r - rgb.g) / delta;
-		hsv.h *= 60;
-		if (hsv.h < 0.0)
-			hsv.h += 360;
+		rgb.r = (c + m) * 255;
+		rgb.g = (0 + m) * 255;
+		rgb.b = (x + m) * 255;
 	}
-	hsv.v = hsv.v / 255;
-	return (hsv);
-}*/
+	return (rgb);
+}
 
-t_hsv	ft_rbg_to_hsv(int red, int green, int blue)
+
+/*
+** FONCTION: ft_rgb_to_hsv
+** PARAMETRES:	int red: entier entre 0 et 255
+** 				int green: entier entre 0 et 255
+** 				int blue: entier entre 0 et 255
+** DESCRIPTION:
+** 	Convertit le triplet RGB en triplet HSV.
+** RETOUR:
+** 	t_hsv hsv: couleur en HSV
+*/
+
+t_hsv	ft_rgb_to_hsv(int red, int green, int blue)
 {
 	float	delta;
 	float	min;
@@ -58,7 +95,6 @@ t_hsv	ft_rbg_to_hsv(int red, int green, int blue)
 	min = fmin(fmin(red, green), blue);
 	delta = hsv.v - min;
 	hsv.s = (hsv.v == 0) ? 0 : delta / hsv.v;
-
 	if (hsv.s == 0)
 		hsv.h = 0.0;
 	else
@@ -77,9 +113,10 @@ t_hsv	ft_rbg_to_hsv(int red, int green, int blue)
 	return (hsv);
 }
 
-/*t_hsv	ft_hsv_to_int(t_hsv hsv)
+int		ft_rgb2_to_int(t_rgb rgb)
 {
-}*/
+	return ((rgb.r << 16) + (rgb.g << 8) + rgb.b);
+}
 
 int		ft_rgb_to_int(int red, int green, int blue)
 {

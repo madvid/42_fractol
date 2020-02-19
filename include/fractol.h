@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2020/02/18 17:06:32 by mdavid           ###   ########.fr       */
+/*   Updated: 2020/02/19 17:36:36 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ typedef struct	s_img
 	float			**f_tab;
 	int				nb_c;
 	int				nb_l;
-	t_fpt			center;
+	t_fpt			move;
+	t_fpt			z_julia;
 }				t_img;
 
 typedef struct	s_mlx
@@ -84,6 +85,7 @@ float	**ft_table_flt(int nb_l, int nb_c);
 int		ft_key_press(int keycode, t_mlx *mlx);
 int		ft_key_release(int keycode, t_mlx *mlx);
 //int		ft_mouse_event(int button, int x, int y, t_mlx *mlx);
+int		ft_mouse_move(int mouse_x, int mouse_y, t_mlx *mlx);
 
 int		ft_close(t_mlx *mlx);
 void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad);
@@ -94,8 +96,9 @@ int		ft_julia(t_img *img);
 int		ft_mandelbrot(t_img *img);
 int		ft_julia2(t_img *img);
 
-//t_hsv	ft_rbg_to_hsv(t_rgb rgb);
-//t_hsv	ft_rbg_to_hsv(int red, int green, int blue);
+t_rgb	ft_hsv_to_rgb(t_hsv hsv);
+t_hsv	ft_rgb_to_hsv(int red, int green, int blue);
+int		ft_rgb2_to_int(t_rgb rgb);
 int		ft_rgb_to_int(int red, int green, int blue);
 
 #endif
