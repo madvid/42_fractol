@@ -1,7 +1,3 @@
 libft/*.o
 obj/*.o
-obj/deal_events.o
-obj/ft_color.o
-obj/ft_fractol.o
-obj/ft_mlx.o
-obj/ft_mlx.o
+

@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2020/02/19 17:36:36 by mdavid           ###   ########.fr       */
+/*   Updated: 2020/09/19 16:54:39 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 # define W_LY 720
 # define IMG_LX W_LX
 # define IMG_LY 9 * W_LY / 10
+# define NB_FRACTAL 2
+# define FRACTAL1 "Julia"
+# define FRACTAL2 "Mandelbrot"
+# define JULIA_CX -0.7
+# define JULIA_CY 0.27
 
 typedef struct	s_rgb
 {
@@ -31,6 +36,13 @@ typedef struct	s_hsv
 	float	s;
 	float	v;
 }				t_hsv;
+
+typedef struct	s_ipt
+{
+	float			x;
+	float			y;
+	float			z;
+}				t_ipt;
 
 typedef struct	s_fpt
 {
@@ -47,8 +59,8 @@ typedef struct	s_img
 	float			**f_tab;
 	int				nb_c;
 	int				nb_l;
-	t_fpt			move;
-	t_fpt			z_julia;
+	t_fpt			mouse;
+	t_fpt			cst_julia;
 }				t_img;
 
 typedef struct	s_mlx
@@ -91,14 +103,17 @@ int		ft_close(t_mlx *mlx);
 void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad);
 void	ft_mlx_hook(t_mlx *mlx);
 
+void	fractal_construction(t_img *img, int (*fct_frac(t_img *img, t_fpt coord)));
 int		ft_fractal(char *frac, t_img *img);
-int		ft_julia(t_img *img);
-int		ft_mandelbrot(t_img *img);
-int		ft_julia2(t_img *img);
+int		julia(t_img *img, t_fpt coordc);
+int		mandelbrot(t_img *img, t_fpt coordc);
+int		julia2(t_img *img);
 
 t_rgb	ft_hsv_to_rgb(t_hsv hsv);
 t_hsv	ft_rgb_to_hsv(int red, int green, int blue);
 int		ft_rgb2_to_int(t_rgb rgb);
 int		ft_rgb_to_int(int red, int green, int blue);
+
+t_fpt	associated_complex_coord(t_fpt mouse, t_ipt p);
 
 #endif

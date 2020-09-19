@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 10:52:39 by mdavid            #+#    #+#             */
-/*   Updated: 2020/02/19 15:28:00 by mdavid           ###   ########.fr       */
+/*   Updated: 2020/09/19 12:12:03 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,58 +33,42 @@ void	ft_usage(int ac)
 }
 
 /*
-** FONCTION : ft_usage
-** PARAMETRES :	Rien
-** DESCRIPTION :
-**		Affiche l'usage.
-** RETOUR :
-**		Rien.
-*/
-
-void	ft_fill_list_frac(char **list_frac)
-{
-	list_frac[0]="Julia";
-	list_frac[1]="Mandelbrot";
-	list_frac[2]="_____";
-	list_frac[3]=NULL;
-}
-
-/*
 ** FONCTION : ft_parse_fractol
 ** PARAMETRES :	char **frac: le premier argument de ./fractol.
 ** DESCRIPTION :
 **		Vérifie s'il y a un argument et s'il est dans la liste des fractales
 **		disponible.
 ** RETOUR :
-**		0: Si le ou les arguments ne sont pas valide/s.
+**		-1: Si l'argument n'est pas un fractal de la liste.
 **		1: Si le ou les arguments sont valide/s.
 */
 
-int		ft_parse_fractol(int ac, char **av, char **list_frac)
+int		ft_get_fractol(char *fractal, char *list_frac[3])
 {
 	int			i;
-	static int	ret;
 
 	i = 0;
-	while (++i < ac && ret == 0)
+	while (i < (int)NB_FRACTAL)
 	{
-		ret = ft_check_arg(av[i], list_frac);
-		printf(">> ft_parse_fractol -- valeur de ret = %d\n", ret);
+		if (ft_strcmp(fractal, list_frac[i]) == 0)
+			return (i);
+		i++;
 	}
-	return (ret);
+	return (-1);
 }
 
 int		main(int ac, char **av)
 {
-	char	*list_frac[4];
+	int			index;
+	static char	*list_frac[3] = {FRACTAL1, FRACTAL2, NULL};
 
-	ft_fill_list_frac(list_frac);
-	if (ac == 1 || ft_parse_fractol(ac, av, list_frac) == -1)
+	index = -2;
+	if (ac != 2 || (index = ft_get_fractol(av[1], list_frac)) == -1)
 	{
 		ft_usage(ac);
 		return (0);
 	}
-	if (ft_mlx(av[1]) == 0)
+	if (ft_mlx(list_frac[index]) == 0)
 		return (0);
 	return (0);
 }

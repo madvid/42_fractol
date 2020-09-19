@@ -1,15 +1,15 @@
-### COMPILATION ###
-C      = gcc
-FLAGS  = -Wall -Wextra -Werror
-
 ### EXECUTABLE ###
 NAME   = fractol
 
+### COMPILATION ###
+CC = gcc
+FLAGS = -Wall -Wextra -Werror
+
 ### INCLUDES ###
-LIBFT  = libft
-OBJ_PATH  = obj
+LIBFT = libft
 INC = -I./include -I./libft
 SRC_PATH  = src
+OBJ_PATH  = obj
 
 ### SOURCES ###
 SOURCES =	main.c				\
@@ -19,7 +19,8 @@ SOURCES =	main.c				\
 			ft_parse_check.c	\
 			deal_events.c		\
 			ft_table_int.c		\
-			ft_table_flt.c
+			ft_table_flt.c		\
+			maths_tools1.c
 
 
 ### OBJECTS ###
@@ -28,17 +29,17 @@ SRCS = $(addprefix $(SRC_PATH)/,$(SOURCES))
 OBJS = $(addprefix $(OBJ_PATH)/,$(SOURCES:.c=.o))
 
 ### COLORS ###
-NOC         = \033[0m
-BOLD        = \033[1m
-UNDERLINE   = \033[4m
-BLACK       = \033[1;30m
-RED         = \033[1;31m
-GREEN       = \033[1;32m
-YELLOW      = \033[1;33m
-BLUE        = \033[1;34m
-VIOLET      = \033[1;35m
-CYAN        = \033[1;36m
-WHITE       = \033[1;37m
+NOC = \033[0m
+BOLD = \033[1m
+UNDERLINE = \033[4m
+BLACK = \033[1;30m
+RED = \033[1;31m
+GREEN = \033[1;32m
+YELLOW = \033[1;33m
+BLUE = \033[1;34m
+VIOLET = \033[1;35m
+CYAN = \033[1;36m
+WHITE = \033[1;37m
 
 ### RULES ###
 
@@ -57,7 +58,7 @@ obj_dir:
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@echo "  $(GREEN)[$(CC) - $(FLAGS)]$(NOC) $(YELLOW)in progress ...: $(WHITE)$(notdir $^) $(RED)->$(NOC) $(notdir $@)"
-	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
+	@$(CC) $(FLAGS) $(INC) -c $< -o $@
 
 norme :
 	@echo "$(CYAN)Does the fdf source files are normed ?$(NOC)"

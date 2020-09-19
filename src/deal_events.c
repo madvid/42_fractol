@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:09:28 by mdavid            #+#    #+#             */
-/*   Updated: 2020/02/19 17:51:16 by mdavid           ###   ########.fr       */
+/*   Updated: 2020/09/19 16:33:01 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,10 @@ int		ft_mouse_event(int button, int x, int y, t_mlx *mlx)
 
 int		ft_mouse_move(int mouse_x, int mouse_y, t_mlx *mlx)
 {
-	mlx->img->z_julia.x = mouse_x - IMG_LX / 2;
-	mlx->img->z_julia.y = mouse_y - IMG_LY / 2;
-	mlx->img->z_julia.x = mlx->img->z_julia.x / 1000.0;
-	mlx->img->z_julia.y = mlx->img->z_julia.y / 1000.0;
+	mlx->img->cst_julia.x = mouse_x - IMG_LX / 2;
+	mlx->img->cst_julia.y = mouse_y - IMG_LY / 2;
+	// mlx->img->cst_julia.x = mlx->img->cst_julia.x / 1000.0;
+	// mlx->img->cst_julia.y = mlx->img->cst_julia.y / 1000.0;
 	printf("mouse_x = %d ---- mouse_y = %d\n", mouse_x/100, mouse_y/100);
 	ft_julia(mlx->img);
 	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0

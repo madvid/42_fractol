@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 14:05:43 by mdavid            #+#    #+#             */
-/*   Updated: 2020/02/19 17:28:00 by mdavid           ###   ########.fr       */
+/*   Updated: 2020/09/19 16:57:02 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,90 +15,45 @@
 #include "fractol.h"
 #include "libft.h"
 
-int		ft_fractal(char *frac, t_img *img)
+int		julia(t_img *img, t_fpt coordc)
 {
-	int		(*tab_frac[3])(t_img *img);
+	int		iter = -1;
+	t_fpt	tmpc;
 
-	tab_frac[0] = &ft_julia;
-	tab_frac[1] = &ft_mandelbrot;
-	tab_frac[2] = &ft_julia2;
-	if (ft_strcmp(frac, "Julia") == 0)
-		(*(tab_frac[0]))(img);
-	if (ft_strcmp(frac, "Mandelbrot") == 0)
-		(*(tab_frac[1]))(img);
-	if (ft_strcmp(frac, "Julia2") == 0)
-		(*(tab_frac[2]))(img);
-	return (0);
-}
-
-int		ft_julia(t_img *img)
-{
-	/*int		i = -1;
-	int		j = -1;
-
-	while (++i < img->nb_l)
+	tmpc = coordc;
+	iter = -1;
+	while (++iter < 255)
 	{
-		j = -1;
-		while (++j < img->nb_c)
-		{
-			img->pixels[i * (img->nb_c) + j] = 16121856;
-		}
-	}*/
-	int		x = -1;
-	int		y = -1;
-	int		i = -1;
-	t_fpt	new, old, c;
-	int		color, maxIter = 255;
-
-	c.x = -0.7;
-	c.y = 0.27015;
-	printf("start de Julia\n");
-	while (++y < IMG_LY)
-	{
-		x = -1;
-		while (++x < IMG_LX)
-		{
-			new.x = 1.5 * (x - IMG_LX / 2) / (0.5 * img->move.z * IMG_LX) + img->move.x;
-			new.y = (y - IMG_LY / 2) / (0.5 * img->move.z * IMG_LY) + img->move.y;
-			i = -1;
-			//printf("valeur de new.x = %f\n", new.x);
-			//printf("valeur de new.y = %f\n", new.y);
-			while (++i < maxIter)
-			{
-				old.x = new.x;
-				old.y = new.y;
-				new.x = old.x * old.x - old.y * old.y + img->z_julia.x;
-				new.y = 2 * old.x * old.y + img->z_julia.y;
-				if ((new.x * new.x + new.y * new.y) > 4)
-					break ;
-			}
-			//printf("valeur de i apres iterations = %d\n", i);
-			color = ft_rgb_to_int(255 - i, 0, 0 * (i < maxIter));
-			//printf("valeur de color = %d\n", color);
-			img->pixels[y * (img->nb_c) + x] = color;
-		}
+		tmpc = coordc;
+		coordc.x = tmpc.x * tmpc.x - tmpc.y * tmpc.y + img->cst_julia.x;
+		coordc.y = 2 * tmpc.x * tmpc.y + img->cst_julia.y;
+		if ((coordc.x * coordc.x + coordc.y * coordc.y) > 4)
+			break ;
 	}
 	printf("fin de Julia\n");
-	return (0);
+	return (iter);
 }
 
-int		ft_mandelbrot(t_img *img)
+int		mandelbrot(t_img *img, t_fpt coordc)
 {
-	int		i = -1;
-	int		j = -1;
+	int		iter;
+	t_fpt	tmpc;
+	int		j;
 
-	while (++i < img->nb_l)
+	iter = -1;
+	tmpc = coordc;
+	while (++iter < img->nb_l)
 	{
 		j = -1;
 		while (++j < img->nb_c)
 		{
-			img->pixels[i * (img->nb_c) + j] = 65280;
+			img->pixels[iter * (img->nb_c) + j] = 65280;
 		}
 	}
 	return (0);
 }
 
-int		ft_julia2(t_img *img)
+int		julia2(t_img *img)
 {
 	int		i = -1;
 	int		j = -1;
@@ -112,4 +67,38 @@ int		ft_julia2(t_img *img)
 		}
 	}
 	return (0);
+}
+
+int		ft_fractal(char *frac, t_img *img)
+{
+	static int		(*tab_frac[2])(t_img *img, t_fpt coord) = {&julia, &mandelbrot};
+	int				(*fct_frac)(t_img *img, t_fpt coord);
+
+	if (ft_strcmp(frac, "Julia") == 0)
+		fct_frac = *(tab_frac[0]);
+	if (ft_strcmp(frac, "Mandelbrot") == 0)
+		fct_frac = *(tab_frac[1]);
+	fractal_construction(img, fct_frac);
+	return (0);
+}
+
+void	fractal_construction(t_img *img, int (*fct_frac(t_img *img, t_fpt coord)))
+{
+	t_ipt		p;
+	t_fpt		coordc;
+	int			color;
+
+	p.y = -1;
+	while (++(p.y) < IMG_LY)
+	{
+		p.x = -1;
+		while (++(p.x) < IMG_LX)
+		{
+			p.z = -1;
+			coordc = associated_complex_coord(img->mouse, p);
+			p.z = (int)fct_frac(img, coordc);
+			color = ft_rgb_to_int(255 - p.z, 0, 0 * (p.z < 255));
+			img->pixels[p.y * (img->nb_c) + p.x] = color;
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:51:13 by mdavid            #+#    #+#             */
-/*   Updated: 2020/02/19 17:25:00 by mdavid           ###   ########.fr       */
+/*   Updated: 2020/09/19 16:19:34 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 		&(gdad->bpp), &(gdad->s_l), &(gdad->edian));
 	mlx->img->nb_c = IMG_LX;
 	mlx->img->nb_l = IMG_LY;
-	mlx->img->move.x = 0;
-	mlx->img->move.y = 0;
-	mlx->img->move.z = 1;
-	//mlx->img->z_julia.x = 0;
-	//mlx->img->z_julia.y = 0;
+	mlx->img->mouse.x = 0;
+	mlx->img->mouse.y = 0;
+	mlx->img->mouse.z = 1;
+	mlx->img->cst_julia.x = (float)JULIA_CX;
+	mlx->img->cst_julia.y = (float)JULIA_CY;
 }
 
 /*
@@ -73,7 +73,6 @@ void	ft_mlx_hook_loop(t_mlx *mlx)
 int		ft_close(t_mlx *mlx)
 {
 	ft_putendl("ici 1 ft_close");
-	ft_putendl("ici 2 ft_close");
 	ft_free_tabint(mlx->img->i_tab, 3);
 	ft_putendl("ici 3 ft_close");
 	ft_free_tabflt(mlx->img->f_tab, 3);
