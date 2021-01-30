@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 10:52:39 by mdavid            #+#    #+#             */
-/*   Updated: 2020/09/19 12:12:03 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/01/16 21:24:02 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_usage(int ac)
 ** PARAMETRES :	char **frac: le premier argument de ./fractol.
 ** DESCRIPTION :
 **		Vérifie s'il y a un argument et s'il est dans la liste des fractales
-**		disponible.
+**		disponibles.
 ** RETOUR :
 **		-1: Si l'argument n'est pas un fractal de la liste.
 **		1: Si le ou les arguments sont valide/s.

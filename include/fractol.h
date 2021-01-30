@@ -6,22 +6,23 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2020/09/19 16:54:39 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/01/20 23:13:14 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # define NAME "fractol"
-# define W_LX 1080
-# define W_LY 720
+# define W_LX 400
+# define W_LY 400
 # define IMG_LX W_LX
-# define IMG_LY 9 * W_LY / 10
+# define IMG_LY W_LY
 # define NB_FRACTAL 2
 # define FRACTAL1 "Julia"
 # define FRACTAL2 "Mandelbrot"
-# define JULIA_CX -0.7
-# define JULIA_CY 0.27
+# define JULIA_CX 0.0
+# define JULIA_CY 0.4
+# define RADIUS 2
 
 typedef struct	s_rgb
 {
@@ -39,9 +40,9 @@ typedef struct	s_hsv
 
 typedef struct	s_ipt
 {
-	float			x;
-	float			y;
-	float			z;
+	int				x;
+	int				y;
+	int				z;
 }				t_ipt;
 
 typedef struct	s_fpt
@@ -59,7 +60,8 @@ typedef struct	s_img
 	float			**f_tab;
 	int				nb_c;
 	int				nb_l;
-	t_fpt			mouse;
+	char			*fractal;
+	t_ipt			origin;
 	t_fpt			cst_julia;
 }				t_img;
 
@@ -103,8 +105,8 @@ int		ft_close(t_mlx *mlx);
 void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad);
 void	ft_mlx_hook(t_mlx *mlx);
 
-void	fractal_construction(t_img *img, int (*fct_frac(t_img *img, t_fpt coord)));
-int		ft_fractal(char *frac, t_img *img);
+void	fractal_construct(t_img *img, int (f_frac)(t_img *img, t_fpt coord));
+void	ft_fractal(char *frac, t_img *img);
 int		julia(t_img *img, t_fpt coordc);
 int		mandelbrot(t_img *img, t_fpt coordc);
 int		julia2(t_img *img);
@@ -113,7 +115,9 @@ t_rgb	ft_hsv_to_rgb(t_hsv hsv);
 t_hsv	ft_rgb_to_hsv(int red, int green, int blue);
 int		ft_rgb2_to_int(t_rgb rgb);
 int		ft_rgb_to_int(int red, int green, int blue);
+int		ft_viridis(int level);
+int		ft_magma(int level);
 
-t_fpt	associated_complex_coord(t_fpt mouse, t_ipt p);
+t_fpt	associated_complex_coord(t_ipt p);
 
 #endif

@@ -6,21 +6,31 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/19 15:00:54 by mdavid            #+#    #+#             */
-/*   Updated: 2020/09/19 16:31:57 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/01/17 22:23:15 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-t_fpt	associated_complex_coord(t_fpt mouse, t_ipt p)
+/*
+** FONCTION: associated_complex_coord
+** PARAMETRES:
+**		mouse [t_fpt*]: coordonnées x et y du curseur de la souris
+**		p [t_ipt]: coordonnées (x;y) d'un pixel particulier de l'image.
+** DESCRIPTION:
+**		La fonction calcul les coordonnées associées au pixel reçu
+**		dans le repère dont l'origine est le centre de l'image.
+**		Ces coordonnées sont ensuite modifiées en fonction de la position
+**		du curseur de la souris.
+** RETOUR:
+**		..
+*/
+
+t_fpt	associated_complex_coord(t_ipt p)
 {
 	t_fpt	coord;
 
-	coord.x = p.x - 0.5 * IMG_LX;
-	coord.y = p.y - 0.5 * IMG_LY;
-	coord.x = coord.x + (mouse.x - 0.5 * IMG_LX)/ IMG_LX;
-	coord.y = coord.y + (mouse.y - 0.5 * IMG_LY)/ IMG_LY;
-	// coord.x = 1.5 * (x - IMG_LX / 2) / (0.5 * img->mouse.z * IMG_LX) + img->mouse.x;
-	// coord.y = (y - IMG_LY / 2) / (0.5 * img->mouse.z * IMG_LY) + img->mouse.y;
+	coord.x = 2 * (p.x - 0.5 * IMG_LX) / IMG_LX;
+	coord.y = 2 * (p.y - 0.5 * IMG_LY) / IMG_LY;
 	return (coord);
 }

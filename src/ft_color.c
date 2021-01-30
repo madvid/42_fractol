@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 16:21:38 by mdavid            #+#    #+#             */
-/*   Updated: 2020/02/19 15:27:26 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/01/17 22:16:53 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,54 @@ int		ft_rgb2_to_int(t_rgb rgb)
 int		ft_rgb_to_int(int red, int green, int blue)
 {
 	return ((red << 16) + (green << 8) + blue);
+}
+
+/*
+t_rgb	ft_hexa_to_rgb(char *hexa)
+{
+	t_rgb		rgb;
+
+	if ((hexa != NULL) && (ft_strlen(hexa) != 6))
+		return (NULL);
+	reg.r = hexa[0] + hexa[1];
+	reg.g = hexa[2] + hexa[3];
+	reg.b = hexa[4] + hexa[5];
+	
+}
+*/
+
+/*
+**
+**
+**
+*/
+
+int		ft_viridis(int level)
+{
+	t_rgb		c;
+	int			ret;
+
+	c.r = (unsigned char)(0.399*level -1.406*pow(level,2) + 0.101*pow(level,3) + 74.014);
+	c.g = (unsigned char)(16.8421*level -0.138*pow(level,2) -0.0059*pow(level,3) + 3.937);
+	c.b = (unsigned char)(18.567*level -1.536*pow(level,2) + 0.0199*pow(level,3) + 84.974);
+	ret = ft_rgb_to_int(c.r, c.g, c.b);
+	return (ret);
+}
+
+/*
+**
+**
+**
+*/
+
+int		ft_magma(int level)
+{
+	t_rgb		c;
+	int			ret;
+
+	c.r = (unsigned char)(18.52*level - 0.409*pow(level,2) + 0.0035*pow(level,3) + 70.58);
+	c.g = (unsigned char)(9.643*level -1.329*pow(level,2) + 0.040*pow(level,3) + 141.398);
+	c.b = (unsigned char)(-2.797*level -0.571*pow(level,2) - 0.006*pow(level,3) + 44.25);
+	ret = ft_rgb_to_int(c.r, c.g, c.b);
+	return (ret);
 }

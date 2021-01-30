@@ -2,31 +2,32 @@
 NAME   = fractol
 
 ### COMPILATION ###
-CC = gcc
-FLAGS = -Wall -Wextra -Werror
+CC = clang
+FLAGS = -Wall -Wextra -Werror -g
 
 ### INCLUDES ###
 LIBFT = libft
-INC = -I./include -I./libft
+LFT = -L$(LIBFT) -lft -lm
+INC = -I include -I $(LIBFT)
 SRC_PATH  = src
 OBJ_PATH  = obj
 
 ### SOURCES ###
-SOURCES =	main.c				\
-			ft_mlx.c			\
-			ft_fractol.c		\
-			ft_color.c			\
-			ft_parse_check.c	\
-			deal_events.c		\
-			ft_table_int.c		\
-			ft_table_flt.c		\
-			maths_tools1.c
+SRCS_FILES =	main.c			\
+				ft_mlx.c		\
+				ft_fractol.c	\
+				ft_color.c		\
+				ft_parse_check.c\
+				deal_events.c	\
+				ft_table_int.c	\
+				ft_table_flt.c	\
+				maths_tools1.c
 
 
 ### OBJECTS ###
 
-SRCS = $(addprefix $(SRC_PATH)/,$(SOURCES))
-OBJS = $(addprefix $(OBJ_PATH)/,$(SOURCES:.c=.o))
+SRCS = $(addprefix $(SRC_PATH)/,$(SRCS_FILES))
+OBJS = $(addprefix $(OBJ_PATH)/,$(SRCS_FILES:.c=.o))
 
 ### COLORS ###
 NOC = \033[0m
@@ -41,17 +42,29 @@ VIOLET = \033[1;35m
 CYAN = \033[1;36m
 WHITE = \033[1;37m
 
+### OS DEPENDING RULES ###
+OS = $(shell uname)
+
+ifeq ($(OS), Linux):
+	MLX_LINK = -lmlx -lXext -lX11 -lbsd
+else
+	MLX_LINK = -lmlx -framework OpenGL -framework AppKit
+endif
+
+
 ### RULES ###
 
 all: obj_dir $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
+	@echo "$(CYAN)  Generating fractol program objects$(NOC)"
+	@$(CC) $(FLAGS) -o $@ $(OBJS) $(LFT) $(MLX_LINK) 
+	@echo "$(RED)FDF successfully compiled$(NOC)"
+
+$(LIBFT):
 	@echo "$(CYAN)Creating library$(NOC)"
 	@echo "$(CYAN)  Generating library objects$(NOC)"
 	@make -C $(LIBFT)
-	@echo "$(CYAN)  Generating fractol program objects$(NOC)"
-	@$(CC) $(FLAGS) -L $(LIBFT) -lft -o $@ $(OBJS) -framework OpenGL -framework AppKit -lmlx
-	@echo "$(RED)FDF successfully compiled$(NOC)"
 
 obj_dir:
 	@mkdir -p $(OBJ_PATH)
@@ -86,4 +99,4 @@ fclean: clean
 re: fclean
 	@$(MAKE) all -j
 
-.PHONY: re, fclean, clean, obj_dir, norme
+.PHONY: re, fclean, clean, obj_dir, norme, libft

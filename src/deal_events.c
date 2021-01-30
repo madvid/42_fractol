@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:09:28 by mdavid            #+#    #+#             */
-/*   Updated: 2020/09/19 16:33:01 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/01/20 23:10:45 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,13 +121,20 @@ int		ft_mouse_event(int button, int x, int y, t_mlx *mlx)
 
 int		ft_mouse_move(int mouse_x, int mouse_y, t_mlx *mlx)
 {
-	mlx->img->cst_julia.x = mouse_x - IMG_LX / 2;
-	mlx->img->cst_julia.y = mouse_y - IMG_LY / 2;
-	// mlx->img->cst_julia.x = mlx->img->cst_julia.x / 1000.0;
-	// mlx->img->cst_julia.y = mlx->img->cst_julia.y / 1000.0;
-	printf("mouse_x = %d ---- mouse_y = %d\n", mouse_x/100, mouse_y/100);
-	ft_julia(mlx->img);
+	t_gdad	gdad;
+	
+	mlx->img->cst_julia.x = JULIA_CX + 0.00005 * (mouse_x - 0.5 * IMG_LX);
+	mlx->img->cst_julia.y = JULIA_CY + 0.00005 * (mouse_y - 0.5 * IMG_LY);
+	//printf("c_julia_x = %f ---- c_julia_y = %f\n", mlx->img->cst_julia.x, mlx->img->cst_julia.y);
+	mlx_destroy_image(mlx->init, mlx->img->ptr);
+	mlx->img->ptr = mlx_new_image(mlx->init, IMG_LX, IMG_LY);
+	mlx->img->pixels = (unsigned int*)mlx_get_data_addr(mlx->img->ptr,
+		&(gdad.bpp), &(gdad.s_l), &(gdad.edian));
+	fractal_construct(mlx->img, julia);
+	//julia(mlx->img, mlx->img->mouse);
 	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0
 	, W_LY / 10);
+	//mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0
+	//, W_LY / 10);
 	return (0);
 }

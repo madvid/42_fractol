@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:51:13 by mdavid            #+#    #+#             */
-/*   Updated: 2020/09/19 16:19:34 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/01/17 21:53:57 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@
 
 /*
 ** FONCTION : ft_mlx_win_img
-** PARAMETRES : *mlx : ptr général.
+** PARAMETRES :
+**		mlx [t_mlx*]: pointeur sur structure contenant les pointeurs pour la
+					mlx et l'image
+**		gdad [t_gdad*]: pointeur pour ...(?)
 ** DESCRIPTION :
-**		.
+**		Initialisation des pointeurs et variables relatifs à l'utilisation de
+**		la mlx.
 ** RETOUR :
-**		RIEN.
+**		Rien.
 */
 
 void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad)
@@ -35,9 +39,8 @@ void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 		&(gdad->bpp), &(gdad->s_l), &(gdad->edian));
 	mlx->img->nb_c = IMG_LX;
 	mlx->img->nb_l = IMG_LY;
-	mlx->img->mouse.x = 0;
-	mlx->img->mouse.y = 0;
-	mlx->img->mouse.z = 1;
+	mlx->img->origin.x = (int)(0.5 * IMG_LX);
+	mlx->img->origin.y = (int)(0.5 * IMG_LY);
 	mlx->img->cst_julia.x = (float)JULIA_CX;
 	mlx->img->cst_julia.y = (float)JULIA_CY;
 }
@@ -63,7 +66,8 @@ void	ft_mlx_hook_loop(t_mlx *mlx)
 
 /*
 ** FONCTION : ft_close
-** PARAMETRES : *mlx : ptr général contenant les struct wind/events/img.
+** PARAMETRES :
+**		*mlx : ptr général contenant les struct wind/events/img.
 ** DESCRIPTION :
 **		Détruit la window et quitte le programme.
 ** RETOUR :
@@ -81,6 +85,15 @@ int		ft_close(t_mlx *mlx)
 	exit(0);
 }
 
+/*
+** FONCTION: ft_mlx
+** PARAMETRES:
+**		frac [char*]: fractale précisé au moment de l'exécution.
+** DESCRIPTION:
+**		Initialisation des pointeurs relatifs à l'utilisation de la mlx
+**		et manipulation des pixels de l'image pour construire le fractale.
+**		
+*/
 
 int		ft_mlx(char *frac)
 {
@@ -96,6 +109,7 @@ int		ft_mlx(char *frac)
 		return(0);
 	}
 	ft_mlx_win_img(&mlx, &gdad);
+	mlx.img->fractal = frac;
 	ft_fractal(frac, mlx.img);
 	mlx_put_image_to_window(mlx.init, mlx.w_ptr, mlx.img->ptr, 0
 	, W_LY / 10);
