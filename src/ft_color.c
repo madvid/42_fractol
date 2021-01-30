@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 16:21:38 by mdavid            #+#    #+#             */
-/*   Updated: 2021/01/17 22:16:53 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/01/30 15:26:23 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,8 +166,8 @@ int		ft_magma(int level)
 	t_rgb		c;
 	int			ret;
 
-	c.r = (unsigned char)(18.52*level - 0.409*pow(level,2) + 0.0035*pow(level,3) + 70.58);
-	c.g = (unsigned char)(9.643*level -1.329*pow(level,2) + 0.040*pow(level,3) + 141.398);
+	c.g = (unsigned char)(-18.52*level - 0.409*pow(level,2) + 0.0035*pow(level,3) + 70.58);
+	c.r = (unsigned char)(9.643*level -1.329*pow(level,2) + 0.040*pow(level,3) + 141.398);
 	c.b = (unsigned char)(-2.797*level -0.571*pow(level,2) - 0.006*pow(level,3) + 44.25);
 	ret = ft_rgb_to_int(c.r, c.g, c.b);
 	return (ret);

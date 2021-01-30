@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 10:52:39 by mdavid            #+#    #+#             */
-/*   Updated: 2021/01/16 21:24:02 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/01/30 13:31:29 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ int		ft_get_fractol(char *fractal, char *list_frac[3])
 	}
 	return (-1);
 }
+
+/*
+** FUNCTION: main
+** PARAMETRES:
+**
+*/
 
 int		main(int ac, char **av)
 {

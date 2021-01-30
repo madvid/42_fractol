@@ -6,22 +6,22 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/01/20 23:13:14 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/01/30 16:45:19 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # define NAME "fractol"
-# define W_LX 400
-# define W_LY 400
+# define W_LX 720
+# define W_LY 720
 # define IMG_LX W_LX
 # define IMG_LY W_LY
 # define NB_FRACTAL 2
 # define FRACTAL1 "Julia"
 # define FRACTAL2 "Mandelbrot"
-# define JULIA_CX 0.0
-# define JULIA_CY 0.4
+# define CX 0.0
+# define CY 0.4
 # define RADIUS 2
 
 typedef struct	s_rgb
@@ -56,13 +56,12 @@ typedef struct	s_img
 {
 	void			*ptr;
 	unsigned int	*pixels;
-	int				**i_tab;
-	float			**f_tab;
 	int				nb_c;
 	int				nb_l;
 	char			*fractal;
 	t_ipt			origin;
-	t_fpt			cst_julia;
+	t_fpt			c;
+	int				max_iter;
 }				t_img;
 
 typedef struct	s_mlx

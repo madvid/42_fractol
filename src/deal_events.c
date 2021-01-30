@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:09:28 by mdavid            #+#    #+#             */
-/*   Updated: 2021/01/20 23:10:45 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/01/30 16:38:06 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "../include/fractol.h"
+#include "fractol.h"
+#include "libft.h"
 
 /*
 ** FONCTION : KEY_PRESS
@@ -30,10 +31,7 @@
 int		ft_key_press(int keycode, t_mlx *mlx)
 {
 	if (keycode == 53)
-	{
-		mlx_destroy_image(mlx->init, mlx->img->ptr);
 		ft_close(mlx);
-	}
 	/*if (keycode == 123 || keycode == 124 || keycode == 125 || keycode == 126)
 		ft_event_transl(keycode, mlx);
 	if (keycode >= 83 && keycode <= 88)
@@ -121,20 +119,19 @@ int		ft_mouse_event(int button, int x, int y, t_mlx *mlx)
 
 int		ft_mouse_move(int mouse_x, int mouse_y, t_mlx *mlx)
 {
-	t_gdad	gdad;
+	//t_gdad	gdad;
 	
-	mlx->img->cst_julia.x = JULIA_CX + 0.00005 * (mouse_x - 0.5 * IMG_LX);
-	mlx->img->cst_julia.y = JULIA_CY + 0.00005 * (mouse_y - 0.5 * IMG_LY);
-	//printf("c_julia_x = %f ---- c_julia_y = %f\n", mlx->img->cst_julia.x, mlx->img->cst_julia.y);
-	mlx_destroy_image(mlx->init, mlx->img->ptr);
-	mlx->img->ptr = mlx_new_image(mlx->init, IMG_LX, IMG_LY);
-	mlx->img->pixels = (unsigned int*)mlx_get_data_addr(mlx->img->ptr,
-		&(gdad.bpp), &(gdad.s_l), &(gdad.edian));
-	fractal_construct(mlx->img, julia);
-	//julia(mlx->img, mlx->img->mouse);
-	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0
-	, W_LY / 10);
-	//mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0
-	//, W_LY / 10);
+	mlx->img->c.x = CX + 0.005 * (mouse_x - 0.5 * IMG_LX);
+	mlx->img->c.y = CY + 0.005 * (mouse_y - 0.5 * IMG_LY);
+	//printf("c_julia_x = %f ---- c_julia_y = %f\n", mlx->img->c.x, mlx->img->c.y);
+	//mlx_destroy_image(mlx->init, mlx->img->ptr);
+	//mlx->img->ptr = mlx_new_image(mlx->init, IMG_LX, IMG_LY);
+	//mlx->img->pixels = (unsigned int*)mlx_get_data_addr(mlx->img->ptr,
+	//	&(gdad.bpp), &(gdad.s_l), &(gdad.edian));
+	if (ft_strcmp(mlx->img->fractal, "Julia") == 0)
+		fractal_construct(mlx->img, julia);
+	if (ft_strcmp(mlx->img->fractal, "Mandelbrot") == 0)
+		fractal_construct(mlx->img, mandelbrot);
+	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:51:13 by mdavid            #+#    #+#             */
-/*   Updated: 2021/01/17 21:53:57 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/01/30 16:48:17 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 	mlx->img->nb_l = IMG_LY;
 	mlx->img->origin.x = (int)(0.5 * IMG_LX);
 	mlx->img->origin.y = (int)(0.5 * IMG_LY);
-	mlx->img->cst_julia.x = (float)JULIA_CX;
-	mlx->img->cst_julia.y = (float)JULIA_CY;
+	mlx->img->c.x = (float)CX;
+	mlx->img->c.y = (float)CY;
+	mlx->img->max_iter = 100;
 }
 
 /*
@@ -77,11 +78,7 @@ void	ft_mlx_hook_loop(t_mlx *mlx)
 int		ft_close(t_mlx *mlx)
 {
 	ft_putendl("ici 1 ft_close");
-	ft_free_tabint(mlx->img->i_tab, 3);
-	ft_putendl("ici 3 ft_close");
-	ft_free_tabflt(mlx->img->f_tab, 3);
-	ft_putendl("ici 4 ft_close");
-	//mlx_destroy_image(mlx->init, mlx->img->ptr);
+	mlx_destroy_image(mlx->init, mlx->img->ptr);
 	exit(0);
 }
 
@@ -92,7 +89,6 @@ int		ft_close(t_mlx *mlx)
 ** DESCRIPTION:
 **		Initialisation des pointeurs relatifs à l'utilisation de la mlx
 **		et manipulation des pixels de l'image pour construire le fractale.
-**		
 */
 
 int		ft_mlx(char *frac)
@@ -101,18 +97,11 @@ int		ft_mlx(char *frac)
 	t_gdad	gdad;
 
 	mlx.init = mlx_init();
-	if (!(mlx.img->i_tab = ft_table_int(3, IMG_LX * IMG_LY)))
-		return(0);
-	if (!(mlx.img->f_tab = ft_table_flt(3, IMG_LX * IMG_LY)))
-	{
-		ft_free_tabint(mlx.img->i_tab, 3);
-		return(0);
-	}
 	ft_mlx_win_img(&mlx, &gdad);
 	mlx.img->fractal = frac;
 	ft_fractal(frac, mlx.img);
-	mlx_put_image_to_window(mlx.init, mlx.w_ptr, mlx.img->ptr, 0
-	, W_LY / 10);
+	mlx_put_image_to_window(mlx.init, mlx.w_ptr, mlx.img->ptr, 0, W_LY / 10);
 	ft_mlx_hook_loop(&mlx);
 	return (0);
 }
+

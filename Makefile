@@ -8,6 +8,7 @@ FLAGS = -Wall -Wextra -Werror -g
 ### INCLUDES ###
 LIBFT = libft
 LFT = -L$(LIBFT) -lft -lm
+INC_FILE = include/fractol.h
 INC = -I include -I $(LIBFT)
 SRC_PATH  = src
 OBJ_PATH  = obj
@@ -56,7 +57,7 @@ endif
 
 all: obj_dir $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(OBJS) $(LIBFT) $(INC_FILE)
 	@echo "$(CYAN)  Generating fractol program objects$(NOC)"
 	@$(CC) $(FLAGS) -o $@ $(OBJS) $(LFT) $(MLX_LINK) 
 	@echo "$(RED)FDF successfully compiled$(NOC)"
