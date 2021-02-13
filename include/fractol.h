@@ -6,15 +6,16 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/01/30 16:45:19 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/02/13 15:48:49 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # define NAME "fractol"
-# define W_LX 720
+# define W_LX 1080
 # define W_LY 720
+# define MAX_THD 10 
 # define IMG_LX W_LX
 # define IMG_LY W_LY
 # define NB_FRACTAL 2
@@ -104,8 +105,8 @@ int		ft_close(t_mlx *mlx);
 void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad);
 void	ft_mlx_hook(t_mlx *mlx);
 
-void	fractal_construct(t_img *img, int (f_frac)(t_img *img, t_fpt coord));
-void	ft_fractal(char *frac, t_img *img);
+void	fractal_construct(t_mlx *mlx, int (f_frac)(t_img *img, t_fpt coord));
+void	ft_fractal(t_mlx *mlx);
 int		julia(t_img *img, t_fpt coordc);
 int		mandelbrot(t_img *img, t_fpt coordc);
 int		julia2(t_img *img);
@@ -118,5 +119,8 @@ int		ft_viridis(int level);
 int		ft_magma(int level);
 
 t_fpt	associated_complex_coord(t_ipt p);
+
+void	*f_pack_thd_args(t_ipt *p, t_img *img, int (*f_frac)(t_img *img, t_fpt coord));
+void	f_thd(void *thd_args);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:51:13 by mdavid            #+#    #+#             */
-/*   Updated: 2021/01/30 16:48:17 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/02/13 15:34:06 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 	mlx->img->origin.y = (int)(0.5 * IMG_LY);
 	mlx->img->c.x = (float)CX;
 	mlx->img->c.y = (float)CY;
-	mlx->img->max_iter = 100;
+	mlx->img->max_iter = 200;
 }
 
 /*
@@ -99,7 +99,7 @@ int		ft_mlx(char *frac)
 	mlx.init = mlx_init();
 	ft_mlx_win_img(&mlx, &gdad);
 	mlx.img->fractal = frac;
-	ft_fractal(frac, mlx.img);
+	ft_fractal(&mlx);
 	mlx_put_image_to_window(mlx.init, mlx.w_ptr, mlx.img->ptr, 0, W_LY / 10);
 	ft_mlx_hook_loop(&mlx);
 	return (0);

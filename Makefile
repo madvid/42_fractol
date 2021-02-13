@@ -22,7 +22,8 @@ SRCS_FILES =	main.c			\
 				deal_events.c	\
 				ft_table_int.c	\
 				ft_table_flt.c	\
-				maths_tools1.c
+				maths_tools1.c	\
+				threads_managements.c
 
 
 ### OBJECTS ###
@@ -49,7 +50,7 @@ OS = $(shell uname)
 ifeq ($(OS), Linux):
 	MLX_LINK = -lmlx -lXext -lX11 -lbsd
 else
-	MLX_LINK = -lmlx -framework OpenGL -framework AppKit
+	MLX_LINK = -l pthread -lmlx -framework OpenGL -framework AppKit
 endif
 
 
@@ -59,7 +60,7 @@ all: obj_dir $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT) $(INC_FILE)
 	@echo "$(CYAN)  Generating fractol program objects$(NOC)"
-	@$(CC) $(FLAGS) -o $@ $(OBJS) $(LFT) $(MLX_LINK) 
+	@$(CC) $(FLAGS) -o $@ $(OBJS) $(LFT) $(MLX_LINK)
 	@echo "$(RED)FDF successfully compiled$(NOC)"
 
 $(LIBFT):

@@ -6,14 +6,16 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 14:05:43 by mdavid            #+#    #+#             */
-/*   Updated: 2021/01/30 16:22:58 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/02/13 15:51:26 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <pthread.h>
 #include "fractol.h"
 #include "libft.h"
+
 
 /*
 ** FONCTION:
@@ -88,17 +90,16 @@ int		mandelbrot(t_img *img, t_fpt coordc)
 ***		Rien.
 */
 
-void	ft_fractal(char *frac, t_img *img)
+void	ft_fractal(t_mlx *mlx)
 {
 	int		(*tab_frac[2])(t_img *img, t_fpt coord);
 
 	tab_frac[0] = julia;
 	tab_frac[1] = mandelbrot;
-	if (ft_strcmp(frac, "Julia") == 0)
-		fractal_construct(img, tab_frac[0]);
-	if (ft_strcmp(frac, "Mandelbrot") == 0)
-		fractal_construct(img, tab_frac[1]);
-
+	if (ft_strcmp(mlx->img->fractal, "Julia") == 0)
+		fractal_construct(mlx, tab_frac[0]);
+	if (ft_strcmp(mlx->img->fractal, "Mandelbrot") == 0)
+		fractal_construct(mlx, tab_frac[1]);
 }
 
 /*
@@ -112,21 +113,20 @@ void	ft_fractal(char *frac, t_img *img)
 **		Rien.
 */
 
-void	fractal_construct(t_img *img, int (*f_frac)(t_img *img, t_fpt coord))
+void	fractal_construct(t_mlx *mlx, int (*f_frac)(t_img *img, t_fpt coord))
 {
 	t_ipt		p;
-	t_fpt		coordc;
+	void		*thd_ag;
+	pthread_t	thds[IMG_LY];
 
 	p.y = -1;
 	while (++(p.y) < IMG_LY)
 	{
 		p.x = -1;
-		while (++(p.x) < IMG_LX)
-		{
-			p.z = -1;
-			coordc = associated_complex_coord(p);
-			p.z = f_frac(img, coordc);
-			img->pixels[img->nb_c * p.y + p.x] = ft_viridis(p.z);
-		}
+		thd_ag = f_pack_thd_args(&p, mlx->img, f_frac);
+		if (pthread_create(&thds[p.y], NULL, (void*)(&f_thd), thd_ag))
+			ft_close(mlx);
+		if (pthread_join(thds[p.y], NULL))
+			ft_close(mlx);
 	}
 }

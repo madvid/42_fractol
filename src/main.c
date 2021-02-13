@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 10:52:39 by mdavid            #+#    #+#             */
-/*   Updated: 2021/01/30 13:31:29 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/02/13 11:10:25 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_usage(int ac)
 **		1: Si le ou les arguments sont valide/s.
 */
 
-int		ft_get_fractol(char *fractal, char *list_frac[3])
+int		ft_get_fractol(char *fractal, char *list_frac[NB_FRACTAL + 1])
 {
 	int			i;
 
@@ -66,9 +66,9 @@ int		ft_get_fractol(char *fractal, char *list_frac[3])
 int		main(int ac, char **av)
 {
 	int			index;
-	static char	*list_frac[3] = {FRACTAL1, FRACTAL2, NULL};
+	static char	*list_frac[NB_FRACTAL + 1] = {FRACTAL1, FRACTAL2, NULL};
 
-	index = -2;
+	index = 0;
 	if (ac != 2 || (index = ft_get_fractol(av[1], list_frac)) == -1)
 	{
 		ft_usage(ac);
