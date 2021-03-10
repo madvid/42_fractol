@@ -61,7 +61,7 @@ all: obj_dir $(NAME)
 $(NAME): $(OBJS) $(LIBFT) $(INC_FILE)
 	@echo "$(CYAN)  Generating fractol program objects$(NOC)"
 	@$(CC) $(FLAGS) -o $@ $(OBJS) $(LFT) $(MLX_LINK)
-	@echo "$(RED)FDF successfully compiled$(NOC)"
+	@echo "$(RED)FRACTOL successfully compiled$(NOC)"
 
 $(LIBFT):
 	@echo "$(CYAN)Creating library$(NOC)"
@@ -76,7 +76,7 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@$(CC) $(FLAGS) $(INC) -c $< -o $@
 
 norme :
-	@echo "$(CYAN)Does the fdf source files are normed ?$(NOC)"
+	@echo "$(CYAN)Does the fractol source files are normed ?$(NOC)"
 	@norminette -R CheckForbiddenSourceHeader $(SRCS)
 	@echo "$(CYAN)Does the header files are normed ?$(NOC)"
 	@norminette -R CheckForbiddenSourceHeader $(INC)
@@ -87,7 +87,7 @@ clean:
 	@echo "$(CYAN)Supressing libraries objects$(NOC)"
 	@make clean -C $(LIBFT)
 	@echo "$(RED)  Libraries objects destroyed$(NOC)"
-	@echo "$(CYAN)Supressing fdf objects$(NOC)"
+	@echo "$(CYAN)Supressing fractol objects$(NOC)"
 	@rm -rf $(OBJ_PATH)
 	@echo "$(RED)  fractol objects destroyed$(NOC)"
 
