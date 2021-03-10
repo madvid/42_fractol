@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:09:28 by mdavid            #+#    #+#             */
-/*   Updated: 2021/02/13 15:16:26 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/10 17:08:10 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int		ft_key_release(int keycode, t_mlx *mlx)
 **			en retour de la fct.
 */
 /*
+
 int		ft_mouse_event(int button, int x, int y, t_mlx *mlx)
 {
 	int		sign;
@@ -129,9 +130,15 @@ int		ft_mouse_move(int mouse_x, int mouse_y, t_mlx *mlx)
 	//mlx->img->pixels = (unsigned int*)mlx_get_data_addr(mlx->img->ptr,
 	//	&(gdad.bpp), &(gdad.s_l), &(gdad.edian));
 	if (ft_strcmp(mlx->img->fractal, "Julia") == 0)
-		fractal_construct(mlx, julia);
+	{
+		mlx->f_fractal = julia;
+		fractal_construct(mlx);
+	}
 	if (ft_strcmp(mlx->img->fractal, "Mandelbrot") == 0)
-		fractal_construct(mlx, mandelbrot);
+	{
+		mlx->f_fractal = mandelbrot;
+		fractal_construct(mlx);
+	}
 	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
 	return (0);
 }

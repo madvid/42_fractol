@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 13:29:01 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/10 13:28:07 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/10 15:47:31 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void		f_thd(void *ptr)
 	t_ipt			pt;
 	t_fpt			coordc;
 
-	y = (y = 0) ? -1 : y;
 	y = (y == IMG_LY - 1) ? 0 : y;
 	pt = (struct s_ipt){-1, y++, 0};
 	mlx = (t_mlx*)ptr;
