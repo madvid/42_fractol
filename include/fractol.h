@@ -6,21 +6,22 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/10 13:20:55 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/10 16:59:09 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # define NAME "fractol"
-# define W_LX 1080
-# define W_LY 720
-# define MAX_THD 10 
+# define W_LX 600
+# define W_LY 600
 # define IMG_LX W_LX
 # define IMG_LY W_LY
-# define NB_FRACTAL 2
+# define NB_FRACTAL 4
 # define FRACTAL1 "Julia"
 # define FRACTAL2 "Mandelbrot"
+# define FRACTAL3 "BurningShip"
+# define FRACTAL4 "Newton"
 # define CX 0.0
 # define CY 0.4
 # define RADIUS 2
@@ -111,7 +112,7 @@ void	fractal_construct(t_mlx *mlx);
 void	ft_fractal(t_mlx *mlx);
 int		julia(t_img *img, t_fpt coordc);
 int		mandelbrot(t_img *img, t_fpt coordc);
-int		julia2(t_img *img);
+int		burningship(t_img *img, t_fpt coordc);
 
 t_rgb	ft_hsv_to_rgb(t_hsv hsv);
 t_hsv	ft_rgb_to_hsv(int red, int green, int blue);

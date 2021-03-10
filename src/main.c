@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 10:52:39 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/10 11:51:46 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/10 16:39:59 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,11 @@ int		ft_get_fractol(char *fractal, char *list_frac[NB_FRACTAL + 1])
 int		main(int ac, char **av)
 {
 	int			index;
-	static char	*list_frac[NB_FRACTAL + 1] = {FRACTAL1, FRACTAL2, NULL};
+	static char	*list_frac[NB_FRACTAL + 1] = {FRACTAL1,
+											FRACTAL2,
+											FRACTAL3,
+											FRACTAL4,
+											NULL};
 
 	index = 0;
 	if (ac != 2 || (index = ft_get_fractol(av[1], list_frac)) == -1)
