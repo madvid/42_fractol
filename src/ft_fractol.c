@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 14:05:43 by mdavid            #+#    #+#             */
-/*   Updated: 2021/02/13 15:51:26 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/10 13:22:39 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,16 @@ int		mandelbrot(t_img *img, t_fpt coordc)
 
 void	ft_fractal(t_mlx *mlx)
 {
-	int		(*tab_frac[2])(t_img *img, t_fpt coord);
-
-	tab_frac[0] = julia;
-	tab_frac[1] = mandelbrot;
 	if (ft_strcmp(mlx->img->fractal, "Julia") == 0)
-		fractal_construct(mlx, tab_frac[0]);
+	{
+		mlx->f_fractal = julia;
+		fractal_construct(mlx);
+	}
 	if (ft_strcmp(mlx->img->fractal, "Mandelbrot") == 0)
-		fractal_construct(mlx, tab_frac[1]);
+	{
+		mlx->f_fractal = mandelbrot;
+		fractal_construct(mlx);
+	}
 }
 
 /*
@@ -113,20 +115,21 @@ void	ft_fractal(t_mlx *mlx)
 **		Rien.
 */
 
-void	fractal_construct(t_mlx *mlx, int (*f_frac)(t_img *img, t_fpt coord))
+//void	fractal_construct(t_mlx *mlx, int (*f_frac)(t_img *img, t_fpt coord))
+void	fractal_construct(t_mlx *mlx)
 {
 	t_ipt		p;
-	void		*thd_ag;
 	pthread_t	thds[IMG_LY];
 
 	p.y = -1;
 	while (++(p.y) < IMG_LY)
 	{
 		p.x = -1;
-		thd_ag = f_pack_thd_args(&p, mlx->img, f_frac);
-		if (pthread_create(&thds[p.y], NULL, (void*)(&f_thd), thd_ag))
-			ft_close(mlx);
-		if (pthread_join(thds[p.y], NULL))
+		if (pthread_create(&thds[p.y], NULL, (void*)(&f_thd), (void*)(mlx)))
 			ft_close(mlx);
 	}
+	p.y = -1;
+	while (++(p.y) < IMG_LY)
+		if (pthread_join(thds[p.y], NULL))
+			ft_close(mlx);
 }

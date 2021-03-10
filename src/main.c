@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 10:52:39 by mdavid            #+#    #+#             */
-/*   Updated: 2021/02/13 11:10:25 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/10 11:51:46 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,11 @@ int		ft_get_fractol(char *fractal, char *list_frac[NB_FRACTAL + 1])
 /*
 ** FUNCTION: main
 ** PARAMETRES:
-**
+**		ac: (int) le nombre d'arguments a l'execution.
+**		av: (char**) tableau de string (les arguments).
+** Description:
+**		Fractol est un programme qui permet de visualiser 3 fractales
+**		différents: Julia, Mandelbrot et Burning ship.
 */
 
 int		main(int ac, char **av)

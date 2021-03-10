@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/02/13 15:48:49 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/10 13:20:55 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct	s_mlx
 	char			*w_title;
 	int				w_lx;
 	int				w_ly;
+	int				(*f_fractal)(t_img *img, t_fpt coord);
 	t_img			*img;
 }				t_mlx;
 
@@ -105,7 +106,8 @@ int		ft_close(t_mlx *mlx);
 void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad);
 void	ft_mlx_hook(t_mlx *mlx);
 
-void	fractal_construct(t_mlx *mlx, int (f_frac)(t_img *img, t_fpt coord));
+//void	fractal_construct(t_mlx *mlx, int (f_frac)(t_img *img, t_fpt coord));
+void	fractal_construct(t_mlx *mlx);
 void	ft_fractal(t_mlx *mlx);
 int		julia(t_img *img, t_fpt coordc);
 int		mandelbrot(t_img *img, t_fpt coordc);
@@ -120,7 +122,6 @@ int		ft_magma(int level);
 
 t_fpt	associated_complex_coord(t_ipt p);
 
-void	*f_pack_thd_args(t_ipt *p, t_img *img, int (*f_frac)(t_img *img, t_fpt coord));
-void	f_thd(void *thd_args);
+void	f_thd(void *ptr);
 
 #endif

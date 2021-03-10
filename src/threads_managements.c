@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 13:29:01 by mdavid            #+#    #+#             */
-/*   Updated: 2021/02/13 15:25:54 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/10 13:28:07 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,21 @@
 #include <pthread.h>
 #include "fractol.h"
 
-typedef struct	s_thd_ag
+void		f_thd(void *ptr)
 {
-	t_ipt			p;
-	t_img			*img;
-	int				(*f_frac)(t_img *img, t_fpt coord);
-}				t_thd_ag;
+	t_mlx			*mlx;
+	static int		y;
+	t_ipt			pt;
+	t_fpt			coordc;
 
-void		*f_pack_thd_args(t_ipt *p, t_img *img, int (*f_frac)(t_img *img, t_fpt coord))
-{
-	t_thd_ag	*thd_ag;
-
-	if (!(thd_ag = (t_thd_ag*)malloc(sizeof(t_thd_ag))))
-		return (0);
-	thd_ag->p = *p;
-	thd_ag->p.x = -1;
-	thd_ag->p.y = p->y;
-	thd_ag->p.z = 0;
-	thd_ag->img = img;
-	thd_ag->f_frac = f_frac;
-	return ((void*)thd_ag);
-}
-
-void		f_thd(void *thd_args)
-{
-	t_ipt	p;
-	t_img	*img;
-	t_fpt	coordc;
-
-	p = ((t_thd_ag*)thd_args)->p;
-	img = ((t_thd_ag*)thd_args)->img;
-	while (++(p.x) < IMG_LX)
+	y = (y = 0) ? -1 : y;
+	y = (y == IMG_LY - 1) ? 0 : y;
+	pt = (struct s_ipt){-1, y++, 0};
+	mlx = (t_mlx*)ptr;
+	while (++(pt.x) < IMG_LX)
 		{
-			coordc = associated_complex_coord(p);
-			p.z = ((t_thd_ag*)thd_args)->f_frac(img, coordc);
-			img->pixels[img->nb_c * p.y + p.x] = ft_viridis(p.z);
+			coordc = associated_complex_coord(pt);
+			pt.z = mlx->f_fractal(mlx->img, coordc);
+			mlx->img->pixels[mlx->img->nb_c * pt.y + pt.x] = ft_viridis(pt.z);
 		}
 }
