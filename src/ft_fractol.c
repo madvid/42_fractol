@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 14:05:43 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/11 11:51:09 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/11 16:14:00 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,11 @@ void	fractal_construct(t_mlx *mlx)
 {
 	t_ipt		p;
 	pthread_t	thds[IMG_LY];
+	t_img		*img;
 
+	img = mlx->img;
+	img->center.x = img->ratio * 0.5 * IMG_LX + img->ratio * img->origin.x;
+	img->center.y = img->ratio * 0.5 * IMG_LY + img->ratio * img->origin.y;
 	p.y = -1;
 	while (++(p.y) < IMG_LY)
 	{

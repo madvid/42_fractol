@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:51:13 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/11 12:37:23 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/11 16:11:13 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 	mlx->img->nb_c = IMG_LX;
 	mlx->img->nb_l = IMG_LY;
 	mlx->img->ratio = ASPECT_RATIO;
-	mlx->img->origin.x = (int)(0.5 * IMG_LX);
-	mlx->img->origin.y = (int)(0.5 * IMG_LY);
+	mlx->img->origin.x = 0;
+	mlx->img->origin.y = 0;
+	mlx->img->center.x = 0.5 * IMG_LX;
+	mlx->img->center.y = 0.5 * IMG_LY;
 	mlx->img->cst.x = (float)CX;
 	mlx->img->cst.y = (float)CY;
 	mlx->img->max_iter = 50;

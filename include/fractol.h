@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/11 11:57:40 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/11 16:10:38 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct	s_img
 	char			*fractal;
 	float			ratio;
 	t_ipt			origin;
+	t_fpt			center;
 	t_fpt			cst;
 	int				max_iter;
 }				t_img;
