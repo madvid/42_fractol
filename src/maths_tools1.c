@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/19 15:00:54 by mdavid            #+#    #+#             */
-/*   Updated: 2021/02/13 15:13:16 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/11 12:23:42 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@
 **		..
 */
 
-t_fpt	associated_complex_coord(t_ipt p)
+t_fpt	associated_complex_coord(t_ipt p, t_img *img)
 {
 	t_fpt	coord;
 	
-	coord.x = 2.5 * (p.x - 0.5 * IMG_LX) / IMG_LX;
-	coord.y = 2.5 * (p.y - 0.5 * IMG_LY) / IMG_LY;
+	coord.x = img->ratio * (p.x - img->origin.x);
+	coord.y = img->ratio * (p.y - img->origin.y);
 	return (coord);
 }

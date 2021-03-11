@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:51:13 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/10 17:07:33 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/11 12:37:23 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 		&(gdad->bpp), &(gdad->s_l), &(gdad->edian));
 	mlx->img->nb_c = IMG_LX;
 	mlx->img->nb_l = IMG_LY;
+	mlx->img->ratio = ASPECT_RATIO;
 	mlx->img->origin.x = (int)(0.5 * IMG_LX);
 	mlx->img->origin.y = (int)(0.5 * IMG_LY);
-	mlx->img->c.x = (float)CX;
-	mlx->img->c.y = (float)CY;
+	mlx->img->cst.x = (float)CX;
+	mlx->img->cst.y = (float)CY;
 	mlx->img->max_iter = 50;
 }
 
@@ -61,7 +62,7 @@ void	ft_mlx_hook_loop(t_mlx *mlx)
 	mlx_hook(mlx->w_ptr, 2, (1L << 0), ft_key_press, mlx);
 	mlx_hook(mlx->w_ptr, 3, (1L << 1), ft_key_release, mlx);
 	mlx_hook(mlx->w_ptr, 6, (1L << 6), ft_mouse_move, mlx);
-	mlx_hook(mlx->w_ptr, 4, (1L << 6), ft_mouse_move, mlx);
+	mlx_mouse_hook(mlx->w_ptr, ft_mouse_event, mlx);
 	mlx_hook(mlx->w_ptr, 17, (1L << 17), ft_close, mlx);
 	mlx_loop(mlx->init);
 }
@@ -101,6 +102,7 @@ int		ft_mlx(char *frac)
 	ft_mlx_win_img(&mlx, &gdad);
 	mlx.img->fractal = frac;
 	ft_fractal(&mlx);
+	fractal_construct(&mlx);
 	mlx_put_image_to_window(mlx.init, mlx.w_ptr, mlx.img->ptr, 0, W_LY / 10);
 	ft_mlx_hook_loop(&mlx);
 	return (0);

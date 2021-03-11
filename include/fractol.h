@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/10 16:59:09 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/11 11:57:40 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,22 @@
 # define FRACTAL4 "Newton"
 # define CX 0.0
 # define CY 0.4
+# define ASPECT_RATIO 1
 # define RADIUS 2
+
+// Definition des valeurs pour les evenements
+// Clavier
+# define UP 126
+# define DOWN 125
+# define LEFT 123
+# define RIGHT 124
+
+// Souris
+# define M_LEFT 1
+# define M_RIGHT 2
+# define SCROLL_UP 4
+# define SCROLL_DOWN 5
+
 
 typedef struct	s_rgb
 {
@@ -61,8 +76,9 @@ typedef struct	s_img
 	int				nb_c;
 	int				nb_l;
 	char			*fractal;
+	float			ratio;
 	t_ipt			origin;
-	t_fpt			c;
+	t_fpt			cst;
 	int				max_iter;
 }				t_img;
 
@@ -100,14 +116,14 @@ float	**ft_table_flt(int nb_l, int nb_c);
 
 int		ft_key_press(int keycode, t_mlx *mlx);
 int		ft_key_release(int keycode, t_mlx *mlx);
-//int		ft_mouse_event(int button, int x, int y, t_mlx *mlx);
+int		ft_mouse_event(int button, int x, int y, t_mlx *mlx);
+void	ft_event_transl(int kcode, t_mlx *mlx);
 int		ft_mouse_move(int mouse_x, int mouse_y, t_mlx *mlx);
 
 int		ft_close(t_mlx *mlx);
 void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad);
 void	ft_mlx_hook(t_mlx *mlx);
 
-//void	fractal_construct(t_mlx *mlx, int (f_frac)(t_img *img, t_fpt coord));
 void	fractal_construct(t_mlx *mlx);
 void	ft_fractal(t_mlx *mlx);
 int		julia(t_img *img, t_fpt coordc);
@@ -121,7 +137,7 @@ int		ft_rgb_to_int(int red, int green, int blue);
 int		ft_viridis(int level);
 int		ft_magma(int level);
 
-t_fpt	associated_complex_coord(t_ipt p);
+t_fpt	associated_complex_coord(t_ipt p, t_img *img);
 
 void	f_thd(void *ptr);
 

@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:09:28 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/10 17:08:10 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/11 12:30:39 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 /*
 ** FONCTION : KEY_PRESS
-** PARAMETRES :	int keycode : valeur de la touche du clavier pressée.
+** PARAMETRES :	int kcode : valeur de la touche du clavier pressée.
 **				t_mlx *mlx : ptr général contenant les struct wind/events/img.
 ** DESCRIPTION :
 **		Gère les événements liés au clavier.
@@ -28,22 +28,47 @@
 **			en retour de la fct.
 */
 
-int		ft_key_press(int keycode, t_mlx *mlx)
+int		ft_key_press(int kcode, t_mlx *mlx)
 {
-	if (keycode == 53)
+	if (kcode == 53)
 		ft_close(mlx);
-	/*if (keycode == 123 || keycode == 124 || keycode == 125 || keycode == 126)
-		ft_event_transl(keycode, mlx);
-	if (keycode >= 83 && keycode <= 88)
-		ft_rotation_xyz(keycode, mlx, (*mlx)->events, (*mlx)->img);
-	if (keycode == 24 || keycode == 27)
-		ft_altitude(keycode, mlx, (*mlx)->events, (*mlx)->img);
-	if (keycode == 69 || keycode == 78)
-		ft_zoom(keycode, mlx, (*mlx)->events, (*mlx)->img);
-	if (keycode == 34 || keycode == 35)
-		ft_projections(keycode, mlx, (*mlx)->events, (*mlx)->img);*/
-	//ft_display_map(*mlx, (*mlx)->img);*/
+	if (kcode == UP || kcode == RIGHT || kcode == DOWN || kcode == LEFT)
+		ft_event_transl(kcode, mlx);
+	/*
+	if (kcode >= 83 && kcode <= 88)
+		ft_rotation_xyz(kcode, mlx, (*mlx)->events, (*mlx)->img);
+	if (kcode == 24 || kcode == 27)
+		ft_altitude(kcode, mlx, (*mlx)->events, (*mlx)->img);
+	if (kcode == 69 || kcode == 78)
+		ft_zoom(kcode, mlx, (*mlx)->events, (*mlx)->img);
+	if (kcode == 34 || kcode == 35)
+		ft_projections(kcode, mlx, (*mlx)->events, (*mlx)->img);
+	*/
 	return (0);
+}
+
+/*
+** FONCTION : FT_EVENT_TRANSL
+** PARAMETRES :	int kcode : valeur de la touche du clavier pressée.
+**				t_mlx *mlx : ptr général contenant les struct wind/events/img.
+** DESCRIPTION :
+**		Gère la translation du centre de l'image.
+** RETOUR :
+**		Aucun.
+*/
+
+void	ft_event_transl(int kcode, t_mlx *mlx)
+{
+	if (kcode == UP)
+		mlx->img->origin.y -= 1;
+	if (kcode == DOWN)
+		mlx->img->origin.y += 1;
+	if (kcode == RIGHT)
+		mlx->img->origin.x += 1;
+	if (kcode == LEFT)
+		mlx->img->origin.x -= 1;
+	fractal_construct(mlx);
+	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
 }
 
 /*
@@ -57,9 +82,9 @@ int		ft_key_press(int keycode, t_mlx *mlx)
 **			en retour de la fct.
 */
 
-int		ft_key_release(int keycode, t_mlx *mlx)
+int		ft_key_release(int kcode, t_mlx *mlx)
 {
-	if (keycode)
+	if (kcode)
 		(void)mlx;
 	return (0);
 }
@@ -74,36 +99,35 @@ int		ft_key_release(int keycode, t_mlx *mlx)
 **		0 : Aucune gestion de la valeur de retour, le prototype impose un int
 **			en retour de la fct.
 */
-/*
 
-int		ft_mouse_event(int button, int x, int y, t_mlx *mlx)
+int		ft_mouse_event(int mcode, int x, int y, t_mlx *mlx)
 {
-	int		sign;
-	int		nu;
-	int		i;
-
-	sign = 0;
-	nu = 1;
-	i = 8;
-	if (button == 1)
+	/*
+	if (mcode == M_LEFT) // left click
 	{
-		if (x >= WIN_LX / 142 && x <= WIN_LX / 142 + 30)
-			sign = -1;
-		if (x >= WIN_LX / 42 && x <= WIN_LX / 42 + 30)
-			sign = 1;
-		while (nu < 8)
-		{
-			if (sign != 0 && (y >= i * WIN_LY / 48 && y <= i * WIN_LY / 48
-			+ 20))
-				break ;
-			i = i + 5;
-			nu++;
-		}
-		if (sign != 0 && nu != 8)
-			ft_deal_press_button(nu, sign, mlx, mlx->events);
+		...
 	}
+	if (mcode == M_RIGHT) // right click
+	{
+		...
+	}
+	*/
+	if (mcode == SCROLL_UP) // scroll up
+	{
+		mlx->img->ratio = mlx->img->ratio * 0.9;
+		printf("valeur de ratio = %f\n", mlx->img->ratio);
+	}
+	if (mcode == SCROLL_DOWN) // scroll down
+	{
+		mlx->img->ratio = mlx->img->ratio * 1.1;
+		printf("valeur de ratio = %f\n", mlx->img->ratio);
+	}
+	(void)x;
+	(void)y;
+	fractal_construct(mlx);
+	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
 	return (0);
-}*/
+}
 
 
 /*
@@ -122,23 +146,9 @@ int		ft_mouse_move(int mouse_x, int mouse_y, t_mlx *mlx)
 {
 	//t_gdad	gdad;
 	
-	mlx->img->c.x = CX + 0.005 * (mouse_x - 0.5 * IMG_LX);
-	mlx->img->c.y = CY + 0.005 * (mouse_y - 0.5 * IMG_LY);
-	//printf("c_julia_x = %f ---- c_julia_y = %f\n", mlx->img->c.x, mlx->img->c.y);
-	//mlx_destroy_image(mlx->init, mlx->img->ptr);
-	//mlx->img->ptr = mlx_new_image(mlx->init, IMG_LX, IMG_LY);
-	//mlx->img->pixels = (unsigned int*)mlx_get_data_addr(mlx->img->ptr,
-	//	&(gdad.bpp), &(gdad.s_l), &(gdad.edian));
-	if (ft_strcmp(mlx->img->fractal, "Julia") == 0)
-	{
-		mlx->f_fractal = julia;
-		fractal_construct(mlx);
-	}
-	if (ft_strcmp(mlx->img->fractal, "Mandelbrot") == 0)
-	{
-		mlx->f_fractal = mandelbrot;
-		fractal_construct(mlx);
-	}
+	mlx->img->cst.x = CX + 0.005 * (mouse_x - 0.5 * IMG_LX);
+	mlx->img->cst.y = CY + 0.005 * (mouse_y - 0.5 * IMG_LY);
+	fractal_construct(mlx);
 	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
 	return (0);
 }

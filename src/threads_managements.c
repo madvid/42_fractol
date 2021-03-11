@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 13:29:01 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/10 15:47:31 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/11 11:56:18 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		f_thd(void *ptr)
 	mlx = (t_mlx*)ptr;
 	while (++(pt.x) < IMG_LX)
 		{
-			coordc = associated_complex_coord(pt);
+			coordc = associated_complex_coord(pt, mlx->img);
 			pt.z = mlx->f_fractal(mlx->img, coordc);
 			mlx->img->pixels[mlx->img->nb_c * pt.y + pt.x] = ft_viridis(pt.z);
 		}

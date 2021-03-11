@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 14:05:43 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/10 17:00:50 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/11 11:51:09 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int		julia(t_img *img, t_fpt coordc)
 	while (++iter < img->max_iter)
 	{
 		tmpc.x = coordc.x * coordc.x - coordc.y * coordc.y;
-		coordc.y = 2 * coordc.x * coordc.y + img->c.y;
-		coordc.x = tmpc.x + img->c.x;
+		coordc.y = 2 * coordc.x * coordc.y + img->cst.y;
+		coordc.x = tmpc.x + img->cst.x;
 		if ((coordc.x * coordc.x + coordc.y * coordc.y) >= RADIUS)
 			break ;
 	}
@@ -153,25 +153,13 @@ int		classic_newton(t_img *img, t_fpt coordc)
 void	ft_fractal(t_mlx *mlx)
 {
 	if (ft_strcmp(mlx->img->fractal, "Julia") == 0)
-	{
 		mlx->f_fractal = julia;
-		fractal_construct(mlx);
-	}
 	if (ft_strcmp(mlx->img->fractal, "Mandelbrot") == 0)
-	{
 		mlx->f_fractal = mandelbrot;
-		fractal_construct(mlx);
-	}
 	if (ft_strcmp(mlx->img->fractal, "BurningShip") == 0)
-	{
 		mlx->f_fractal = burningship;
-		fractal_construct(mlx);
-	}
 	if (ft_strcmp(mlx->img->fractal, "Newton") == 0)
-	{
 		mlx->f_fractal = classic_newton;
-		fractal_construct(mlx);
-	}
 }
 
 /*
