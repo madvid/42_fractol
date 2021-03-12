@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 14:05:43 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/11 16:14:00 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/12 11:10:35 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		burningship(t_img *img, t_fpt coordc)
 	while (++iter < img->max_iter)
 	{
 		tmpc.x = coordc.x * coordc.x - coordc.y * coordc.y;
-		coordc.y = 2 * fabs(coordc.x * coordc.y) + c.y;
+		coordc.y = 2 * fabsl(coordc.x * coordc.y) + c.y;
 		coordc.x = tmpc.x + c.x;
 		if ((coordc.x * coordc.x + coordc.y * coordc.y) >= RADIUS)
 			break ;
@@ -181,8 +181,6 @@ void	fractal_construct(t_mlx *mlx)
 	t_img		*img;
 
 	img = mlx->img;
-	img->center.x = img->ratio * 0.5 * IMG_LX + img->ratio * img->origin.x;
-	img->center.y = img->ratio * 0.5 * IMG_LY + img->ratio * img->origin.y;
 	p.y = -1;
 	while (++(p.y) < IMG_LY)
 	{
