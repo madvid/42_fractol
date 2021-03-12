@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:09:28 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/11 12:30:39 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/12 11:10:59 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int		ft_key_press(int kcode, t_mlx *mlx)
 {
 	if (kcode == 53)
 		ft_close(mlx);
-	if (kcode == UP || kcode == RIGHT || kcode == DOWN || kcode == LEFT)
+	if (kcode == UP || kcode == RIGHT || kcode == DOWN || kcode == LEFT
+		|| kcode == A || kcode == S || kcode == D || kcode == W)
 		ft_event_transl(kcode, mlx);
 	/*
 	if (kcode >= 83 && kcode <= 88)
@@ -60,13 +61,22 @@ int		ft_key_press(int kcode, t_mlx *mlx)
 void	ft_event_transl(int kcode, t_mlx *mlx)
 {
 	if (kcode == UP)
-		mlx->img->origin.y -= 1;
+		mlx->img->origin.y -= 1 * mlx->img->ratio;
 	if (kcode == DOWN)
-		mlx->img->origin.y += 1;
+		mlx->img->origin.y += 1 * mlx->img->ratio;
 	if (kcode == RIGHT)
-		mlx->img->origin.x += 1;
+		mlx->img->origin.x += 1 * mlx->img->ratio;
 	if (kcode == LEFT)
-		mlx->img->origin.x -= 1;
+		mlx->img->origin.x -= 1 * mlx->img->ratio;
+	if (kcode == A)
+		mlx->img->origin.x -= 10 * mlx->img->ratio;
+	if (kcode == S)
+		mlx->img->origin.y += 10 * mlx->img->ratio;
+	if (kcode == D)
+		mlx->img->origin.x += 10 * mlx->img->ratio;
+	if (kcode == W)
+		mlx->img->origin.y -= 10 * mlx->img->ratio;
+	printf("origin.x = %Lf -- origin.y = %Lf\n", mlx->img->origin.x, mlx->img->origin.y);
 	fractal_construct(mlx);
 	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
 }
@@ -115,12 +125,12 @@ int		ft_mouse_event(int mcode, int x, int y, t_mlx *mlx)
 	if (mcode == SCROLL_UP) // scroll up
 	{
 		mlx->img->ratio = mlx->img->ratio * 0.9;
-		printf("valeur de ratio = %f\n", mlx->img->ratio);
+		printf("valeur de ratio = %Lf\n", mlx->img->ratio);
 	}
 	if (mcode == SCROLL_DOWN) // scroll down
 	{
 		mlx->img->ratio = mlx->img->ratio * 1.1;
-		printf("valeur de ratio = %f\n", mlx->img->ratio);
+		printf("valeur de ratio = %Lf\n", mlx->img->ratio);
 	}
 	(void)x;
 	(void)y;

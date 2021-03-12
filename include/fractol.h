@@ -6,15 +6,15 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/11 16:10:38 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/12 17:01:13 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # define NAME "fractol"
-# define W_LX 600
-# define W_LY 600
+# define W_LX 800
+# define W_LY 800
 # define IMG_LX W_LX
 # define IMG_LY W_LY
 # define NB_FRACTAL 4
@@ -26,6 +26,7 @@
 # define CY 0.4
 # define ASPECT_RATIO 1
 # define RADIUS 2
+# define MAX_ITER 255
 
 // Definition des valeurs pour les evenements
 // Clavier
@@ -33,6 +34,10 @@
 # define DOWN 125
 # define LEFT 123
 # define RIGHT 124
+# define A 0
+# define S 1
+# define D 2
+# define W 13
 
 // Souris
 # define M_LEFT 1
@@ -64,9 +69,9 @@ typedef struct	s_ipt
 
 typedef struct	s_fpt
 {
-	float			x;
-	float			y;
-	float			z;
+	long double	x;
+	long double	y;
+	long double	z;
 }				t_fpt;
 
 typedef struct	s_img
@@ -76,9 +81,8 @@ typedef struct	s_img
 	int				nb_c;
 	int				nb_l;
 	char			*fractal;
-	float			ratio;
-	t_ipt			origin;
-	t_fpt			center;
+	long double		ratio;
+	t_fpt			origin;
 	t_fpt			cst;
 	int				max_iter;
 }				t_img;
