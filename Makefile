@@ -14,15 +14,17 @@ SRC_PATH  = src
 OBJ_PATH  = obj
 
 ### SOURCES ###
-SRCS_FILES =	main.c			\
-				ft_mlx.c		\
-				ft_fractol.c	\
-				ft_color.c		\
-				ft_parse_check.c\
-				deal_events.c	\
-				ft_table_int.c	\
-				ft_table_flt.c	\
-				maths_tools1.c	\
+SRCS_FILES =	main.c				\
+				ft_mlx.c			\
+				ft_fractol.c		\
+				color_conv.c		\
+				colorscale1.c	\
+				colorscale2.c	\
+				ft_parse_check.c	\
+				deal_events.c		\
+				ft_table_int.c		\
+				ft_table_flt.c		\
+				maths_tools1.c		\
 				threads_managements.c
 
 

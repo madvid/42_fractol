@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:51:13 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/12 12:21:18 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/13 15:32:58 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** FONCTION : ft_mlx_win_img
 ** PARAMETRES :
 **		mlx [t_mlx*]: pointeur sur structure contenant les pointeurs pour la
-					mlx et l'image
+**					mlx et l'image
 **		gdad [t_gdad*]: pointeur pour ...(?)
 ** DESCRIPTION :
 **		Initialisation des pointeurs et variables relatifs à l'utilisation de
@@ -35,6 +35,7 @@ void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 	mlx->w_title = NAME;
 	mlx->w_lx = W_LX;
 	mlx->w_ly = W_LY;
+	mlx->f_color = colorscale_viridis;
 	mlx->img->ptr = mlx_new_image(mlx->init, IMG_LX, IMG_LY);
 	mlx->img->pixels = (unsigned int*)mlx_get_data_addr(mlx->img->ptr,
 		&(gdad->bpp), &(gdad->s_l), &(gdad->edian));
@@ -43,9 +44,10 @@ void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 	mlx->img->ratio = ASPECT_RATIO;
 	mlx->img->origin.x = 0;
 	mlx->img->origin.y = 0;
-	mlx->img->cst.x = (long double)CX;
-	mlx->img->cst.y = (long double)CY;
-	mlx->img->max_iter = MAX_ITER / 2;
+	mlx->img->cst.x = CST_X;
+	mlx->img->cst.y = CST_Y;
+	mlx->img->deg_mandelbrot = DEG_MANDELBROT;
+	mlx->img->nb_iter = MAX_ITER;
 }
 
 /*
@@ -107,4 +109,3 @@ int		ft_mlx(char *frac)
 	ft_mlx_hook_loop(&mlx);
 	return (0);
 }
-

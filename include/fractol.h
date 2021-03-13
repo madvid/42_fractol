@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/12 17:01:13 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/13 15:58:54 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@
 # define NB_FRACTAL 4
 # define FRACTAL1 "Julia"
 # define FRACTAL2 "Mandelbrot"
-# define FRACTAL3 "BurningShip"
-# define FRACTAL4 "Newton"
-# define CX 0.0
-# define CY 0.4
+# define FRACTAL5 "BurningShip"
+# define FRACTAL6 "Newton"
+# define CST_X 0.0
+# define CST_Y 0.0
+# define DEG_MANDELBROT 1
 # define ASPECT_RATIO 1
 # define RADIUS 2
-# define MAX_ITER 255
+# define MAX_ITER 98
 
 // Definition des valeurs pour les evenements
 // Clavier
@@ -81,10 +82,11 @@ typedef struct	s_img
 	int				nb_c;
 	int				nb_l;
 	char			*fractal;
-	long double		ratio;
 	t_fpt			origin;
 	t_fpt			cst;
-	int				max_iter;
+	int				deg_mandelbrot;
+	long double		ratio;
+	int				nb_iter;
 }				t_img;
 
 typedef struct	s_mlx
@@ -95,6 +97,7 @@ typedef struct	s_mlx
 	int				w_lx;
 	int				w_ly;
 	int				(*f_fractal)(t_img *img, t_fpt coord);
+	int				(*f_color)(int level);
 	t_img			*img;
 }				t_mlx;
 
@@ -129,20 +132,33 @@ int		ft_close(t_mlx *mlx);
 void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad);
 void	ft_mlx_hook(t_mlx *mlx);
 
+// Fonctions en lien avec la gestion des différents fractales //
 void	fractal_construct(t_mlx *mlx);
 void	ft_fractal(t_mlx *mlx);
 int		julia(t_img *img, t_fpt coordc);
 int		mandelbrot(t_img *img, t_fpt coordc);
+int		mandelbrot2(t_img *img, t_fpt coordc);
+int		mandelbrot3(t_img *img, t_fpt coordc);
 int		burningship(t_img *img, t_fpt coordc);
 
+// Fonctions en lien avec les aspects de couleurs du projet //
 t_rgb	ft_hsv_to_rgb(t_hsv hsv);
 t_hsv	ft_rgb_to_hsv(int red, int green, int blue);
 int		ft_rgb2_to_int(t_rgb rgb);
 int		ft_rgb_to_int(int red, int green, int blue);
-int		ft_viridis(int level);
-int		ft_magma(int level);
+int		colorscale_viridis(int level);
+int		colorscale_magma(int level);
+int		colorscale_ylorbr(int level);
+int		colorscale_mako(int level);
+int		colorscale_coolwarm(int level);
+int		colorscale_reds(int level);
+int		colorscale_greens(int level);
+int		colorscale_blues(int level);
+int		f_cborn(double value);
 
+// Fonctions en lien avec les aspects mathematiques du projet //
 t_fpt	associated_complex_coord(t_ipt p, t_img *img);
+t_fpt	complex_prod(t_fpt z1, t_fpt z2)
 
 void	f_thd(void *ptr);
 
