@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 10:52:39 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/10 16:39:59 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/03/13 15:58:50 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_usage(int ac)
 		ft_putstr("Too many arguments.\n");
 	ft_putstr("usage:\n./fractol [fractal name]\n");
 	ft_putstr("[fractal name] has to be one of the following:\n");
-	ft_putstr("Julia\nMandelbrot\n____\n");
+	ft_putstr("Julia\nMandelbrot\nBurningShip\n");
 }
 
 /*
