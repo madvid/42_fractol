@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/19 15:00:54 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/13 15:51:07 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/02 22:54:34 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,27 @@ t_fpt	associated_complex_coord(t_ipt p, t_img *img)
 t_fpt	complex_prod(t_fpt z1, t_fpt z2)
 {
 	return ((t_fpt){z1.x * z2.x - z1.y * z2.y, z1.x * z2.y + z1.y * z2.x, 0});
+}
+
+/*
+** FONCTION: complex_power
+** PARAMETRES:
+**		z [t_fpt]: 1er nombre complexe de la multiplication
+**		p [int]: power to which z1 is elevated
+** DESCRIPTION:
+**		Calculate the power of a complex number.
+**		Function is not protected from overflow.
+**		This is expected, it allows not performing a test and thus save time.
+** RETOUR:
+**		result [t_fpt]: result of z elevated to p.
+*/
+
+t_fpt	complex_power(t_fpt z, int p)
+{
+	t_fpt	res;
+
+	if (p > 2)
+		res = complex_power(z, p - 1);
+	res = complex_prod(z, z);
+	return (res);
 }

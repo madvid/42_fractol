@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 13:29:01 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/12 10:39:37 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/02 15:13:33 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ void		f_thd(void *ptr)
 		{
 			coordc.x = associated_complex_coord(pt, mlx->img).x;
 			pt.z = mlx->f_fractal(mlx->img, coordc);
-			mlx->img->pixels[mlx->img->nb_c * pt.y + pt.x] = ft_viridis(pt.z);
+			mlx->img->pixels[mlx->img->nb_c * pt.y + pt.x] = colorscale_coolwarm(pt.z);
 		}
 }

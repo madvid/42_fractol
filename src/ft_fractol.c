@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 14:05:43 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/13 15:31:27 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/02 22:56:27 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@
 int		julia(t_img *img, t_fpt coordc)
 {
 	int		iter;
-	t_fpt	tmpc;
 
 	iter = -1;
 	while (++iter < img->nb_iter)
 	{
-		tmpc.x = coordc.x * coordc.x - coordc.y * coordc.y;
-		coordc.y = 2 * coordc.x * coordc.y + img->cst.y;
-		coordc.x = tmpc.x + img->cst.x;
+		coordc = complex_prod(coordc, coordc);
+		coordc.x += img->cst.x;
+		coordc.y += img->cst.y;
 		if ((coordc.x * coordc.x + coordc.y * coordc.y) >= RADIUS)
 			break ;
 	}
@@ -61,16 +60,16 @@ int		julia(t_img *img, t_fpt coordc)
 int		mandelbrot(t_img *img, t_fpt coordc)
 {
 	int		iter;
-	t_fpt	tmpc;
+	//t_fpt	tmpc;
 	t_fpt	c;
 
 	iter = -1;
 	c = coordc;
 	while (++iter < img->nb_iter)
 	{
-		tmpc.x = coordc.x * coordc.x - coordc.y * coordc.y;
-		coordc.y = 2 * coordc.x * coordc.y + c.y;
-		coordc.x = tmpc.x + c.x;
+		coordc = complex_prod(coordc, coordc);
+		coordc.x += c.x;
+		coordc.y += c.y;
 		if ((coordc.x * coordc.x + coordc.y * coordc.y) >= RADIUS)
 			break ;
 	}

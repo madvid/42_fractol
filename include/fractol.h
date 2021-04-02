@@ -6,22 +6,22 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/13 15:58:54 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/02 22:30:10 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # define NAME "fractol"
-# define W_LX 800
-# define W_LY 800
+# define W_LX 400
+# define W_LY 400
 # define IMG_LX W_LX
 # define IMG_LY W_LY
 # define NB_FRACTAL 4
 # define FRACTAL1 "Julia"
 # define FRACTAL2 "Mandelbrot"
-# define FRACTAL5 "BurningShip"
-# define FRACTAL6 "Newton"
+# define FRACTAL3 "BurningShip"
+# define FRACTAL4 "Newton"
 # define CST_X 0.0
 # define CST_Y 0.0
 # define DEG_MANDELBROT 1
@@ -31,14 +31,45 @@
 
 // Definition des valeurs pour les evenements
 // Clavier
-# define UP 126
-# define DOWN 125
-# define LEFT 123
-# define RIGHT 124
-# define A 0
-# define S 1
-# define D 2
-# define W 13
+# if defined(__APPLE__)
+#  define EXIT 53
+#  define UP 126
+#  define DOWN 125
+#  define LEFT 123
+#  define RIGHT 124
+#  define A 0
+#  define S 1
+#  define D 2
+#  define W 13
+#  define SPACE 49
+#  define ONE 83
+#  define TWO 84
+#  define THREE 85
+#  define FOUR 86
+#  define FIVE 87
+#  define SIX 88
+#  define PLUS 69
+#  define MINUS 78
+# elif defined(__linux__)
+#  define EXIT 65307
+#  define UP 65362
+#  define DOWN 65364
+#  define LEFT 65361
+#  define RIGHT 65363
+#  define A 122
+#  define S 113
+#  define D 100
+#  define W 115
+#  define SPACE 32
+#  define ONE 65436
+#  define TWO 65433
+#  define THREE 65435
+#  define FOUR 65430
+#  define FIVE 65437
+#  define SIX 65432
+#  define PLUS 65451
+#  define MINUS 65453
+# endif
 
 // Souris
 # define M_LEFT 1
@@ -125,7 +156,8 @@ float	**ft_table_flt(int nb_l, int nb_c);
 int		ft_key_press(int keycode, t_mlx *mlx);
 int		ft_key_release(int keycode, t_mlx *mlx);
 int		ft_mouse_event(int button, int x, int y, t_mlx *mlx);
-void	ft_event_transl(int kcode, t_mlx *mlx);
+void	event_transl(int kcode, t_mlx *mlx);
+void	event_zoom(int sign, t_mlx *mlx);
 int		ft_mouse_move(int mouse_x, int mouse_y, t_mlx *mlx);
 
 int		ft_close(t_mlx *mlx);
@@ -158,7 +190,7 @@ int		f_cborn(double value);
 
 // Fonctions en lien avec les aspects mathematiques du projet //
 t_fpt	associated_complex_coord(t_ipt p, t_img *img);
-t_fpt	complex_prod(t_fpt z1, t_fpt z2)
+t_fpt	complex_prod(t_fpt z1, t_fpt z2);
 
 void	f_thd(void *ptr);
 

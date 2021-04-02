@@ -6,7 +6,7 @@
 #    By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/28 10:48:33 by mdavid            #+#    #+#              #
-#    Updated: 2019/09/29 14:14:50 by mdavid           ###   ########.fr        #
+#    Updated: 2021/04/02 00:56:39 by mdavid           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,7 +98,7 @@ $(NAME) : $(OBJS)
 
 %.o: %.c
 	@echo "  \033[1;32m[$(CC)] - [$(CFLAGS)]\033[0m \033[1;33min progress ...:\033[0m $< \033[1;31m->\033[0m $@"
-	@$(CC) $(CFLAGS) -I $(INCLUDE) -c $^ -o $@
+	@$(CC) $(CFLAGS) -I .$(INCLUDE) -c $^ -o $@
 
 norme :
 	 @norminette -R CheckForbiddenSourceHeader $(SRCS) $(INCLUDE)

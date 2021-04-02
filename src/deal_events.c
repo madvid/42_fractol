@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:09:28 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/13 15:20:43 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/02 22:57:28 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,32 @@
 
 int		ft_key_press(int kcode, t_mlx *mlx)
 {
-	if (kcode == 53)
+	printf("valeur de key = %d\n", kcode);
+	if (kcode == EXIT)
 		ft_close(mlx);
-	if (kcode == UP || kcode == RIGHT || kcode == DOWN || kcode == LEFT
+	else if (kcode == UP || kcode == RIGHT || kcode == DOWN || kcode == LEFT
 		|| kcode == A || kcode == S || kcode == D || kcode == W)
-		ft_event_transl(kcode, mlx);
+		event_transl(kcode, mlx);
+	else if (kcode == PLUS || kcode == MINUS)
+		event_zoom(kcode == PLUS ? -1 : 1, mlx);
 	return (0);
+}
+
+/*
+** FONCTION : EVENT_ZOOM
+** PARAMETRES :	int sign : valeur de la touche du clavier pressée.
+**				t_mlx *mlx : ptr général contenant les struct wind/events/img.
+** DESCRIPTION :
+**		Gère la translation du centre de l'image.
+** RETOUR :
+**		Aucun.
+*/
+
+void event_zoom(int sign, t_mlx *mlx)
+{
+	mlx->img->ratio = mlx->img->ratio * (1 + 0.1 * sign);
+	fractal_construct(mlx);
+	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
 }
 
 /*
@@ -48,7 +68,7 @@ int		ft_key_press(int kcode, t_mlx *mlx)
 **		Aucun.
 */
 
-void	ft_event_transl(int kcode, t_mlx *mlx)
+void	event_transl(int kcode, t_mlx *mlx)
 {
 	if (kcode == UP)
 		mlx->img->origin.y -= 1 * mlx->img->ratio;
@@ -111,14 +131,10 @@ int		ft_mouse_event(int mcode, int x, int y, t_mlx *mlx)
 		...
 	}
 	*/
-	if (mcode == SCROLL_UP) // scroll up
-		mlx->img->ratio = mlx->img->ratio * 0.9;
-	if (mcode == SCROLL_DOWN) // scroll down
-		mlx->img->ratio = mlx->img->ratio * 1.1;
 	(void)x;
 	(void)y;
-	fractal_construct(mlx);
-	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
+	if ((mcode == SCROLL_UP) || (mcode == SCROLL_DOWN))
+		event_zoom(mcode == SCROLL_UP? -1 : 1, mlx);
 	return (0);
 }
 

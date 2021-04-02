@@ -13,6 +13,16 @@ INC = -I include -I $(LIBFT)
 SRC_PATH  = src
 OBJ_PATH  = obj
 
+
+### OS DEPENDING RULES ###
+OS = $(shell uname)
+
+ifeq ($(OS), Linux):
+	MLX_LINK = -lmlx -lXext -lX11 -lbsd -lpthread
+else
+	MLX_LINK = -l pthread -lmlx -framework OpenGL -framework AppKit
+endif
+
 ### SOURCES ###
 SRCS_FILES =	main.c				\
 				ft_mlx.c			\
@@ -45,15 +55,6 @@ BLUE = \033[1;34m
 VIOLET = \033[1;35m
 CYAN = \033[1;36m
 WHITE = \033[1;37m
-
-### OS DEPENDING RULES ###
-OS = $(shell uname)
-
-ifeq ($(OS), Linux):
-	MLX_LINK = -lmlx -lXext -lX11 -lbsd
-else
-	MLX_LINK = -l pthread -lmlx -framework OpenGL -framework AppKit
-endif
 
 
 ### RULES ###
