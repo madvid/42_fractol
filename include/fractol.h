@@ -6,15 +6,15 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/02 22:30:10 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/04 00:33:35 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # define NAME "fractol"
-# define W_LX 400
-# define W_LY 400
+# define W_LX 500
+# define W_LY 500
 # define IMG_LX W_LX
 # define IMG_LY W_LY
 # define NB_FRACTAL 4
@@ -48,6 +48,8 @@
 #  define FOUR 86
 #  define FIVE 87
 #  define SIX 88
+#  define SEVEN 89
+#  define EIGHT 90
 #  define PLUS 69
 #  define MINUS 78
 # elif defined(__linux__)
@@ -67,6 +69,8 @@
 #  define FOUR 65430
 #  define FIVE 65437
 #  define SIX 65432
+#  define SEVEN 65429
+#  define EIGHT 65431
 #  define PLUS 65451
 #  define MINUS 65453
 # endif
@@ -115,6 +119,9 @@ typedef struct	s_img
 	char			*fractal;
 	t_fpt			origin;
 	t_fpt			cst;
+	t_fpt			root1;
+	t_fpt			root2;
+	t_fpt			root3;
 	int				deg_mandelbrot;
 	long double		ratio;
 	int				nb_iter;
@@ -158,6 +165,7 @@ int		ft_key_release(int keycode, t_mlx *mlx);
 int		ft_mouse_event(int button, int x, int y, t_mlx *mlx);
 void	event_transl(int kcode, t_mlx *mlx);
 void	event_zoom(int sign, t_mlx *mlx);
+void	event_color(int color_code, t_mlx *mlx);
 int		ft_mouse_move(int mouse_x, int mouse_y, t_mlx *mlx);
 
 int		ft_close(t_mlx *mlx);
@@ -169,9 +177,9 @@ void	fractal_construct(t_mlx *mlx);
 void	ft_fractal(t_mlx *mlx);
 int		julia(t_img *img, t_fpt coordc);
 int		mandelbrot(t_img *img, t_fpt coordc);
-int		mandelbrot2(t_img *img, t_fpt coordc);
-int		mandelbrot3(t_img *img, t_fpt coordc);
 int		burningship(t_img *img, t_fpt coordc);
+int		classic_newton(t_img *img, t_fpt coordc);
+t_fpt	formula_newton(t_fpt z, int degree);
 
 // Fonctions en lien avec les aspects de couleurs du projet //
 t_rgb	ft_hsv_to_rgb(t_hsv hsv);
@@ -189,9 +197,15 @@ int		colorscale_blues(int level);
 int		f_cborn(double value);
 
 // Fonctions en lien avec les aspects mathematiques du projet //
-t_fpt	associated_complex_coord(t_ipt p, t_img *img);
-t_fpt	complex_prod(t_fpt z1, t_fpt z2);
+t_fpt		associated_c_coord(t_ipt p, t_img *img);
+t_fpt		complex_conjugate(t_fpt z);
+t_fpt		c_prod(t_fpt z1, t_fpt z2);
+t_fpt		c_power(t_fpt z, int p);
+long double	c_module(t_fpt z);
+long double c_dist(t_fpt z1, t_fpt z2);
 
-void	f_thd(void *ptr);
+
+void	f_thd1(void *ptr);
+void	f_thd2(void *ptr);
 
 #endif

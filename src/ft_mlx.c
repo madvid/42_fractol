@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:51:13 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/13 15:32:58 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/04 00:32:20 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 	mlx->img->origin.y = 0;
 	mlx->img->cst.x = CST_X;
 	mlx->img->cst.y = CST_Y;
+	mlx->img->root1.x = 1.0;
+	mlx->img->root2.x = 0.0;
+	mlx->img->root2.y = 1.0;
+	mlx->img->root3.x = 0.0;
+	mlx->img->root3.y = -1.0;
 	mlx->img->deg_mandelbrot = DEG_MANDELBROT;
 	mlx->img->nb_iter = MAX_ITER;
 }

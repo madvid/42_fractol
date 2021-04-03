@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:09:28 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/02 22:57:28 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/03 23:22:48 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 int		ft_key_press(int kcode, t_mlx *mlx)
 {
-	printf("valeur de key = %d\n", kcode);
+	//printf("valeur de key = %d\n", kcode);
 	if (kcode == EXIT)
 		ft_close(mlx);
 	else if (kcode == UP || kcode == RIGHT || kcode == DOWN || kcode == LEFT
@@ -38,7 +38,42 @@ int		ft_key_press(int kcode, t_mlx *mlx)
 		event_transl(kcode, mlx);
 	else if (kcode == PLUS || kcode == MINUS)
 		event_zoom(kcode == PLUS ? -1 : 1, mlx);
+	else if (kcode == ONE || kcode == TWO || kcode == THREE || kcode == FOUR
+		|| kcode == FIVE || kcode == SIX || kcode == SEVEN || kcode == EIGHT)
+		event_color(kcode, mlx);
 	return (0);
+}
+
+/*
+** FONCTION: EVENT_COLOR
+** PARAMETRES: color_code [int]:
+**			   mlx [t_mlx*]:
+** DESCRIPTION:
+**		Modify the colorscale used to draw the fractal
+** RETOUR:
+**		None
+*/
+
+void	event_color(int color_code, t_mlx *mlx)
+{
+	if (color_code == ONE)
+		mlx->f_color = colorscale_viridis;
+	else if (color_code == TWO)
+		mlx->f_color = colorscale_magma;
+	else if (color_code == THREE)
+		mlx->f_color = colorscale_ylorbr;
+	else if (color_code == FOUR)
+		mlx->f_color = colorscale_mako;
+	else if (color_code == FIVE)
+		mlx->f_color = colorscale_coolwarm;
+	else if (color_code == SIX)
+		mlx->f_color = colorscale_blues;
+	else if (color_code == SEVEN)
+		mlx->f_color = colorscale_greens;
+	else
+		mlx->f_color = colorscale_reds;
+	fractal_construct(mlx);
+	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
 }
 
 /*
@@ -46,9 +81,9 @@ int		ft_key_press(int kcode, t_mlx *mlx)
 ** PARAMETRES :	int sign : valeur de la touche du clavier pressée.
 **				t_mlx *mlx : ptr général contenant les struct wind/events/img.
 ** DESCRIPTION :
-**		Gère la translation du centre de l'image.
+**		Handles the translation events.
 ** RETOUR :
-**		Aucun.
+**		None.
 */
 
 void event_zoom(int sign, t_mlx *mlx)
