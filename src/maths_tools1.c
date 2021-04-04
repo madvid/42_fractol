@@ -6,11 +6,12 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/19 15:00:54 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/04 00:20:17 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/04 22:09:07 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
+#include <stdio.h>
 #include "fractol.h"
 
 /*
@@ -125,7 +126,14 @@ long double	c_module(t_fpt z)
 
 long double c_dist(t_fpt z1, t_fpt z2)
 {
-	return (c_module((t_fpt){z1.x - z2.x, z1.y - z2.y, 0}));
+	t_fpt			tmp;
+	long double		res;
+
+	tmp.x = z1.x - z2.x;
+	tmp.y = z1.y - z2.y;
+	tmp.z = z1.z - z2.z;
+	res = c_module(tmp);
+	return (res);
 }
 
 /*

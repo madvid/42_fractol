@@ -6,7 +6,7 @@
 #    By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/28 10:48:33 by mdavid            #+#    #+#              #
-#    Updated: 2021/04/02 00:56:39 by mdavid           ###   ########.fr        #
+#    Updated: 2021/04/04 21:49:07 by mdavid           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,20 +91,21 @@ INCLUDE = libft.h
 
 all : $(NAME)
 
-$(NAME) : $(OBJS)
+$(NAME) : $(OBJS) $(INCLUDE)
 	@echo "\033[1;36m[ar rcs)]Constructing librairy\033[0m"
 	@ar rcs $(NAME) $^
 	@echo "\033[1;31m[ar rcs)]--> Librairy created\033[0m"
 
-%.o: %.c
+%.o: %.c Makefile
 	@echo "  \033[1;32m[$(CC)] - [$(CFLAGS)]\033[0m \033[1;33min progress ...:\033[0m $< \033[1;31m->\033[0m $@"
-	@$(CC) $(CFLAGS) -I .$(INCLUDE) -c $^ -o $@
+	@$(CC) $(CFLAGS) -MD -c $^ -o $@ -I .$(INCLUDE)
 
 norme :
 	 @norminette -R CheckForbiddenSourceHeader $(SRCS) $(INCLUDE)
 	 
 clean :
 	@rm -rf $(OBJS)
+	@rm -rf $(OBJS:.o=.d)
 
 fclean : clean
 	@rm -f $(NAME)

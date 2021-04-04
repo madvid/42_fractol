@@ -61,9 +61,9 @@ WHITE = \033[1;37m
 
 all: obj_dir $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT) $(INC_FILE)
+$(NAME): $(OBJS) $(LIBFT) $(INC_FILE) Makefile
 	@echo "$(CYAN)  Generating fractol program objects$(NOC)"
-	@$(CC) $(FLAGS) -o $@ $(OBJS) $(LFT) $(MLX_LINK)
+	@$(CC) $(FLAGS) -MD -o $@ $(OBJS) $(LFT) $(MLX_LINK)
 	@echo "$(RED)FRACTOL successfully compiled$(NOC)"
 
 $(LIBFT):
@@ -74,9 +74,9 @@ $(LIBFT):
 obj_dir:
 	@mkdir -p $(OBJ_PATH)
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c Makefile
 	@echo "  $(GREEN)[$(CC) - $(FLAGS)]$(NOC) $(YELLOW)in progress ...: $(WHITE)$(notdir $^) $(RED)->$(NOC) $(notdir $@)"
-	@$(CC) $(FLAGS) $(INC) -c $< -o $@
+	@$(CC) $(FLAGS) $(INC) -MD -c $< -o $@
 
 norme :
 	@echo "$(CYAN)Does the fractol source files are normed ?$(NOC)"
@@ -90,9 +90,9 @@ clean:
 	@echo "$(CYAN)Supressing libraries objects$(NOC)"
 	@make clean -C $(LIBFT)
 	@echo "$(RED)  Libraries objects destroyed$(NOC)"
-	@echo "$(CYAN)Supressing fractol objects$(NOC)"
+	@echo "$(CYAN)Supressing fractol objects and dependencies files$(NOC)"
 	@rm -rf $(OBJ_PATH)
-	@echo "$(RED)  fractol objects destroyed$(NOC)"
+	@echo "$(RED)  fractol objects and dependencies files destroyed$(NOC)"
 
 fclean: clean
 	@echo "$(CYAN)Supressing fractol binary & static library$(NOC)"

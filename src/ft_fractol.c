@@ -6,12 +6,11 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 14:05:43 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/04 00:22:08 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/04 22:18:58 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <math.h>
 #include <pthread.h>
 #include "fractol.h"
@@ -128,16 +127,12 @@ int		classic_newton(t_img *img, t_fpt coordc)
 	{
 		tmpc = coordc;
 		coordc = formula_newton(coordc, 3);
-		if (c_dist(coordc, tmpc) < 0.001)
-		{
-			if (c_dist(coordc, img->root1) < 0.001)
-				return (colorscale_blues(iter));
-			if (c_dist(coordc, img->root2) < 0.001)
-				return (colorscale_greens(iter));
-			if (c_dist(coordc, img->root3) < 0.001)
-				return (colorscale_reds(iter));
-			break ;
-		}
+		if (c_dist(coordc, img->root1) < 0.01)
+			return (colorscale_blues(iter));
+		if (c_dist(coordc, img->root2) < 0.01)
+			return (colorscale_greens(iter));
+		if (c_dist(coordc, img->root3) < 0.01)
+			return (colorscale_reds(iter));
 	}
 	return (16777215);
 }

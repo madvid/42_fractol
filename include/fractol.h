@@ -6,15 +6,15 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/04 00:33:35 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/04 20:45:28 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # define NAME "fractol"
-# define W_LX 500
-# define W_LY 500
+# define W_LX 600
+# define W_LY 400
 # define IMG_LX W_LX
 # define IMG_LY W_LY
 # define NB_FRACTAL 4
