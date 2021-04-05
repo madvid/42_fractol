@@ -203,6 +203,10 @@ Fractol can be existed normally in 2 ways:
 * pressing the button <td valign="top" align="center"><kbd>&nbsp;esc&nbsp;</kbd></td>
 </tr>
 
+## Remarks on the interaction:
+Based on your system and keyboard configuration, the interactions may not work.
+This is due to key value corresponding to the button pressed. You need to refer to the key values mapping of your system/keyboard and modify the macros in the right part (apple / linux or add an extra part).
+
 ## Jupyternotebook: interpolation_multilineaire_colorscale.ipynb
 This Jupyter notebook contain the python code developped to adjust several polynomial models on the different coloscale in the Seaborn python library.
 We coefficients of the polynomial models are printed at the end to a preformated C, we just need to copy/paste the output directly.
