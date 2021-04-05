@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 14:05:43 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/04 22:18:58 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/05 00:51:20 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		mandelbrot(t_img *img, t_fpt coordc)
 	c = coordc;
 	while (++iter < img->nb_iter)
 	{
-		coordc = c_prod(coordc, coordc);
+		coordc = c_power(coordc, img->deg_mandelbrot);
 		coordc.x += c.x;
 		coordc.y += c.y;
 		if ((coordc.x * coordc.x + coordc.y * coordc.y) >= RADIUS)
@@ -177,10 +177,8 @@ void	fractal_construct(t_mlx *mlx)
 {
 	t_ipt		p;
 	pthread_t	thds[IMG_LY];
-	t_img		*img;
 	void		(*f_thd)(void *ptr);
 
-	img = mlx->img;
 	p.y = -1;
 	if (ft_strcmp(mlx->img->fractal, "Newton"))
 		f_thd = f_thd1;

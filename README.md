@@ -1,10 +1,14 @@
 # Fractol
 
 Fractol is a graphic project of 42 school curiculum.
-The aim of this project is to program a Fractals explorer (see project subject in ressource_and_assets repository).
+The aim of this project is to program a Fractals explorer (see project subject [here]() or in ressource_and_assets repository).
 
 <img align="center" src="ressource_and_assets/intro_img_julia.png" width="100%" />
 
+The main objectives of the project is to:
+* use the *minilibX* graphic library,
+* tackle complex number in a programming project,
+* address the problem of optimization in graphic project.
 
 ## Install & launch
 ```bash
@@ -30,9 +34,20 @@ Open the Mandelbrot fractal ⇣
 ```bash
 ./fractol Mandelbrot
 ```
+<img align="center" src="ressource_and_assets/mandelbrot.png" width="100%" />
 
+### Remarks:
+Default colorscale is viridis, this can be changed in the source code in the file ```mlx.c``` line 39. To see the available colorscale, refers colorscale functions to the files ```colorscale1.c``` and ```colorscale2.c```.
 
 ## Program interaction
+
+When fractol program is running, you can interact with the fractal representation via a collection of actions;
+* translations,
+* zoom,
+* colorscale change.
+
+### Translations:
+Translations can be performed via the following keyboard buttons:
 
 <table width="100%">
 <thead>
@@ -47,78 +62,118 @@ Open the Mandelbrot fractal ⇣
 </thead>
 <tbody>
 <tr>
-<td valign="top" height="30px">Close the program (aka quit/exit)</td>
-<td valign="top" align="center"><kbd>&nbsp;esc&nbsp;</kbd></td>
-</tr>
-<tr>
-<td valign="top" height="30px">Reset all the changes made for this map</td>
-<td valign="top" align="center"><kbd>&nbsp;clear&nbsp;</kbd></td>
-</tr>
-<tr>
-<td valign="top" height="30px">Change the display gradient (aka change color)</td>
-<td valign="top" align="center"><kbd>&nbsp;shift&nbsp;</kbd></td>
-</tr>
-<tr>
-<td valign="top" height="30px">Enable or disable the mouse controls</td>
-<td valign="top" align="center"><kbd>&nbsp;M&nbsp;</kbd> or <kbd>&nbsp;S&nbsp;</kbd></td>
-</tr>
-<tr>
-<td valign="top" height="30px">Increase the global size of the fractal (aka zoom)</td>
-<td valign="top" align="center"><kbd>&nbsp;+&nbsp;</kbd></td>
-</tr>
-<tr>
-<td valign="top" height="30px">Decrease the global size of the fractal (aka unzoom)</td>
-<td valign="top" align="center"><kbd>&nbsp;-&nbsp;</kbd></td>
-</tr>
-<tr>
-<td valign="top" height="30px">Move the fractal to the up (aka move up)</td>
+<td valign="top" height="30px">Tiny translation to the up</td>
 <td valign="top" align="center"><kbd>&nbsp;▲&nbsp;</kbd></td>
 </tr>
 <tr>
-<td valign="top" height="30px">Move the fractal to the down (aka move down)</td>
+<td valign="top" height="30px">Tiny translation to the down</td>
 <td valign="top" align="center"><kbd>&nbsp;▼&nbsp;</kbd></td>
 </tr>
 <tr>
-<td valign="top" height="30px">Move the fractal to the left (aka width move left)</td>
+<td valign="top" height="30px">Tiny translation to the left</td>
 <td valign="top" align="center"><kbd>&nbsp;◄&nbsp;</kbd></td>
 </tr>
 <tr>
-<td valign="top" height="30px">Move the fractal to the right (aka move right)</td>
+<td valign="top" height="30px">Tiny translation to the right</td>
 <td valign="top" align="center"><kbd>&nbsp;►&nbsp;</kbd></td>
 </tr>
 <tr>
-<td valign="top" height="30px">Increase the number of iterations</td>
-<td valign="top" align="center"><kbd>&nbsp;W&nbsp;</kbd></td>
+<td valign="top" height="30px">Translation to the up</td>
+<td valign="top" align="center"><kbd>&nbsp;z&nbsp;</kbd></td>
 </tr>
 <tr>
-<td valign="top" height="30px">Decrease the numbre of iterations</td>
-<td valign="top" align="center"><kbd>&nbsp;Q&nbsp;</kbd></td>
+<td valign="top" height="30px">Translation to the down</td>
+<td valign="top" align="center"><kbd>&nbsp;s&nbsp;</kbd></td>
 </tr>
 <tr>
-<td valign="top" height="30px">Clockwise rotation on the Z axe</td>
-<td valign="top" align="center"><kbd>&nbsp;T&nbsp;</kbd></td>
+<td valign="top" height="30px">Translation to the left</td>
+<td valign="top" align="center"><kbd>&nbsp;q&nbsp;</kbd></td>
 </tr>
 <tr>
-<td valign="top" height="30px">Counter clockwise rotation on the Z axe</td>
-<td valign="top" align="center"><kbd>&nbsp;R&nbsp;</kbd></td>
-</tr>
-<tr>
-<td valign="top" height="30px">Display the Julia fractal</td>
-<td valign="top" align="center"><kbd>&nbsp;1&nbsp;</kdb></td>
-</tr>
-<tr>
-<td valign="top" height="30px">Display the Mandelbrot fractal</td>
-<td valign="top" align="center"><kbd>&nbsp;2&nbsp;</kbd></td>
-</tr>
-<tr>
-<td valign="top" height="30px">Display the Tricorn fractal</td>
-<td valign="top" align="center"><kbd>&nbsp;3&nbsp;</kbd></td>
+<td valign="top" height="30px">Move the fractal to the right</td>
+<td valign="top" align="center"><kbd>&nbsp;d&nbsp;</kbd></td>
 </tr>
 </tbody>
 </table>
 
-## Mouse controls
+### Zoom
+Zoom/Unzoom operations can be performed via the following keyboard buttons:
 
+<table width="100%">
+<thead>
+<tr>
+<td width="65%" height="60px" align="center" cellpadding="0">
+<strong>Description</strong>
+</td>
+<td width="10%" align="center" cellpadding="0">
+<span style="width:70px">&nbsp;</span><strong>Key(s)</strong><span style="width:50px">&nbsp;</span>
+</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="top" height="30px">Increase the global size of the fractal / zoom</td>
+<td valign="top" align="center"><kbd>&nbsp;+&nbsp;</kbd></td>
+</tr>
+<tr>
+<td valign="top" height="30px">Decrease the global size of the fractal / unzoom</td>
+<td valign="top" align="center"><kbd>&nbsp;-&nbsp;</kbd></td>
+</tr>
+</tbody>
+</table>
+
+### Colorscale change:
+You can change the colorscale used in the rendering by using the keyboard button of the pad:
+
+<table width="100%">
+<thead>
+<tr>
+<td width="65%" height="60px" align="center" cellpadding="0">
+<strong>Description</strong>
+</td>
+<td width="10%" align="center" cellpadding="0">
+<span style="width:70px">&nbsp;</span><strong>Key(s)</strong><span style="width:50px">&nbsp;</span>
+</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="top" height="30px">viridis</td>
+<td valign="top" align="center"><kbd>&nbsp;1&nbsp;</kbd></td>
+</tr>
+<tr>
+<td valign="top" height="30px">magma</td>
+<td valign="top" align="center"><kbd>&nbsp;2&nbsp;</kbd></td>
+</tr>
+<tr>
+<td valign="top" height="30px">YlOrBr</td>
+<td valign="top" align="center"><kbd>&nbsp;3&nbsp;</kbd></td>
+</tr>
+<tr>
+<td valign="top" height="30px">mako</td>
+<td valign="top" align="center"><kbd>&nbsp;4&nbsp;</kbd></td>
+</tr>
+<tr>
+<td valign="top" height="30px">Coolwarm</td>
+<td valign="top" align="center"><kbd>&nbsp;5&nbsp;</kbd></td>
+</tr>
+<tr>
+<td valign="top" height="30px">Blue shades</td>
+<td valign="top" align="center"><kbd>&nbsp;6&nbsp;</kbd></td>
+</tr>
+<tr>
+<td valign="top" height="30px">Red shade</td>
+<td valign="top" align="center"><kbd>&nbsp;7&nbsp;</kbd></td>
+</tr>
+<tr>
+<td valign="top" height="30px">Green shade</td>
+<td valign="top" align="center"><kbd>&nbsp;8&nbsp;</kbd></td>
+</tr>
+</tbody>
+</table>
+
+### Mouse controls
+You can also performed zoom and unzoom operations via the mouse:
 <table width="100%">
 <thead>
 <tr>
@@ -132,14 +187,6 @@ Open the Mandelbrot fractal ⇣
 </thead>
 <tbody>
 <tr>
-<td valign="top" height="30px">Increase the global size of the fractal at the position of the cursor</td>
-<td valign="top" align="center"><kbd>&nbsp;left button&nbsp;</kbd></td>
-</tr>
-<tr>
-<td valign="top" height="30px">Decrease the global size of the fractal at the position of the cursor</td>
-<td valign="top" align="center"><kbd>&nbsp;right button&nbsp;</kbd></td>
-</tr>
-<tr>
 <td valign="top" height="30px">Increase the global size of the fractal (aka zoom)</td>
 <td valign="top" align="center"><kbd>&nbsp;scroll up&nbsp;</kbd></td>
 </tr>
@@ -150,6 +197,8 @@ Open the Mandelbrot fractal ⇣
 </tbody>
 </table>
 
-## Contact & contribute
-
-If you want to contact me, or fix/improve Fractol, just send me a mail at **bsouchet@student.42.fr**
+### Exit
+Fractol can be existed normally in 2 ways:
+* clicking the cross of the window,
+* pressing the button <td valign="top" align="center"><kbd>&nbsp;esc&nbsp;</kbd></td>
+</tr>

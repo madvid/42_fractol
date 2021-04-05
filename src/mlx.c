@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:51:13 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/04 19:28:10 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/05 00:22:50 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 	mlx->w_lx = W_LX;
 	mlx->w_ly = W_LY;
 	mlx->f_color = colorscale_viridis;
-	mlx->img = (t_img*)malloc(sizeof(t_img));
+	if (!(mlx->img = (t_img*)malloc(sizeof(t_img))))
+		ft_close(mlx);
 	mlx->img->ptr = mlx_new_image(mlx->init, IMG_LX, IMG_LY);
 	mlx->img->pixels = (unsigned int*)mlx_get_data_addr(mlx->img->ptr,
 		&(gdad->bpp), &(gdad->s_l), &(gdad->edian));
@@ -102,15 +103,17 @@ int		ft_close(t_mlx *mlx)
 
 int		ft_mlx(char *frac)
 {
-	t_mlx	mlx;
+	t_mlx	*mlx;
 	t_gdad	gdad;
 
-	mlx.init = mlx_init();
-	ft_mlx_win_img(&mlx, &gdad);
-	mlx.img->fractal = frac;
-	ft_fractal(&mlx);
-	fractal_construct(&mlx);
-	mlx_put_image_to_window(mlx.init, mlx.w_ptr, mlx.img->ptr, 0, W_LY / 10);
-	ft_mlx_hook_loop(&mlx);
+	if (!(mlx = (t_mlx*)(malloc(sizeof(t_mlx)))))
+		return (0);
+	mlx->init = mlx_init();
+	ft_mlx_win_img(mlx, &gdad);
+	mlx->img->fractal = frac;
+	ft_fractal(mlx);
+	fractal_construct(mlx);
+	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
+	ft_mlx_hook_loop(mlx);
 	return (0);
 }

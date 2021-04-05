@@ -3,7 +3,7 @@ NAME   = fractol
 
 ### COMPILATION ###
 CC = clang
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror
 
 ### INCLUDES ###
 LIBFT = libft
@@ -25,15 +25,13 @@ endif
 
 ### SOURCES ###
 SRCS_FILES =	main.c				\
-				ft_mlx.c			\
-				ft_fractol.c		\
+				mlx.c			\
+				fractol.c		\
 				color_conv.c		\
 				colorscale1.c	\
 				colorscale2.c	\
-				ft_parse_check.c	\
+				parse_check.c	\
 				deal_events.c		\
-				ft_table_int.c		\
-				ft_table_flt.c		\
 				maths_tools1.c		\
 				threads_managements.c
 
@@ -75,7 +73,7 @@ obj_dir:
 	@mkdir -p $(OBJ_PATH)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c Makefile
-	@echo "  $(GREEN)[$(CC) - $(FLAGS)]$(NOC) $(YELLOW)in progress ...: $(WHITE)$(notdir $^) $(RED)->$(NOC) $(notdir $@)"
+	@echo "  $(GREEN)[$(CC) - $(FLAGS)]$(NOC) $(YELLOW)in progress ...: $(WHITE)$(notdir $<) $(RED)->$(NOC) $(notdir $@)"
 	@$(CC) $(FLAGS) $(INC) -MD -c $< -o $@
 
 norme :

@@ -1,4 +1,5 @@
 libft/*.a
 libft/*.o
 obj/*.o
-
+*.d
+fractol

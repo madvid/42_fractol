@@ -6,15 +6,15 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/04 20:45:28 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/05 02:27:34 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # define NAME "fractol"
-# define W_LX 600
-# define W_LY 400
+# define W_LX 400
+# define W_LY 500
 # define IMG_LX W_LX
 # define IMG_LY W_LY
 # define NB_FRACTAL 4
@@ -24,7 +24,7 @@
 # define FRACTAL4 "Newton"
 # define CST_X 0.0
 # define CST_Y 0.0
-# define DEG_MANDELBROT 1
+# define DEG_MANDELBROT 2
 # define ASPECT_RATIO 1
 # define RADIUS 2
 # define MAX_ITER 98
@@ -151,14 +151,6 @@ void	ft_fill_list_frac(char **list_frac);
 void	ft_usage(int ac);
 int		ft_check_arg(char *frac, char **list_frac);
 int		ft_mlx(char *frac);
-
-void	ft_free_tabint(int **table, int nb_l);
-void	ft_table_int_init(int **table, int nb_l, int nb_c);
-int		**ft_table_int(int nb_l, int nb_c);
-
-void	ft_free_tabflt(float **table, int nb_l);
-void	ft_table_flt_init(float **table, int nb_l, int nb_c);
-float	**ft_table_flt(int nb_l, int nb_c);
 
 int		ft_key_press(int keycode, t_mlx *mlx);
 int		ft_key_release(int keycode, t_mlx *mlx);
