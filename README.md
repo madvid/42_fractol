@@ -1,6 +1,6 @@
 # Fractol
 
-Fractol is a graphic project of 42 school curiculum.
+Fractol is a graphic project of 42 school curiculum realised in C.
 The aim of this project is to program a Fractals explorer (see project subject [here]() or in ressource_and_assets repository).
 
 <img align="center" src="ressource_and_assets/intro_img_julia.png" width="100%" />
@@ -202,3 +202,7 @@ Fractol can be existed normally in 2 ways:
 * clicking the cross of the window,
 * pressing the button <td valign="top" align="center"><kbd>&nbsp;esc&nbsp;</kbd></td>
 </tr>
+
+## Jupyternotebook: interpolation_multilineaire_colorscale.ipynb
+This Jupyter notebook contain the python code developped to adjust several polynomial models on the different coloscale in the Seaborn python library.
+We coefficients of the polynomial models are printed at the end to a preformated C, we just need to copy/paste the output directly.
