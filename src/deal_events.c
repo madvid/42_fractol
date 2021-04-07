@@ -6,13 +6,12 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:09:28 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/03 23:22:48 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/07 16:31:34 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <math.h>
-#include <stdlib.h>
 #include <stdio.h>
 #include "fractol.h"
 #include "libft.h"
@@ -30,18 +29,75 @@
 
 int		ft_key_press(int kcode, t_mlx *mlx)
 {
-	//printf("valeur de key = %d\n", kcode);
 	if (kcode == EXIT)
 		ft_close(mlx);
 	else if (kcode == UP || kcode == RIGHT || kcode == DOWN || kcode == LEFT
-		|| kcode == A || kcode == S || kcode == D || kcode == W)
+		|| kcode == Z || kcode == S || kcode == D || kcode == Q)
 		event_transl(kcode, mlx);
-	else if (kcode == PLUS || kcode == MINUS)
-		event_zoom(kcode == PLUS ? -1 : 1, mlx);
-	else if (kcode == ONE || kcode == TWO || kcode == THREE || kcode == FOUR
-		|| kcode == FIVE || kcode == SIX || kcode == SEVEN || kcode == EIGHT)
+	else if (kcode == PAD_PLUS || kcode == PAD_MINUS)
+		event_zoom(kcode == PAD_PLUS ? -1 : 1, mlx);
+	else if (kcode == PAD_ONE || kcode == PAD_TWO || kcode == PAD_THREE
+		|| kcode == PAD_FOUR || kcode == PAD_FIVE || kcode == PAD_SIX
+		|| kcode == PAD_SEVEN || kcode == PAD_EIGHT)
 		event_color(kcode, mlx);
+	else if (kcode == ONE || kcode == TWO || kcode == THREE || kcode == FOUR
+		|| kcode == FIVE || kcode == SIX)
+		modify_deg_mandelbrot(kcode, mlx);
+	else if (kcode == SPACE)
+		reset_parameters(mlx);
 	return (0);
+}
+
+/*
+** FONCTION: RESET_PARAMETERS
+** PARAMETRE: mlx [t_mlx*]: pointer on mlx variable structure
+** DESCRIPTION:
+**		Reset the parameters of the vizualisation.
+** RETOUR:
+**		None
+*/
+
+void	reset_parameters(t_mlx *mlx)
+{
+	mlx->f_color = colorscale_viridis;
+	mlx->img->ratio = ASPECT_RATIO;
+	mlx->img->origin.x = 0;
+	mlx->img->origin.y = 0;
+	mlx->img->cst.x = CST_X;
+	mlx->img->cst.y = CST_Y;
+	mlx->img->deg_mandelbrot = DEG_MANDELBROT;
+	mlx->img->nb_iter = MAX_ITER;
+	fractal_construct(mlx);
+	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
+}
+
+
+/*
+** FONCTION: MODIFY_DEG_MANDELBROT
+** PARAMETRES: kcode [int]: new value of degree for mandelbrot fractal
+**			   mlx [t_mlx*]: pointer on mlx variable structure
+** DESCRIPTION:
+**		Modify the value of the degree for Mandelbrot fractal.
+** RETOUR:
+**		new_deg [int]: new value for deg_mandelbrot
+*/
+
+void	modify_deg_mandelbrot(int kcode, t_mlx *mlx)
+{
+	if (kcode == ONE)
+		mlx->img->deg_mandelbrot = 1;
+	else if (kcode == TWO)
+		mlx->img->deg_mandelbrot = 2;
+	else if (kcode == THREE)
+		mlx->img->deg_mandelbrot = 3;
+	else if (kcode == FOUR)
+		mlx->img->deg_mandelbrot = 4;
+	else if (kcode == FIVE)
+		mlx->img->deg_mandelbrot = 5;
+	else
+		mlx->img->deg_mandelbrot = 6;
+	fractal_construct(mlx);
+	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
 }
 
 /*
@@ -56,19 +112,19 @@ int		ft_key_press(int kcode, t_mlx *mlx)
 
 void	event_color(int color_code, t_mlx *mlx)
 {
-	if (color_code == ONE)
+	if (color_code == PAD_ONE)
 		mlx->f_color = colorscale_viridis;
-	else if (color_code == TWO)
+	else if (color_code == PAD_TWO)
 		mlx->f_color = colorscale_magma;
-	else if (color_code == THREE)
+	else if (color_code == PAD_THREE)
 		mlx->f_color = colorscale_ylorbr;
-	else if (color_code == FOUR)
+	else if (color_code == PAD_FOUR)
 		mlx->f_color = colorscale_mako;
-	else if (color_code == FIVE)
+	else if (color_code == PAD_FIVE)
 		mlx->f_color = colorscale_coolwarm;
-	else if (color_code == SIX)
+	else if (color_code == PAD_SIX)
 		mlx->f_color = colorscale_blues;
-	else if (color_code == SEVEN)
+	else if (color_code == PAD_SEVEN)
 		mlx->f_color = colorscale_greens;
 	else
 		mlx->f_color = colorscale_reds;
@@ -113,14 +169,14 @@ void	event_transl(int kcode, t_mlx *mlx)
 		mlx->img->origin.x += 1 * mlx->img->ratio;
 	if (kcode == LEFT)
 		mlx->img->origin.x -= 1 * mlx->img->ratio;
-	if (kcode == A)
-		mlx->img->origin.x -= 10 * mlx->img->ratio;
+	if (kcode == Z)
+		mlx->img->origin.y -= 10 * mlx->img->ratio;
 	if (kcode == S)
 		mlx->img->origin.y += 10 * mlx->img->ratio;
 	if (kcode == D)
 		mlx->img->origin.x += 10 * mlx->img->ratio;
-	if (kcode == W)
-		mlx->img->origin.y -= 10 * mlx->img->ratio;
+	if (kcode == Q)
+		mlx->img->origin.x -= 10 * mlx->img->ratio;
 	fractal_construct(mlx);
 	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
 }

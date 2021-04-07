@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fractol.c                                       :+:      :+:    :+:   */
+/*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 14:05:43 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/05 00:51:20 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/07 16:30:02 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 #include <pthread.h>
 #include "fractol.h"
@@ -21,14 +22,14 @@
 ** PARAMETRES:
 **		img [t_img*]:*structure contenant les pointeurs et variables relatifs
 **					  à l'image et un peu plus dans le cas du projet fractol.
-**		coordc [t_fpt*]:
+**		coordc [t_ldpt*]:
 ** DESCRIPTION:
 **		Fonction pour d'attribuer la couleur aux pixels pour le fractal Julia
 ** RETOUR:
 **		iter[int]: ...
 */
 
-int		julia(t_img *img, t_fpt coordc)
+int		julia(t_img *img, t_ldpt coordc)
 {
 	int		iter;
 
@@ -49,17 +50,17 @@ int		julia(t_img *img, t_fpt coordc)
 ** PARAMETRES:
 **		img [t_img*]:*structure contenant les pointeurs et variables relatifs
 **					  à l'image et un peu plus dans le cas du projet fractol.
-**		coordc [t_fpt*]:
+**		coordc [t_ldpt*]:
 ** DESCRIPTION:
 **		Fonction pour d'attribuer la couleur aux pixels pour le fractal Julia
 ** RETOUR:
 **		iter[int]: ...
 */
 
-int		mandelbrot(t_img *img, t_fpt coordc)
+int		mandelbrot(t_img *img, t_ldpt coordc)
 {
 	int		iter;
-	t_fpt	c;
+	t_ldpt	c;
 
 	iter = -1;
 	c = coordc;
@@ -79,18 +80,18 @@ int		mandelbrot(t_img *img, t_fpt coordc)
 ** PARAMETRES:
 **		img [t_img*]:*structure contenant les pointeurs et variables relatifs
 **					  à l'image et un peu plus dans le cas du projet fractol.
-**		coordc [t_fpt*]:
+**		coordc [t_ldpt*]:
 ** DESCRIPTION:
 **		Fonction pour d'attribuer la couleur aux pixels pour le fractal Julia
 ** RETOUR:
 **		iter[int]: ...
 */
 
-int		burningship(t_img *img, t_fpt coordc)
+int		burningship(t_img *img, t_ldpt coordc)
 {
 	int		iter;
-	t_fpt	tmpc;
-	t_fpt	c;
+	t_ldpt	tmpc;
+	t_ldpt	c;
 
 	iter = -1;
 	c = coordc;
@@ -110,17 +111,17 @@ int		burningship(t_img *img, t_fpt coordc)
 ** PARAMETRES:
 **		img [t_img*]:*structure contenant les pointeurs et variables relatifs
 **					  à l'image et un peu plus dans le cas du projet fractol.
-**		coordc [t_fpt*]:
+**		coordc [t_ldpt*]:
 ** DESCRIPTION:
 **		Fonction pour d'attribuer la couleur aux pixels pour le fractal Julia
 ** RETOUR:
 **		iter[int]: ...
 */
 
-int		classic_newton(t_img *img, t_fpt coordc)
+int		classic_newton(t_img *img, t_ldpt coordc)
 {
 	int		iter;
-	t_fpt	tmpc;
+	t_ldpt	tmpc;
 
 	iter = -1;
 	while (++iter < img->nb_iter)
@@ -150,7 +151,7 @@ int		classic_newton(t_img *img, t_fpt coordc)
 ***		Rien.
 */
 
-void	ft_fractal(t_mlx *mlx)
+void	fractal(t_mlx *mlx)
 {
 	if (ft_strcmp(mlx->img->fractal, "Julia") == 0)
 		mlx->f_fractal = julia;
@@ -175,23 +176,23 @@ void	ft_fractal(t_mlx *mlx)
 
 void	fractal_construct(t_mlx *mlx)
 {
-	t_ipt		p;
+	int			idx;
 	pthread_t	thds[IMG_LY];
 	void		(*f_thd)(void *ptr);
 
-	p.y = -1;
+	idx = -1;
 	if (ft_strcmp(mlx->img->fractal, "Newton"))
 		f_thd = f_thd1;
 	else
 		f_thd = f_thd2;
-	while (++(p.y) < IMG_LY)
+	while (++idx < IMG_LY)
 	{
-		p.x = -1;
-		if (pthread_create(&thds[p.y], NULL, (void*)(f_thd), (void*)(mlx)))
+		if (pthread_create(&thds[idx], NULL, (void*)(f_thd), (void*)(mlx)))
 			ft_close(mlx);
 	}
-	p.y = -1;
-	while (++(p.y) < IMG_LY)
-		if (pthread_join(thds[p.y], NULL))
+	//idx = -1;
+	//while (++idx < IMG_LY)
+	while (--idx >= 0)
+		if (pthread_join(thds[idx], NULL))
 			ft_close(mlx);
 }

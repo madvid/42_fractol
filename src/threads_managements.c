@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 13:29:01 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/03 22:22:46 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/07 13:30:45 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		f_thd1(void *ptr)
 	t_mlx			*mlx;
 	static int		y;
 	t_ipt			pt;
-	t_fpt			coordc;
+	t_ldpt			coordc;
 
 	mlx = (t_mlx*)ptr;
 	y = (y == IMG_LY - 1) ? 0 : y;
@@ -38,7 +38,7 @@ void		f_thd2(void *ptr)
 	t_mlx			*mlx;
 	static int		y;
 	t_ipt			pt;
-	t_fpt			coordc;
+	t_ldpt			coordc;
 
 	mlx = (t_mlx*)ptr;
 	y = (y == IMG_LY - 1) ? 0 : y;

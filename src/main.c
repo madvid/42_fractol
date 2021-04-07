@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 10:52:39 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/02 02:14:48 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/07 14:03:53 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "fractol.h"
 
 /*
-** FONCTION : ft_usage
+** FONCTION : usage
 ** PARAMETRES :	int ac: nb de parametres de l'executable.
 ** DESCRIPTION :
 **		Affiche l'usage.
@@ -23,7 +23,7 @@
 **		Rien.
 */
 
-void	ft_usage(int ac)
+void	usage(int ac)
 {
 	if (ac > 2)
 		ft_putstr("Too many arguments.\n");
@@ -33,7 +33,7 @@ void	ft_usage(int ac)
 }
 
 /*
-** FONCTION : ft_parse_fractol
+** FONCTION : parse_fractol
 ** PARAMETRES :	char **frac: le premier argument de ./fractol.
 ** DESCRIPTION :
 **		Vérifie s'il y a un argument et s'il est dans la liste des fractales
@@ -79,7 +79,7 @@ int		main(int ac, char **av)
 	index = 0;
 	if (ac != 2 || (index = ft_get_fractol(av[1], list_frac)) == -1)
 	{
-		ft_usage(ac);
+		usage(ac);
 		return (0);
 	}
 	if (ft_mlx(list_frac[index]) == 0)

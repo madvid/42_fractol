@@ -6,14 +6,14 @@
 #    By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/28 10:48:33 by mdavid            #+#    #+#              #
-#    Updated: 2021/04/04 21:49:07 by mdavid           ###   ########.fr        #
+#    Updated: 2021/04/05 00:36:52 by mdavid           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
 SRCS =	ft_memset.c		\
 		ft_bzero.c		\

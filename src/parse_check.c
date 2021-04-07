@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse_check.c                                   :+:      :+:    :+:   */
+/*   parse_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 13:35:33 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/13 15:04:06 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/07 14:04:03 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 **		1: Si l'argument appartient à la liste des fractales.
 */
 
-int		ft_check_arg(char *av, char **list_frac)
+int		check_arg(char *av, char **list_frac)
 {
 	int			i;
 	int			ret;

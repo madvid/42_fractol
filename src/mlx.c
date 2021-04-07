@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mlx.c                                           :+:      :+:    :+:   */
+/*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:51:13 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/05 00:22:50 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/07 14:08:06 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "libft.h"
 
 /*
-** FONCTION : ft_mlx_win_img
+** FONCTION : mlx_win_img
 ** PARAMETRES :
 **		mlx [t_mlx*]: pointeur sur structure contenant les pointeurs pour la
 **					mlx et l'image
@@ -30,7 +30,7 @@
 **		Rien.
 */
 
-void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad)
+void	mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 {
 	mlx->w_ptr = mlx_new_window(mlx->init, W_LX, W_LY, NAME);
 	mlx->w_title = NAME;
@@ -49,15 +49,15 @@ void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 	mlx->img->origin.y = 0;
 	mlx->img->cst.x = CST_X;
 	mlx->img->cst.y = CST_Y;
-	mlx->img->root1 = (t_fpt){1, 0, 0};
-	mlx->img->root2 = (t_fpt){-0.5, sqrtl(3) / 2.0, 0};
-	mlx->img->root3 = (t_fpt){-0.5, -sqrtl(3) / 2.0, 0};
+	mlx->img->root1 = (t_ldpt){1, 0, 0};
+	mlx->img->root2 = (t_ldpt){-0.5, sqrtl(3) / 2.0, 0};
+	mlx->img->root3 = (t_ldpt){-0.5, -sqrtl(3) / 2.0, 0};
 	mlx->img->deg_mandelbrot = DEG_MANDELBROT;
 	mlx->img->nb_iter = MAX_ITER;
 }
 
 /*
-** FONCTION : ft_mlx_hook_loop
+** FONCTION : mlx_hook_loop
 ** PARAMETRES : *mlx : ptr général.
 ** DESCRIPTION :
 **		.
@@ -65,7 +65,7 @@ void	ft_mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 **		RIEN.
 */
 
-void	ft_mlx_hook_loop(t_mlx *mlx)
+void	mlx_hook_loop(t_mlx *mlx)
 {
 	mlx_hook(mlx->w_ptr, 2, (1L << 0), ft_key_press, mlx);
 	mlx_hook(mlx->w_ptr, 3, (1L << 1), ft_key_release, mlx);
@@ -109,11 +109,11 @@ int		ft_mlx(char *frac)
 	if (!(mlx = (t_mlx*)(malloc(sizeof(t_mlx)))))
 		return (0);
 	mlx->init = mlx_init();
-	ft_mlx_win_img(mlx, &gdad);
+	mlx_win_img(mlx, &gdad);
 	mlx->img->fractal = frac;
-	ft_fractal(mlx);
+	fractal(mlx);
 	fractal_construct(mlx);
 	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
-	ft_mlx_hook_loop(mlx);
+	mlx_hook_loop(mlx);
 	return (0);
 }
