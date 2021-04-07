@@ -200,13 +200,11 @@ You can also performed zoom and unzoom operations via the mouse:
 </table>
 
 ### Reset:
-All the render related parameters (ratio, translation, degree and colorscale) can be reset to their initial values by pressing 
-<td valign="top" align="center"><kbd>&nbsp;sapce&nbsp;</kbd></td></tr>.
+All the render related parameters (ratio, translation, degree and colorscale) can be reset to their initial values by pressing <td valign="top" align="center"><kbd>&nbsp;sapce&nbsp;</kbd></td></tr>.
 
 ### Degree in fractal formula:
 Mandelbrot and Julia fractal have a complex number elevated to power 2 by default (and it is the formula one can find easily on internet).
-You have the possibility to modify the degree by pressing keyboard button between <td valign="top" align="center"><kbd>&nbsp;1&nbsp;</kbd></td></tr> and
-<td valign="top" align="center"><kbd>&nbsp;6&nbsp;</kbd></td></tr> except for Julia fractal where the degree is limited to 3 (but it can be modified in the header file).
+You have the possibility to modify the degree by pressing keyboard button between <td valign="top" align="center"><kbd>&nbsp;1&nbsp;</kbd></td></tr> and <td valign="top" align="center"><kbd>&nbsp;6&nbsp;</kbd></td></tr> except for Julia fractal where the degree is limited to 3 (but it can be modified in the header file).
 
 ### Exit
 Fractol can be existed normally in 2 ways:
