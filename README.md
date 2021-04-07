@@ -218,4 +218,4 @@ This is due to key value corresponding to the button pressed. You need to refer 
 
 ## Jupyternotebook: interpolation_multilineaire_colorscale.ipynb
 This Jupyter notebook contain the python code developped to adjust several polynomial models on the different coloscale in the Seaborn python library.
-We coefficients of the polynomial models are printed at the end to a preformated C, we just need to copy/paste the output directly.
+The coefficients of the polynomial models are printed at the end of the notebook according to a preformated C format code adapted for my code (compare this output in jupyter notebook and the expression in the colorscale C files), we just need to copy/paste the output directly.
