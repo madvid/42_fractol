@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 10:52:39 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/07 14:03:53 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/07 22:00:10 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,36 @@ int		ft_get_fractol(char *fractal, char *list_frac[NB_FRACTAL + 1])
 }
 
 /*
+** FONCTION: FRACTL_PTR_ASSOCIATION
+** PARAMETRES:
+**		frac [char*]: nom du fractale qui va être affiché
+**		img [t_img*]: *structure contenant les pointeurs et variables relatifs
+**					  à l'image et un peu plus dans le cas du projet fractol.
+** DESCRIPTION:
+**		Initialisation d'un tableau de pointeur sur fonction et appelle à la
+**		fonction permettant de "dessiner" la première image du fractale.
+** RETOUR:
+***		Rien.
+*/
+
+void	fractal_ptr_association(t_mlx *mlx)
+{
+	if (ft_strcmp(mlx->img->fractal, "Julia") == 0)
+		mlx->f_fractal = julia;
+	if (ft_strcmp(mlx->img->fractal, "Mandelbrot") == 0)
+		mlx->f_fractal = mandelbrot;
+	if (ft_strcmp(mlx->img->fractal, "BurningShip") == 0)
+		mlx->f_fractal = burningship;
+	if (ft_strcmp(mlx->img->fractal, "Newton") == 0)
+		mlx->f_fractal = classic_newton;
+}
+
+/*
 ** FUNCTION: main
 ** PARAMETRES:
-**		ac: (int) le nombre d'arguments a l'execution.
-**		av: (char**) tableau de string (les arguments).
-** Description:
+**		ac [int]: le nombre d'arguments a l'execution.
+**		av [char**]: tableau de string (les arguments).
+** DESCRIPTION:
 **		Fractol est un programme qui permet de visualiser 3 fractales
 **		différents: Julia, Mandelbrot et Burning ship.
 */

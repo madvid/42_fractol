@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:51:13 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/07 14:08:06 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/07 19:27:24 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 	mlx->img->root1 = (t_ldpt){1, 0, 0};
 	mlx->img->root2 = (t_ldpt){-0.5, sqrtl(3) / 2.0, 0};
 	mlx->img->root3 = (t_ldpt){-0.5, -sqrtl(3) / 2.0, 0};
-	mlx->img->deg_mandelbrot = DEG_MANDELBROT;
+	mlx->img->degree = DEGREE;
 	mlx->img->nb_iter = MAX_ITER;
 }
 
@@ -111,7 +111,7 @@ int		ft_mlx(char *frac)
 	mlx->init = mlx_init();
 	mlx_win_img(mlx, &gdad);
 	mlx->img->fractal = frac;
-	fractal(mlx);
+	fractal_ptr_association(mlx);
 	fractal_construct(mlx);
 	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
 	mlx_hook_loop(mlx);

@@ -24,16 +24,18 @@ else
 endif
 
 ### SOURCES ###
-SRCS_FILES =	main.c				\
-				mlx.c			\
-				fractol.c		\
-				color_conv.c		\
-				colorscale1.c	\
-				colorscale2.c	\
-				parse_check.c	\
-				deal_events.c		\
-				maths_tools1.c		\
-				threads_managements.c
+SRCS_FILES =	main.c					\
+				mlx.c					\
+				fractol.c				\
+				color_conv.c			\
+				colorscale1.c			\
+				colorscale2.c			\
+				parse_check.c			\
+				mouse_events.c			\
+				keyboard_events.c		\
+				maths_tools1.c			\
+				threads_managements.c	\
+				utils.c
 
 
 ### OBJECTS ###

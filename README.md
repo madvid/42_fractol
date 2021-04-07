@@ -45,6 +45,8 @@ When fractol program is running, you can interact with the fractal representatio
 * translations,
 * zoom,
 * colorscale change.
+* reset render parameters to the initial values,
+* modify the degree of the complex polynom in fractal formula (Mandelbrot and Julia only)
 
 ### Translations:
 Translations can be performed via the following keyboard buttons:
@@ -197,11 +199,20 @@ You can also performed zoom and unzoom operations via the mouse:
 </tbody>
 </table>
 
+### Reset:
+All the render related parameters (ratio, translation, degree and colorscale) can be reset to their initial values by pressing 
+<td valign="top" align="center"><kbd>&nbsp;sapce&nbsp;</kbd></td></tr>.
+
+### Degree in fractal formula:
+Mandelbrot and Julia fractal have a complex number elevated to power 2 by default (and it is the formula one can find easily on internet).
+You have the possibility to modify the degree by pressing keyboard button between <td valign="top" align="center"><kbd>&nbsp;1&nbsp;</kbd></td></tr> and
+<td valign="top" align="center"><kbd>&nbsp;6&nbsp;</kbd></td></tr> except for Julia fractal where the degree is limited to 3 (but it can be modified in the header file).
+
 ### Exit
 Fractol can be existed normally in 2 ways:
 * clicking the cross of the window,
-* pressing the button <td valign="top" align="center"><kbd>&nbsp;esc&nbsp;</kbd></td>
-</tr>
+* pressing the button <td valign="top" align="center"><kbd>&nbsp;esc&nbsp;</kbd></td></tr>
+* (and by doing <td valign="top" align="center"><kbd>&nbsp;ctrl&nbsp;</kbd></td></tr> + <td valign="top" align="center"><kbd>&nbsp;c&nbsp;</kbd></td></tr> but it is not specifically handled by the program :) )
 
 ## Remarks on the interaction:
 Based on your system and keyboard configuration, the interactions may not work.

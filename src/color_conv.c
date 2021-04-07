@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 16:21:38 by mdavid            #+#    #+#             */
-/*   Updated: 2021/03/13 15:26:17 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/07 17:23:22 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,41 +34,17 @@ t_rgb	ft_hsv_to_rgb(t_hsv hsv)
 	x = c * (1 - fabs(fmod(hsv.h / 60, 2.0) - 1));
 	m = hsv.v - c;
 	if (hsv.h < 60)
-	{
-		rgb.r = (c + m) * 255;
-		rgb.g = (x + m) * 255;
-		rgb.b = (0 + m) * 255;
-	}
+		rgb = (t_rgb){(c + m) * 255, (x + m) * 255, (0 + m) * 255};
 	else if (hsv.h < 120)
-	{
-		rgb.r = (x + m) * 255;
-		rgb.g = (c + m) * 255;
-		rgb.b = (0 + m) * 255;
-	}
+		rgb = (t_rgb){(x + m) * 255, (c + m) * 255, (0 + m) * 255};
 	else if (hsv.h < 180)
-	{
-		rgb.r = (0 + m) * 255;
-		rgb.g = (c + m) * 255;
-		rgb.b = (x + m) * 255;
-	}
+		rgb = (t_rgb){(0 + m) * 255, (c + m) * 255, (x + m) * 255};
 	else if (hsv.h < 240)
-	{
-		rgb.r = (0 + m) * 255;
-		rgb.g = (x + m) * 255;
-		rgb.b = (c + m) * 255;
-	}
+		rgb = (t_rgb){(0 + m) * 255, (x + m) * 255, (c + m) * 255};
 	else if (hsv.h < 300)
-	{
-		rgb.r = (x + m) * 255;
-		rgb.g = (0 + m) * 255;
-		rgb.b = (c + m) * 255;
-	}
+		rgb = (t_rgb){(x + m) * 255, (0 + m) * 255, (c + m) * 255};
 	else
-	{
-		rgb.r = (c + m) * 255;
-		rgb.g = (0 + m) * 255;
-		rgb.b = (x + m) * 255;
-	}
+		rgb = (t_rgb){(c + m) * 255, (0 + m) * 255, (x + m) * 255};
 	return (rgb);
 }
 
@@ -93,7 +69,7 @@ t_hsv	ft_rgb_to_hsv(int red, int green, int blue)
 	hsv.v = fmax(fmax(red, green), blue);
 	min = fmin(fmin(red, green), blue);
 	delta = hsv.v - min;
-	hsv.s = (hsv.v == 0) ? 0 : delta / hsv.v;
+	hsv.s = flt_tern((hsv.v == 0), 0, delta / hsv.v);
 	if (hsv.s == 0)
 		hsv.h = 0.0;
 	else
@@ -112,7 +88,7 @@ t_hsv	ft_rgb_to_hsv(int red, int green, int blue)
 	return (hsv);
 }
 
-int		ft_rgb2_to_int(t_rgb rgb)
+int	ft_rgb2_to_int(t_rgb rgb)
 {
 	return ((rgb.r << 16) + (rgb.g << 8) + rgb.b);
 }
@@ -143,7 +119,7 @@ t_rgb	ft_hexa_to_rgb(char *hexa)
 ** RETOUR:
 */
 
-int		f_cborn(double value)
+int	f_cborn(double value)
 {
 	if (value >= 255)
 		return (254);

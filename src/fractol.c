@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 14:05:43 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/07 16:30:02 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/07 21:26:44 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,25 @@
 
 /*
 ** FONCTION: julia
-** PARAMETRES:
-**		img [t_img*]:*structure contenant les pointeurs et variables relatifs
-**					  à l'image et un peu plus dans le cas du projet fractol.
-**		coordc [t_ldpt*]:
+** PARAMETRES: img [t_img*]:pointer on img struct variable
+**							(containing render and fractal related variables).
+**			   coordc [t_ldpt*]: complex coordinates associated to a pixel
 ** DESCRIPTION:
-**		Fonction pour d'attribuer la couleur aux pixels pour le fractal Julia
+**		Funtion is the core of Julia fractal creation.
+**		It calculates the iteration for the color of the pixels
+**		based on the julia formula.
 ** RETOUR:
-**		iter[int]: ...
+**		iter[int]: iteration needed to determine the color
 */
 
-int		julia(t_img *img, t_ldpt coordc)
+int	julia(t_img *img, t_ldpt coordc)
 {
 	int		iter;
 
 	iter = -1;
 	while (++iter < img->nb_iter)
 	{
-		coordc = c_prod(coordc, coordc);
+		coordc = c_power(coordc, img->degree);
 		coordc.x += img->cst.x;
 		coordc.y += img->cst.y;
 		if ((coordc.x * coordc.x + coordc.y * coordc.y) >= RADIUS)
@@ -47,17 +48,18 @@ int		julia(t_img *img, t_ldpt coordc)
 
 /*
 ** FONCTION: mandelbrot
-** PARAMETRES:
-**		img [t_img*]:*structure contenant les pointeurs et variables relatifs
-**					  à l'image et un peu plus dans le cas du projet fractol.
-**		coordc [t_ldpt*]:
+** PARAMETRES: img [t_img*]:pointer on img struct variable
+**							(containing render and fractal related variables).
+**			   coordc [t_ldpt*]: complex coordinates associated to a pixel
 ** DESCRIPTION:
-**		Fonction pour d'attribuer la couleur aux pixels pour le fractal Julia
+**		Funtion is the core of Mandelbrot fractal creation.
+**		It calculates the iteration for the color of the pixels
+**		based on the mandelbrot formula.
 ** RETOUR:
-**		iter[int]: ...
+**		iter[int]: iteration needed to determine the color
 */
 
-int		mandelbrot(t_img *img, t_ldpt coordc)
+int	mandelbrot(t_img *img, t_ldpt coordc)
 {
 	int		iter;
 	t_ldpt	c;
@@ -66,7 +68,7 @@ int		mandelbrot(t_img *img, t_ldpt coordc)
 	c = coordc;
 	while (++iter < img->nb_iter)
 	{
-		coordc = c_power(coordc, img->deg_mandelbrot);
+		coordc = c_power(coordc, img->degree);
 		coordc.x += c.x;
 		coordc.y += c.y;
 		if ((coordc.x * coordc.x + coordc.y * coordc.y) >= RADIUS)
@@ -77,17 +79,18 @@ int		mandelbrot(t_img *img, t_ldpt coordc)
 
 /*
 ** FONCTION: burningship
-** PARAMETRES:
-**		img [t_img*]:*structure contenant les pointeurs et variables relatifs
-**					  à l'image et un peu plus dans le cas du projet fractol.
-**		coordc [t_ldpt*]:
+** PARAMETRES:  img [t_img*]:pointer on img struct variable
+**							(containing render and fractal related variables).
+**			   coordc [t_ldpt*]: complex coordinates associated to a pixel
 ** DESCRIPTION:
-**		Fonction pour d'attribuer la couleur aux pixels pour le fractal Julia
+**		Funtion is the core of Burningship fractal creation.
+**		It calculates the iteration for the color of the pixels
+**		based on the burningship formula.
 ** RETOUR:
-**		iter[int]: ...
+**		iter[int]: iteration needed to determine the color
 */
 
-int		burningship(t_img *img, t_ldpt coordc)
+int	burningship(t_img *img, t_ldpt coordc)
 {
 	int		iter;
 	t_ldpt	tmpc;
@@ -108,17 +111,18 @@ int		burningship(t_img *img, t_ldpt coordc)
 
 /*
 ** FONCTION: classic_newton
-** PARAMETRES:
-**		img [t_img*]:*structure contenant les pointeurs et variables relatifs
-**					  à l'image et un peu plus dans le cas du projet fractol.
-**		coordc [t_ldpt*]:
+** PARAMETRES: img [t_img*]:pointer on img struct variable
+**							(containing render and fractal related variables).
+**			   coordc [t_ldpt*]: complex coordinates associated to a pixel
 ** DESCRIPTION:
-**		Fonction pour d'attribuer la couleur aux pixels pour le fractal Julia
+**		Funtion is the core of Newton fractal creation.
+**		It calculates the iteration for the color of the pixels
+**		based on the burningship formula.
 ** RETOUR:
-**		iter[int]: ...
+**		iter[int]: iteration needed to determine the color
 */
 
-int		classic_newton(t_img *img, t_ldpt coordc)
+int	classic_newton(t_img *img, t_ldpt coordc)
 {
 	int		iter;
 	t_ldpt	tmpc;
@@ -139,39 +143,12 @@ int		classic_newton(t_img *img, t_ldpt coordc)
 }
 
 /*
-** FONCTION:
-** PARAMETRES:
-**		frac [char*]: nom du fractale qui va être affiché
-**		img [t_img*]: *structure contenant les pointeurs et variables relatifs
-**					  à l'image et un peu plus dans le cas du projet fractol.
+** FONCTION: fractal_construct
+** PARAMETRES: mlx [t_mlx*]: pointer the struct wrapping mlx/img variables
 ** DESCRIPTION:
-**		Initialisation d'un tableau de pointeur sur fonction et appelle à la
-**		fonction permettant de "dessiner" la première image du fractale.
+**		Runs the multithreading process to draw the fractal.
 ** RETOUR:
-***		Rien.
-*/
-
-void	fractal(t_mlx *mlx)
-{
-	if (ft_strcmp(mlx->img->fractal, "Julia") == 0)
-		mlx->f_fractal = julia;
-	if (ft_strcmp(mlx->img->fractal, "Mandelbrot") == 0)
-		mlx->f_fractal = mandelbrot;
-	if (ft_strcmp(mlx->img->fractal, "BurningShip") == 0)
-		mlx->f_fractal = burningship;
-	if (ft_strcmp(mlx->img->fractal, "Newton") == 0)
-		mlx->f_fractal = classic_newton;
-}
-
-/*
-** FONCTION:
-** PARAMETRES:
-**		img [t_img*]: *structure contenant les pointeurs et variables relatifs
-**					  à l'image et un peu plus dans le cas du projet fractol.
-**		f_frac [(int*)f]:
-** DESCRIPTION:
-** RETOUR:
-**		Rien.
+**		None.
 */
 
 void	fractal_construct(t_mlx *mlx)
@@ -187,12 +164,11 @@ void	fractal_construct(t_mlx *mlx)
 		f_thd = f_thd2;
 	while (++idx < IMG_LY)
 	{
-		if (pthread_create(&thds[idx], NULL, (void*)(f_thd), (void*)(mlx)))
+		if (pthread_create(&thds[idx], NULL, (void *)(f_thd), (void *)(mlx)))
 			ft_close(mlx);
 	}
-	//idx = -1;
-	//while (++idx < IMG_LY)
-	while (--idx >= 0)
+	idx = -1;
+	while (++idx < IMG_LY)
 		if (pthread_join(thds[idx], NULL))
 			ft_close(mlx);
 }

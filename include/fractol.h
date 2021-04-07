@@ -6,14 +6,14 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/07 15:48:04 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/07 21:54:27 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # define NAME "Frac'tol"
-# define W_LX 400
+# define W_LX 500
 # define W_LY 500
 # define IMG_LX W_LX
 # define IMG_LY W_LY
@@ -24,7 +24,8 @@
 # define FRACTAL4 "Newton"
 # define CST_X 0.0
 # define CST_Y 0.0
-# define DEG_MANDELBROT 2
+# define DEGREE 2
+# define DEG_LIM 3
 # define ASPECT_RATIO 0.008
 # define RADIUS 4
 # define MAX_ITER 99
@@ -33,7 +34,7 @@
 
 
 // Definition des valeurs pour les evenements
-// Clavier
+// Keyboard
 # if defined(__APPLE__)
 #  define EXIT 53
 #  define UP 126
@@ -137,7 +138,7 @@ typedef struct	s_img
 	t_ldpt			root1;
 	t_ldpt			root2;
 	t_ldpt			root3;
-	int				deg_mandelbrot;
+	int				degree;
 	long double		ratio;
 	int				nb_iter;
 }				t_img;
@@ -173,7 +174,7 @@ int		ft_mouse_event(int button, int x, int y, t_mlx *mlx);
 void	event_transl(int kcode, t_mlx *mlx);
 void	event_zoom(int sign, t_mlx *mlx);
 void	event_color(int color_code, t_mlx *mlx);
-void	modify_deg_mandelbrot(int kcode, t_mlx *mlx);
+void	modify_degree(int kcode, t_mlx *mlx);
 void	reset_parameters(t_mlx *mlx);
 int		ft_mouse_move(int mouse_x, int mouse_y, t_mlx *mlx);
 
@@ -182,28 +183,28 @@ void	mlx_win_img(t_mlx *mlx, t_gdad *gdad);
 void	mlx_hook_loop(t_mlx *mlx);
 
 // Fonctions en lien avec la gestion des différents fractales //
-void	fractal_construct(t_mlx *mlx);
-void	fractal(t_mlx *mlx);
-int		julia(t_img *img, t_ldpt coordc);
-int		mandelbrot(t_img *img, t_ldpt coordc);
-int		burningship(t_img *img, t_ldpt coordc);
-int		classic_newton(t_img *img, t_ldpt coordc);
-t_ldpt	formula_newton(t_ldpt z, int degree);
+void		fractal_construct(t_mlx *mlx);
+void		fractal_ptr_association(t_mlx *mlx);
+int			julia(t_img *img, t_ldpt coordc);
+int			mandelbrot(t_img *img, t_ldpt coordc);
+int			burningship(t_img *img, t_ldpt coordc);
+int			classic_newton(t_img *img, t_ldpt coordc);
+t_ldpt		formula_newton(t_ldpt z, int degree);
 
 // Fonctions en lien avec les aspects de couleurs du projet //
-t_rgb	ft_hsv_to_rgb(t_hsv hsv);
-t_hsv	ft_rgb_to_hsv(int red, int green, int blue);
-int		ft_rgb2_to_int(t_rgb rgb);
-int		ft_rgb_to_int(int red, int green, int blue);
-int		colorscale_viridis(int level);
-int		colorscale_magma(int level);
-int		colorscale_ylorbr(int level);
-int		colorscale_mako(int level);
-int		colorscale_coolwarm(int level);
-int		colorscale_reds(int level);
-int		colorscale_greens(int level);
-int		colorscale_blues(int level);
-int		f_cborn(double value);
+t_rgb		ft_hsv_to_rgb(t_hsv hsv);
+t_hsv		ft_rgb_to_hsv(int red, int green, int blue);
+int			ft_rgb2_to_int(t_rgb rgb);
+int			ft_rgb_to_int(int red, int green, int blue);
+int			colorscale_viridis(int level);
+int			colorscale_magma(int level);
+int			colorscale_ylorbr(int level);
+int			colorscale_mako(int level);
+int			colorscale_coolwarm(int level);
+int			colorscale_reds(int level);
+int			colorscale_greens(int level);
+int			colorscale_blues(int level);
+int			f_cborn(double value);
 
 // Fonctions en lien avec les aspects mathematiques du projet //
 t_ldpt		associated_c_coord(t_ipt p, t_img *img);
@@ -214,7 +215,11 @@ long double	c_module(t_ldpt z);
 long double c_dist(t_ldpt z1, t_ldpt z2);
 
 
-void	f_thd1(void *ptr);
-void	f_thd2(void *ptr);
+void		f_thd1(void *ptr);
+void		f_thd2(void *ptr);
+
+// utils.c
+float		flt_tern(int condition, float val1, float val2);
+int			int_tern(int condition, int val1, int val2);
 
 #endif
