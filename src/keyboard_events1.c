@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keyboard_events.c                                  :+:      :+:    :+:   */
+/*   keyboard_events1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:09:28 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/08 16:36:39 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 22:58:34 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,12 @@
 
 int	ft_key_press(int kcode, t_mlx *mlx)
 {
+	static int	help_lock;
+
 	if (kcode == EXIT)
 		ft_close(mlx);
+	else if (kcode == HELP || help_lock)
+		event_help(mlx, &help_lock);
 	else if (kcode == UP || kcode == RIGHT || kcode == DOWN || kcode == LEFT
 		|| kcode == Z || kcode == S || kcode == D || kcode == Q)
 		event_transl(kcode, mlx);

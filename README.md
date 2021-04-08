@@ -189,11 +189,11 @@ You can also performed zoom and unzoom operations via the mouse:
 </thead>
 <tbody>
 <tr>
-<td valign="top" height="30px">Increase the global size of the fractal (aka zoom)</td>
+<td valign="top" height="30px">Increase the global size of the fractal / zoom</td>
 <td valign="top" align="center"><kbd>&nbsp;scroll up&nbsp;</kbd></td>
 </tr>
 <tr>
-<td valign="top" height="30px">Decrease the global size of the fractal (aka unzoom)</td>
+<td valign="top" height="30px">Decrease the global size of the fractal / unzoom</td>
 <td valign="top" align="center"><kbd>&nbsp;scroll down&nbsp;</kbd></td>
 </tr>
 </tbody>

@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 13:29:01 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/08 16:37:16 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 18:31:25 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 #include <pthread.h>
 #include "fractol.h"
 #include "libft.h"
+
+/*
+** FONCTION: f_thd1
+** PARAMETRES: ptr [void *]: mlx pointer casted to void*
+** DESCRIPTION:
+**		Edits a lines of pixels (the yth line). Function is for
+**		Mandelbrot, Julia and BurningShip.
+** RETOUR:
+**		None
+*/
 
 void	f_thd1(void *ptr)
 {
@@ -33,6 +43,15 @@ void	f_thd1(void *ptr)
 		mlx->img->pixels[mlx->img->nb_c * pt.y + pt.x] = mlx->f_color(pt.z);
 	}
 }
+
+/*
+** FONCTION: f_thd1
+** PARAMETRES: ptr [void *]: mlx pointer casted to void*
+** DESCRIPTION:
+**		Edits a lines of pixels (the yth line). Function is for Newton
+** RETOUR:
+**		None
+*/
 
 void	f_thd2(void *ptr)
 {

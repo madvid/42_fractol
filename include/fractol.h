@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/08 17:16:35 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 23:42:14 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,22 @@
 # define W_LX 500
 # define W_LY 500
 # define IMG_LX W_LX
-# define IMG_LY W_LY
+/*
+** Due to norm v3 of 42school define based on other defines are not allowed
+** If modification are made on W_LX and W_LY, it is necessary to recalculate
+** IMG_LY, TXT_Y, MD_X, FCL_X and HLP_X
+*/
+/* # define IMG_LY 9 * W_LY / 10
+** # define TXT_Y W_LY / 20
+** # define MD_X 90 * W_LX / 100
+** # define FCL_X 20 *  W_LX / 50
+** # define HLP_X W_LX / 100
+*/
+# define IMG_LY 450
+# define TXT_Y 25
+# define MD_X 450
+# define FCL_X 200
+# define HLP_X 5
 # define NB_FRACTAL 4
 # define FRACTAL1 "Julia"
 # define FRACTAL2 "Mandelbrot"
@@ -44,6 +59,7 @@
 #  define S 1
 #  define D 2
 #  define W 13
+#  define HELP 4
 #  define SPACE 49
 #  define PAD_ONE 83
 #  define PAD_TWO 84
@@ -71,6 +87,7 @@
 #  define S 115
 #  define D 100
 #  define Q 113
+#  define HELP 104
 #  define SPACE 32
 #  define PAD_ONE 65436
 #  define PAD_TWO 65433
@@ -174,9 +191,13 @@ void		event_zoom(int sign, t_mlx *mlx);
 void		event_color(int color_code, t_mlx *mlx);
 void		modify_degree(int kcode, t_mlx *mlx);
 void		reset_parameters(t_mlx *mlx);
+void		event_help(t_mlx *mlx, int *help_lock);
+void		help_interface(t_mlx *mlx);
+void		help_text(t_mlx *mlx);
 int			ft_mouse_move(int mouse_x, int mouse_y, t_mlx *mlx);
 
 int			ft_close(t_mlx *mlx);
+void		mlx_put_header(t_mlx *mlx);
 void		mlx_win_img(t_mlx *mlx, t_gdad *gdad);
 void		mlx_hook_loop(t_mlx *mlx);
 

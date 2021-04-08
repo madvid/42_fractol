@@ -17,7 +17,7 @@ OBJ_PATH  = obj
 ### OS DEPENDING RULES ###
 OS = $(shell uname)
 
-ifeq ($(OS), Linux):
+ifeq ($(OS), Linux)
 	MLX_LINK = -lmlx -lXext -lX11 -lbsd -lpthread
 else
 	MLX_LINK = -l pthread -lmlx -framework OpenGL -framework AppKit
@@ -32,11 +32,11 @@ SRCS_FILES =	main.c					\
 				colorscale2.c			\
 				parse_check.c			\
 				mouse_events.c			\
-				keyboard_events.c		\
+				keyboard_events1.c		\
+				keyboard_events2.c		\
 				maths_tools1.c			\
-				threads_managements.c	\
-				utils.c
-
+				maths_tools2.c			\
+				threads_managements.c
 
 ### OBJECTS ###
 
