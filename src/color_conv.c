@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 16:21:38 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/07 17:23:22 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 16:34:48 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_hsv	ft_rgb_to_hsv(int red, int green, int blue)
 	hsv.v = fmax(fmax(red, green), blue);
 	min = fmin(fmin(red, green), blue);
 	delta = hsv.v - min;
-	hsv.s = flt_tern((hsv.v == 0), 0, delta / hsv.v);
+	hsv.s = ft_flt_tern((hsv.v == 0), 0, delta / hsv.v);
 	if (hsv.s == 0)
 		hsv.h = 0.0;
 	else

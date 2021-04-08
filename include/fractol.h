@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/07 21:54:27 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 17:16:35 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 # define MAX_ITER 99
 # define FT_DBL_MIN 2.225074e-308
 # define FT_DBL_MAX 1.797693e+308
-
 
 // Definition des valeurs pour les evenements
 // Keyboard
@@ -97,36 +96,35 @@
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
-
-typedef struct	s_rgb
+typedef struct s_rgb
 {
 	unsigned char	r;
 	unsigned char	g;
 	unsigned char	b;
 }				t_rgb;
 
-typedef struct	s_hsv
+typedef struct s_hsv
 {
 	float	h;
 	float	s;
 	float	v;
 }				t_hsv;
 
-typedef struct	s_ipt
+typedef struct s_ipt
 {
 	int				x;
 	int				y;
 	int				z;
 }				t_ipt;
 
-typedef struct	s_ldpt
+typedef struct s_ldpt
 {
 	long double	x;
 	long double	y;
 	long double	z;
 }				t_ldpt;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void			*ptr;
 	unsigned int	*pixels;
@@ -143,7 +141,7 @@ typedef struct	s_img
 	int				nb_iter;
 }				t_img;
 
-typedef struct	s_mlx
+typedef struct s_mlx
 {
 	void			*init;
 	void			*w_ptr;
@@ -155,35 +153,34 @@ typedef struct	s_mlx
 	t_img			*img;
 }				t_mlx;
 
-typedef struct	s_gdad
+typedef struct s_gdad
 {
 	int				bpp;
 	int				s_l;
 	int				edian;
 }				t_gdad;
 
-int		parse_fractol(int ac, char **av, char **list_frac);
-void	fill_list_frac(char **list_frac);
-void	usage(int ac);
-int		check_arg(char *frac, char **list_frac);
-int		ft_mlx(char *frac);
+int			parse_fractol(int ac, char **av, char **list_frac);
+void		fill_list_frac(char **list_frac);
+int			usage(int ac);
+int			check_arg(char *frac, char **list_frac);
+int			ft_mlx(char *frac);
 
-int		ft_key_press(int keycode, t_mlx *mlx);
-int		ft_key_release(int keycode, t_mlx *mlx);
-int		ft_mouse_event(int button, int x, int y, t_mlx *mlx);
-void	event_transl(int kcode, t_mlx *mlx);
-void	event_zoom(int sign, t_mlx *mlx);
-void	event_color(int color_code, t_mlx *mlx);
-void	modify_degree(int kcode, t_mlx *mlx);
-void	reset_parameters(t_mlx *mlx);
-int		ft_mouse_move(int mouse_x, int mouse_y, t_mlx *mlx);
+int			ft_key_press(int keycode, t_mlx *mlx);
+int			ft_key_release(int keycode, t_mlx *mlx);
+int			ft_mouse_event(int button, int x, int y, t_mlx *mlx);
+void		event_transl(int kcode, t_mlx *mlx);
+void		event_zoom(int sign, t_mlx *mlx);
+void		event_color(int color_code, t_mlx *mlx);
+void		modify_degree(int kcode, t_mlx *mlx);
+void		reset_parameters(t_mlx *mlx);
+int			ft_mouse_move(int mouse_x, int mouse_y, t_mlx *mlx);
 
-int		ft_close(t_mlx *mlx);
-void	mlx_win_img(t_mlx *mlx, t_gdad *gdad);
-void	mlx_hook_loop(t_mlx *mlx);
+int			ft_close(t_mlx *mlx);
+void		mlx_win_img(t_mlx *mlx, t_gdad *gdad);
+void		mlx_hook_loop(t_mlx *mlx);
 
 // Fonctions en lien avec la gestion des différents fractales //
-void		fractal_construct(t_mlx *mlx);
 void		fractal_ptr_association(t_mlx *mlx);
 int			julia(t_img *img, t_ldpt coordc);
 int			mandelbrot(t_img *img, t_ldpt coordc);
@@ -212,14 +209,11 @@ t_ldpt		complex_conjugate(t_ldpt z);
 t_ldpt		c_prod(t_ldpt z1, t_ldpt z2);
 t_ldpt		c_power(t_ldpt z, int p);
 long double	c_module(t_ldpt z);
-long double c_dist(t_ldpt z1, t_ldpt z2);
+long double	c_dist(t_ldpt z1, t_ldpt z2);
 
-
+// Fonctions en lien avec le multithreading
+void		fractal_construct(t_mlx *mlx);
 void		f_thd1(void *ptr);
 void		f_thd2(void *ptr);
-
-// utils.c
-float		flt_tern(int condition, float val1, float val2);
-int			int_tern(int condition, int val1, int val2);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:51:13 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/07 19:27:24 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 11:10:24 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,12 @@
 
 /*
 ** FONCTION : mlx_win_img
-** PARAMETRES :
-**		mlx [t_mlx*]: pointeur sur structure contenant les pointeurs pour la
-**					mlx et l'image
-**		gdad [t_gdad*]: pointeur pour ...(?)
+** PARAMETRES : mlx [t_mlx*]: pointer the struct wrapping mlx/img variables
+**				gdad [t_gdad*]: gdad 
 ** DESCRIPTION :
-**		Initialisation des pointeurs et variables relatifs à l'utilisation de
-**		la mlx.
+**		Initialises pointers and variables of the mlx and img structures.
 ** RETOUR :
-**		Rien.
+**		None.
 */
 
 void	mlx_win_img(t_mlx *mlx, t_gdad *gdad)
@@ -37,11 +34,12 @@ void	mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 	mlx->w_lx = W_LX;
 	mlx->w_ly = W_LY;
 	mlx->f_color = colorscale_viridis;
-	if (!(mlx->img = (t_img*)malloc(sizeof(t_img))))
+	mlx->img = (t_img *)malloc(sizeof(t_img));
+	if (!(mlx->img))
 		ft_close(mlx);
 	mlx->img->ptr = mlx_new_image(mlx->init, IMG_LX, IMG_LY);
-	mlx->img->pixels = (unsigned int*)mlx_get_data_addr(mlx->img->ptr,
-		&(gdad->bpp), &(gdad->s_l), &(gdad->edian));
+	mlx->img->pixels = (unsigned int *)mlx_get_data_addr(mlx->img->ptr,
+			&(gdad->bpp), &(gdad->s_l), &(gdad->edian));
 	mlx->img->nb_c = IMG_LX;
 	mlx->img->nb_l = IMG_LY;
 	mlx->img->ratio = ASPECT_RATIO;
@@ -58,11 +56,11 @@ void	mlx_win_img(t_mlx *mlx, t_gdad *gdad)
 
 /*
 ** FONCTION : mlx_hook_loop
-** PARAMETRES : *mlx : ptr général.
+** PARAMETRES : mlx [t_mlx*]: pointer the struct wrapping mlx/img variables
 ** DESCRIPTION :
-**		.
+**		Calls the different mlx hook functions and the mlx loop function.
 ** RETOUR :
-**		RIEN.
+**		None.
 */
 
 void	mlx_hook_loop(t_mlx *mlx)
@@ -78,14 +76,14 @@ void	mlx_hook_loop(t_mlx *mlx)
 /*
 ** FONCTION : ft_close
 ** PARAMETRES :
-**		*mlx : ptr général contenant les struct wind/events/img.
+**		mlx [t_mlx*]: pointer the struct wrapping mlx/img variables
 ** DESCRIPTION :
-**		Détruit la window et quitte le programme.
+**		Free all allocates memories and leave the program.
 ** RETOUR :
-**		RIEN.
+**		None.
 */
 
-int		ft_close(t_mlx *mlx)
+int	ft_close(t_mlx *mlx)
 {
 	ft_putendl("ici 1 ft_close");
 	mlx_destroy_image(mlx->init, mlx->img->ptr);
@@ -95,18 +93,22 @@ int		ft_close(t_mlx *mlx)
 /*
 ** FONCTION: ft_mlx
 ** PARAMETRES:
-**		frac [char*]: fractale précisé au moment de l'exécution.
+**		frac [char*]: fractal name received as program parameter
 ** DESCRIPTION:
-**		Initialisation des pointeurs relatifs à l'utilisation de la mlx
-**		et manipulation des pixels de l'image pour construire le fractale.
+**		Calls the initialization process, the association fractal function
+**		the first fractal construction and the hooks and loop function. 
+** RETOUR:
+**		0: no particular behavior expected, returned value is managed in
+**		   main function.
 */
 
-int		ft_mlx(char *frac)
+int	ft_mlx(char *frac)
 {
 	t_mlx	*mlx;
 	t_gdad	gdad;
 
-	if (!(mlx = (t_mlx*)(malloc(sizeof(t_mlx)))))
+	mlx = (t_mlx *)malloc(sizeof(t_mlx));
+	if (!mlx)
 		return (0);
 	mlx->init = mlx_init();
 	mlx_win_img(mlx, &gdad);

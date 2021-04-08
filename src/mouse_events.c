@@ -6,13 +6,14 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 18:59:29 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/07 21:53:04 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 16:35:25 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <mlx.h>
 #include "fractol.h"
+#include "libft.h"
 
 /*
 ** FONCTION : MOUSE_EVENT
@@ -30,7 +31,7 @@ int	ft_mouse_event(int mcode, int x, int y, t_mlx *mlx)
 	(void)x;
 	(void)y;
 	if ((mcode == SCROLL_UP) || (mcode == SCROLL_DOWN))
-		event_zoom(int_tern(mcode == SCROLL_UP, -1, 1), mlx);
+		event_zoom(ft_int_tern(mcode == SCROLL_UP, -1, 1), mlx);
 	return (0);
 }
 

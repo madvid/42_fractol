@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 10:52:39 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/07 22:00:10 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 09:49:54 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,36 @@
 
 /*
 ** FONCTION : usage
-** PARAMETRES :	int ac: nb de parametres de l'executable.
+** PARAMETRES :	ac [int]: number of parameters at the execution
 ** DESCRIPTION :
-**		Affiche l'usage.
+**		Prints the usage of the program.
 ** RETOUR :
-**		Rien.
+**		None.
 */
 
-void	usage(int ac)
+int	usage(int ac)
 {
 	if (ac > 2)
 		ft_putstr("Too many arguments.\n");
 	ft_putstr("usage:\n./fractol [fractal name]\n");
 	ft_putstr("[fractal name] has to be one of the following:\n");
-	ft_putstr("Julia\nMandelbrot\nBurningShip\n");
+	ft_putstr("Julia\nMandelbrot\nBurningShip\nNewton");
+	return (0);
 }
 
 /*
 ** FONCTION : parse_fractol
-** PARAMETRES :	char **frac: le premier argument de ./fractol.
+** PARAMETRES :	frac [*char]: first program parameter, should be a fractal name
+**				list_frac [**char]: table of available fractal name
 ** DESCRIPTION :
-**		Vérifie s'il y a un argument et s'il est dans la liste des fractales
-**		disponibles.
+**		Checks the firs argument. The first argument should be one of the fractal
+**		in the list_frac.
 ** RETOUR :
-**		-1: Si l'argument n'est pas un fractal de la liste.
-**		1: Si le ou les arguments sont valide/s.
+**		-1: if frac is not in list_frac.
+**		1: if frac is in list_frac.
 */
 
-int		ft_get_fractol(char *fractal, char *list_frac[NB_FRACTAL + 1])
+int	ft_get_fractol(char *fractal, char *list_frac[NB_FRACTAL + 1])
 {
 	int			i;
 
@@ -59,15 +61,12 @@ int		ft_get_fractol(char *fractal, char *list_frac[NB_FRACTAL + 1])
 
 /*
 ** FONCTION: FRACTL_PTR_ASSOCIATION
-** PARAMETRES:
-**		frac [char*]: nom du fractale qui va être affiché
-**		img [t_img*]: *structure contenant les pointeurs et variables relatifs
-**					  à l'image et un peu plus dans le cas du projet fractol.
+** PARAMETRES: mlx [t_mlx*]: pointer the struct wrapping mlx/img variables
 ** DESCRIPTION:
-**		Initialisation d'un tableau de pointeur sur fonction et appelle à la
-**		fonction permettant de "dessiner" la première image du fractale.
+**		Associates the fractal function to the function pointer mlx->f_fractal
+**		based on the fractal name saved in mlx->img->fractal.
 ** RETOUR:
-***		Rien.
+***		None.
 */
 
 void	fractal_ptr_association(t_mlx *mlx)
@@ -84,15 +83,15 @@ void	fractal_ptr_association(t_mlx *mlx)
 
 /*
 ** FUNCTION: main
-** PARAMETRES:
-**		ac [int]: le nombre d'arguments a l'execution.
-**		av [char**]: tableau de string (les arguments).
 ** DESCRIPTION:
-**		Fractol est un programme qui permet de visualiser 3 fractales
-**		différents: Julia, Mandelbrot et Burning ship.
+**		Checks the number of parameters plus the value of the first parameter
+**		and calls usage function if the there is more than 2 parameters or
+**		if the value of the 1st parameter is not an expected value.
+**		If the condition is valid, ft_mlx is called to start the process
+**		leading to the display of the fractal.
 */
 
-int		main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	int			index;
 	static char	*list_frac[NB_FRACTAL + 1] = {FRACTAL1,
@@ -102,11 +101,11 @@ int		main(int ac, char **av)
 											NULL};
 
 	index = 0;
-	if (ac != 2 || (index = ft_get_fractol(av[1], list_frac)) == -1)
-	{
-		usage(ac);
-		return (0);
-	}
+	if (ac != 2)
+		return (usage(ac));
+	index = ft_get_fractol(av[1], list_frac);
+	if (index == -1)
+		return (usage(ac));
 	if (ft_mlx(list_frac[index]) == 0)
 		return (0);
 	return (0);

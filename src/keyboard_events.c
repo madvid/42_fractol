@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 19:09:28 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/07 21:58:33 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 16:36:39 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_key_press(int kcode, t_mlx *mlx)
 		|| kcode == Z || kcode == S || kcode == D || kcode == Q)
 		event_transl(kcode, mlx);
 	else if (kcode == PAD_PLUS || kcode == PAD_MINUS)
-		event_zoom(int_tern(kcode == PAD_PLUS, -1, 1), mlx);
+		event_zoom(ft_int_tern(kcode == PAD_PLUS, -1, 1), mlx);
 	else if (kcode == PAD_ONE || kcode == PAD_TWO || kcode == PAD_THREE
 		|| kcode == PAD_FOUR || kcode == PAD_FIVE || kcode == PAD_SIX
 		|| kcode == PAD_SEVEN || kcode == PAD_EIGHT)
@@ -97,13 +97,13 @@ void	modify_degree(int deg, t_mlx *mlx)
 		mlx->img->degree = 3;
 	else if (deg == FOUR)
 		mlx->img->degree
-			= int_tern(ft_strcmp(mlx->img->fractal, "Julia") == 0, DEG_LIM, 4);
+			= ft_int_tern(ft_strcmp(mlx->img->fractal, "Julia") == 0, DEG_LIM, 4);
 	else if (deg == FIVE)
 		mlx->img->degree
-			= int_tern(ft_strcmp(mlx->img->fractal, "Julia") == 0, DEG_LIM, 5);
+			= ft_int_tern(ft_strcmp(mlx->img->fractal, "Julia") == 0, DEG_LIM, 5);
 	else
 		mlx->img->degree
-			= int_tern(ft_strcmp(mlx->img->fractal, "Julia") == 0, DEG_LIM, 6);
+			= ft_int_tern(ft_strcmp(mlx->img->fractal, "Julia") == 0, DEG_LIM, 6);
 	fractal_construct(mlx);
 	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
 }
