@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 13:37:48 by mdavid            #+#    #+#             */
-/*   Updated: 2019/09/12 13:40:14 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 14:59:31 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 char	*ft_strjoin_1n(char **s1, char const *s2)
 {
-	size_t		i;
-	char		*str;
+	size_t	i;
+	char	*str;
 
 	if (s1 == NULL || *s1 == NULL || s2 == NULL)
 		return (NULL);
 	i = 0;
-	if (!(str = (char*)malloc(sizeof(char) * (ft_strlen(*s1) + ft_strlen(s2)
-	+ 2))))
+	str = (char *)malloc(sizeof(char) * (ft_strlen(*s1) + ft_strlen(s2) + 2));
+	if (!str)
 		return (NULL);
 	while (i + 1 <= ft_strlen(*s1))
 	{

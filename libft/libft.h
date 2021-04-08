@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 13:11:02 by mdavid            #+#    #+#             */
-/*   Updated: 2019/09/10 14:47:01 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 16:12:36 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,25 @@
 # include <unistd.h>
 # include <string.h>
 
-typedef struct		s_list
+typedef struct s_list
 {
 	int				file_d;
 	void			*cnt;
 	size_t			cnt_s;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct s_dbl_uint
+{
+	unsigned int	i;
+	unsigned int	j;
+}					t_dbl_uint;
+
+typedef struct s_dbl_size_t
+{
+	size_t			i;
+	size_t			j;
+}					t__dbl_size_t;
 
 /*
 ** Fonctions de la partie oligatoire
@@ -45,7 +57,7 @@ char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strstr(const char *haystack, const char *needle);
 char				*ft_strnstr(const char *haystack, const char *needle,
-size_t n);
+						size_t n);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *str);
@@ -103,4 +115,11 @@ char				*ft_strdup_1sp(const char *s);
 char				*ft_strdup_p(const char *s);
 char				*ft_strtrunc_x(char *s, size_t x);
 int					ft_strdupfree(char **dest, char **src);
+float				ft_flt_tern(int condition, float val1, float val2);
+int					ft_int_tern(int condition, int val1, int val2);
+unsigned int		ft_uint_tern(int condition, unsigned int val1,
+						unsigned int val2);
+char				*ft_str_tern(int condition, char *val1, char *val2);
+
+
 #endif

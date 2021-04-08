@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdavid <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 15:21:41 by mdavid            #+#    #+#             */
-/*   Updated: 2019/04/29 11:07:03 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 16:16:46 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-static void		ft_nbline_is(char const *str, char *c, unsigned int *nbl)
+static void	ft_nbline_is(char const *str, char *c, unsigned int *nbl)
 {
 	unsigned int	i;
 
@@ -31,9 +31,9 @@ static void		ft_nbline_is(char const *str, char *c, unsigned int *nbl)
 	}
 }
 
-static int		ft_nbchar_is(char const *s, char c, unsigned int *ind)
+static int	ft_nbchar_is(char const *s, char c, unsigned int *ind)
 {
-	int		nb;
+	int	nb;
 
 	nb = 0;
 	while (s[*ind] && s[*ind] == c)
@@ -46,7 +46,7 @@ static int		ft_nbchar_is(char const *s, char c, unsigned int *ind)
 	return (nb);
 }
 
-static void		ft_filltab(char const *s, char c, char **tab, unsigned int *nbl)
+static void	ft_filltab(char const *s, char c, char **tab, unsigned int *nbl)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -74,30 +74,30 @@ static void		ft_filltab(char const *s, char c, char **tab, unsigned int *nbl)
 	tab[*nbl] = NULL;
 }
 
-char			**ft_strsplit(char const *s, char c)
+char	**ft_strsplit(char const *s, char c)
 {
 	char			**tab;
 	unsigned int	nbl;
 	unsigned int	nbc;
-	unsigned int	i;
-	unsigned int	j;
+	t_dbl_uint		ij;
 
 	if (s == NULL)
 		return (NULL);
 	ft_nbline_is(s, &c, &nbl);
-	i = 0;
-	j = 0;
-	if (!(tab = (char**)malloc(sizeof(char*) * (nbl + 1))))
+	ij = (t_dbl_uint){0, 0};
+	tab = (char **)malloc(sizeof(char *) * (nbl + 1));
+	if (!tab)
 		return (NULL);
-	while (i < nbl)
+	while (ij.i < nbl)
 	{
-		nbc = ft_nbchar_is(s, c, &j);
-		if (!(tab[i] = (char*)malloc(sizeof(char) * (nbc + 1))))
+		nbc = ft_nbchar_is(s, c, &(ij.j));
+		tab[ij.i] = (char *)malloc(sizeof(char) * (nbc + 1));
+		if (!tab[ij.i])
 		{
-			ft_eraser((void**)tab, i);
+			ft_eraser((void **)tab, ij.i);
 			return (NULL);
 		}
-		i++;
+		ij.i++;
 	}
 	ft_filltab(s, c, tab, &nbl);
 	return (tab);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdavid <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 11:00:19 by mdavid            #+#    #+#             */
-/*   Updated: 2019/04/25 16:04:28 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 16:12:54 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *s)
+int	ft_atoi(const char *s)
 {
 	size_t		i;
 	int			sign;
@@ -25,7 +25,7 @@ int		ft_atoi(const char *s)
 		i++;
 	if (s[i] == '+' || s[i] == '-')
 	{
-		sign = (s[i] == '-') ? -1 : 1;
+		sign = ft_int_tern((s[i] == '-'), -1, 1);
 		i++;
 	}
 	while ((s[i] >= '0') && (s[i] <= '9'))

@@ -6,7 +6,7 @@
 #    By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/28 10:48:33 by mdavid            #+#    #+#              #
-#    Updated: 2021/04/05 00:36:52 by mdavid           ###   ########.fr        #
+#    Updated: 2021/04/08 12:16:03 by mdavid           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,8 @@ SRCS =	ft_memset.c		\
 		ft_strdup_1sp.c	\
 		ft_strdup_p.c	\
 		ft_strtrunc_x.c	\
-		ft_strdupfree.c
+		ft_strdupfree.c	\
+		ft_ternaries.c
 
 
 OBJS = $(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 14:41:44 by mdavid            #+#    #+#             */
-/*   Updated: 2019/06/26 15:06:34 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 15:28:34 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 
 char	*ft_strdup_1sp(const char *str)
 {
-	size_t			i;
-	size_t			len;
-	char			*strcp;
+	size_t	i;
+	size_t	len;
+	char	*strcp;
 
 	if (!str)
 		return (NULL);
 	i = 0;
 	len = ft_strlen(str);
-	if (!(strcp = (char*)malloc(sizeof(char) * (len + 2))))
+	strcp = (char *)malloc(sizeof(char) * (len + 2));
+	if (!strcp)
 		return (0);
 	while (i < len)
 	{

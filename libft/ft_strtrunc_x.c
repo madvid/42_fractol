@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 19:50:16 by mdavid            #+#    #+#             */
-/*   Updated: 2019/09/05 12:01:22 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 15:17:10 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ char	*ft_strtrunc_x(char *str, size_t x)
 	size_t	i;
 
 	i = 0;
-	if (str == NULL || (len = ft_strlen(str)) <= x)
-	{
+	len = ft_strlen(str);
+	if (str == NULL || len <= x)
 		trunc = NULL;
-	}
 	else
 	{
-		if (!(trunc = (char*)malloc(sizeof(char) * (len - x + 1))))
+		trunc = (char *)malloc(sizeof(char) * (len - x + 1));
+		if (!trunc)
 			return (NULL);
 		while (i + x < len)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdavid <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:55:17 by mdavid            #+#    #+#             */
-/*   Updated: 2019/04/18 18:46:48 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 14:27:45 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ char	*ft_strchr(const char *s, int c)
 			i++;
 		if (s[i] == '\0' && c != 0)
 			return (NULL);
-		return ((char*)(s + i));
+		return ((char *)(s + i));
 	}
 	else if (s[i] == '\0' && c == '\0')
-		return ((char*)(s + i));
+		return ((char *)(s + i));
 	else
 		return (NULL);
 }

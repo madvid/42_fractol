@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdavid <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 12:05:10 by mdavid            #+#    #+#             */
-/*   Updated: 2019/04/25 15:57:27 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/08 14:03:39 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-static int		ft_isnegative(int n)
+static int	ft_isnegative(int n)
 {
 	if (n >= 0)
 		return (0);
@@ -21,15 +21,15 @@ static int		ft_isnegative(int n)
 		return (1);
 }
 
-static void		ft_abs(unsigned int *un, int *n)
+static void	ft_abs(unsigned int *un, int *n)
 {
 	if (*n < 0)
-		*un = (*n == -2147483648) ? 2147483648 : -(*n);
+		*un = ft_uint_tern((*n == -2147483648), 2147483648, -(*n));
 	else
 		*un = *n;
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	int				lenstr;
 	char			*str;
@@ -44,7 +44,8 @@ char			*ft_itoa(int n)
 	lenstr = lenstr + ft_isnegative(n);
 	if (n == 0)
 		lenstr = 1;
-	if (!(str = (char*)malloc(sizeof(char) * (lenstr + 1))))
+	str = (char *)malloc(sizeof(char) * (lenstr + 1));
+	if (!str)
 		return (NULL);
 	str[lenstr] = '\0';
 	if (n < 0)
