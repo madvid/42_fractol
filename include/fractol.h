@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 11:23:23 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/08 23:42:14 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/09 01:55:57 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ void		event_zoom(int sign, t_mlx *mlx);
 void		event_color(int color_code, t_mlx *mlx);
 void		modify_degree(int kcode, t_mlx *mlx);
 void		reset_parameters(t_mlx *mlx);
-void		event_help(t_mlx *mlx, int *help_lock);
+void		event_help(int kcode, t_mlx *mlx, int *help_lock);
 void		help_interface(t_mlx *mlx);
 void		help_text(t_mlx *mlx);
 int			ft_mouse_move(int mouse_x, int mouse_y, t_mlx *mlx);

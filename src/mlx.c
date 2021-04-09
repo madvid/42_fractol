@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:51:13 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/08 20:32:03 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/09 02:02:33 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	mlx_put_header(t_mlx *mlx)
 	white = ft_rgb2_to_int((t_rgb){254, 254, 254});
 	mlx_string_put(mlx->init, mlx->w_ptr, FCL_X, TXT_Y, white, mlx->img->fractal);
 	mlx_string_put(mlx->init, mlx->w_ptr, MD_X, TXT_Y, white, "mdavid");
-	mlx_string_put(mlx->init, mlx->w_ptr, HLP_X, TXT_Y, white, "press h for help");
+	mlx_string_put(mlx->init, mlx->w_ptr, HLP_X, TXT_Y, white, "press H for help");
 }
 
 /*

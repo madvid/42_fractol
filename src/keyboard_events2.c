@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 22:36:42 by mdavid            #+#    #+#             */
-/*   Updated: 2021/04/08 23:52:10 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/04/09 02:01:38 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ void	help_text(t_mlx *mlx)
 	int		white;
 
 	white = ft_rgb2_to_int((t_rgb){254, 254, 254});
-	mlx_string_put(mlx->init, mlx->w_ptr, W_LX / 5, W_LY / 10, white, "Exit: Esc");
-	mlx_string_put(mlx->init, mlx->w_ptr, W_LX / 5, 10 + W_LY / 10, white, "Reset default setting: Space");
-	mlx_string_put(mlx->init, mlx->w_ptr, W_LX / 5, 30 + W_LY / 10, white, "Tiny translations: left|up|down|right");
-	mlx_string_put(mlx->init, mlx->w_ptr, W_LX / 5, 50 + W_LY / 10, white, "Translations: q|z|s|d");
-	mlx_string_put(mlx->init, mlx->w_ptr, W_LX / 5, 70 + W_LY / 10, white, "Colorscales (pad): 1|2|3|4|5|6|7|8");
-	mlx_string_put(mlx->init, mlx->w_ptr, W_LX / 5, 90 + W_LY / 10, white, "Zoom / Unzoom (pad): +|-");
-	mlx_string_put(mlx->init, mlx->w_ptr, W_LX / 5, 110 + W_LY / 10, white, "Change degree in Julia/Mandelbrot: 1 ... 6");
+	mlx_string_put(mlx->init, mlx->w_ptr, W_LX / 5, W_LY / 5, white, "Exit: Esc");
+	mlx_string_put(mlx->init, mlx->w_ptr, W_LX / 5, 40 + (W_LY / 5), white, "Reset default setting: SPACE");
+	mlx_string_put(mlx->init, mlx->w_ptr, W_LX / 5, 80 + (W_LY / 5), white, "Tiny translations: left|up|down|right");
+	mlx_string_put(mlx->init, mlx->w_ptr, W_LX / 5, 120 + (W_LY / 5), white, "Translations: Q|Z|S|D");
+	mlx_string_put(mlx->init, mlx->w_ptr, W_LX / 5, 160 + (W_LY / 5), white, "Colorscales (pad): 1|2|3|4|5|6|7|8");
+	mlx_string_put(mlx->init, mlx->w_ptr, W_LX / 5, 200 + (W_LY / 5), white, "Zoom / Unzoom (pad): +|-");
+	mlx_string_put(mlx->init, mlx->w_ptr, W_LX / 5, 240 + (W_LY / 5), white, "Change degree in Julia/Mandelbrot: 1 ... 6");
+	mlx_string_put(mlx->init, mlx->w_ptr, W_LX / 5, 280 + (W_LY / 5), white, "Return to fractal: H");
 }
 
 /*
@@ -51,14 +52,13 @@ void	help_interface(t_mlx *mlx)
 	int		grey;
 
 	pt = (t_ipt){-1, -1, 0};
-	grey = ft_rgb2_to_int((t_rgb){20, 20, 20}) + (250 << 24);
+	grey = ft_rgb2_to_int((t_rgb){90, 90, 90});
 	while (++pt.y < IMG_LY)
 	{
 		pt.x = -1;
 		while(++pt.x < IMG_LX)
 			mlx->img->pixels[mlx->img->nb_c * pt.y + pt.x] = grey;
 	}
-	help_text(mlx);
 }
 
 /*
@@ -70,17 +70,19 @@ void	help_interface(t_mlx *mlx)
 **		None
 */
 
-void	event_help(t_mlx *mlx, int *help_lock)
+void	event_help(int kcode, t_mlx *mlx, int *help_lock)
 {
-	if (*help_lock == 0)
-	{
-		*help_lock = 1;
-		help_interface(mlx);
-	}
-	else
+	if (kcode == HELP && *help_lock == 1)
 	{
 		*help_lock = 0;
 		fractal_construct(mlx);
+		mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
 	}
-	mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
+	else if (kcode == HELP && *help_lock == 0)
+	{
+		*help_lock = 1;
+		help_interface(mlx);
+		mlx_put_image_to_window(mlx->init, mlx->w_ptr, mlx->img->ptr, 0, W_LY / 10);
+		help_text(mlx);
+	}
 }
